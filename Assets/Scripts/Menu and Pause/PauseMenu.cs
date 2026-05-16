@@ -11,22 +11,27 @@ public class PauseMenu : MonoBehaviour
     private bool isPaused = false;
 
     public static EventHandler OnRestart;
+    private InputManager inputManager;
+
+    private void Awake()
+    {
+        inputManager = InputManager.Instance;
+    }
 
     private void OnEnable()
     {
-        InputManager.Instance.Actions.Player.Menu.performed += OnPausePressed;
+        inputManager.OnMenuPressed += TogglePause;
     }
 
     private void OnDisable()
     {
-        // Prevent event leaks
-        if (InputManager.Instance != null)
+        if (inputManager != null)
         {
-            InputManager.Instance.Actions.Player.Menu.performed -= OnPausePressed;
+            inputManager.OnMenuPressed -= TogglePause;
         }
     }
 
-    private void OnPausePressed(InputAction.CallbackContext context)
+    private void TogglePause()
     {
         if (isPaused)
         {
@@ -37,6 +42,7 @@ public class PauseMenu : MonoBehaviour
             Pause();
         }
     }
+
 
     public void Pause()
     {
