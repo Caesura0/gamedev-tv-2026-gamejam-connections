@@ -1,68 +1,80 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pauseMenuUI; // Reference to the pause menu UI GameObject
-    private bool isPaused = false; 
-    public bool speedUp;
+    [SerializeField] private GameObject pauseMenuUI;
+    [SerializeField] private GameObject gameoverPanel;
 
-    [SerializeField] GameObject gameoverPanel;
-
+    private bool isPaused = false;
 
     public static EventHandler OnRestart;
-    void Update()
-    {
 
-        if (Input.GetKeyDown(KeyCode.Escape) /*&& !GameManager.Instance.GameOver*/)
+    private void OnEnable()
+    {
+        InputManager.Instance.Actions.Player.Menu.performed += OnPausePressed;
+    }
+
+    private void OnDisable()
+    {
+        // Prevent event leaks
+        if (InputManager.Instance != null)
         {
-            if (isPaused)
-            {
-                Resume(); // If the game is already paused, resume it
-            }
-            else
-            {
-                Pause(); // If the game is not paused, pause it
-            }
+            InputManager.Instance.Actions.Player.Menu.performed -= OnPausePressed;
+        }
+    }
+
+    private void OnPausePressed(InputAction.CallbackContext context)
+    {
+        if (isPaused)
+        {
+            Resume();
+        }
+        else
+        {
+            Pause();
         }
     }
 
     public void Pause()
     {
-
-        Time.timeScale = 0f; // Pause the game by setting time scale to 0
+        Time.timeScale = 0f;
         isPaused = true;
-        Debug.Log(Time.timeScale);
-        pauseMenuUI.SetActive(true); 
-        //AudioManager.Instance.PlayPauseClick();
+
+        pauseMenuUI.SetActive(true);
+
+
     }
 
     public void Resume()
     {
-        Time.timeScale = 1f; // Resume the game by setting time scale to 1
+        Time.timeScale = 1f;
         isPaused = false;
-        pauseMenuUI.SetActive(false); 
-        //AudioManager.Instance.PlayResumeClick();
+
+        pauseMenuUI.SetActive(false);
+
+
     }
 
     public void RestartScene()
     {
         CloseGameOverPanel();
-        //GameManager.Instance.ResetGame();
-        Time.timeScale = 1f; // Ensure time scale is set to 1
+
+        Time.timeScale = 1f;
+
         OnRestart?.Invoke(this, EventArgs.Empty);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Restart the current scene
 
-
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void GoToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu"); 
-        Time.timeScale = 1f; // Ensure time scale is set to 1
-    }
+        Time.timeScale = 1f;
 
+        SceneManager.LoadScene("MainMenu");
+    }
 
     public void CloseGameOverPanel()
     {

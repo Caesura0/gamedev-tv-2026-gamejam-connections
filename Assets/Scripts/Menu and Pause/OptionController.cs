@@ -30,7 +30,7 @@ public class OptionController : MonoBehaviour
     }
     private void Start()
     {
-        audioManager = FindFirstObjectByType<AudioManager>();
+        audioManager = FindAnyObjectByType<AudioManager>();
         musicVolumeSlider.value = PlayerPrefs.GetFloat(MUSICFLOATNAME);
         soundEffectVolumeSlider.value = PlayerPrefs.GetFloat(SOUNDEFFECTFLOATNAME);
         ChangeMusicVolume();
