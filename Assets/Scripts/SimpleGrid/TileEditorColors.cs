@@ -2,7 +2,7 @@ using UnityEngine;
 
 public static class TileEditorColors
 {
-    public static readonly Color Hedge = new Color(0.05f, 0.20f, 0.05f);
+    public static readonly Color Hedge = new Color(0.10f, 0.30f, 0.10f);
     public static readonly Color Grass = new Color(0.15f, 0.85f, 0.10f);
     public static readonly Color Stone = new Color(0.60f, 0.60f, 0.60f);
     public static readonly Color Water = new Color(0.10f, 0.40f, 0.90f);
