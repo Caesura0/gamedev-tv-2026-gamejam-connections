@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class GridManager : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class GridManager : MonoBehaviour
     public int NumberOfRows = 8;
     public float WorldTileSize = 1f;
 
+    [Header("Debug")]
+    [SerializeField] private float tileGizmoAlpha = 0.4f;
+    [SerializeField] private bool showTilesInPlayMode = false;
+
     // Serialized so the tile data is saved with the scene and visible to the custom editor
     [SerializeField] private GroundTileData[] serializedTileGridArray;
 
@@ -15,6 +20,7 @@ public class GridManager : MonoBehaviour
 
     // Fired when a pressure plate is activated or deactivated: (column, row, isActivated)
     public event System.Action<int, int, bool> OnPressurePlateStateChanged;
+
 
     void Awake()
     {
@@ -58,7 +64,6 @@ public class GridManager : MonoBehaviour
             {
                 int index = row * NumberOfColumns + column;
 
-                // Preserve any existing painted data
                 if (previousGrid != null && index < previousGrid.Length)
                     serializedTileGridArray[index] = previousGrid[index];
                 else
@@ -83,7 +88,6 @@ public class GridManager : MonoBehaviour
 
 
     // Runtime cell changes - currently only used for pushing rocks onto water, but could be expanded for other gameplay interactions
-
     public void SetCellMoveableOccupancy(int column, int row, bool isOccupied)
     {
         if (!IsCellInBounds(column, row)) return;
@@ -94,12 +98,12 @@ public class GridManager : MonoBehaviour
         if (isOccupied && tile.GroundTileType == GroundTileTypeEnum.Water)
         {
             tile.GroundTileType = GroundTileTypeEnum.Stone;
-            // Also update the serialized grid so the change is visible in the editor
             int index = row * NumberOfColumns + column;
             if (serializedTileGridArray != null && index < serializedTileGridArray.Length)
                 serializedTileGridArray[index].GroundTileType = GroundTileTypeEnum.Stone;
         }
 
+        //TODO: We don't need the rock to be set to occupied, we will push rocks over rocks
         tile.IsOccupiedByMoveable = isOccupied;
 
         // Pressure plate activation
@@ -110,6 +114,10 @@ public class GridManager : MonoBehaviour
 
             if (tile.IsPressurePlateActivated != wasActivated)
                 OnPressurePlateStateChanged?.Invoke(column, row, tile.IsPressurePlateActivated);
+
+            //todo: we could also invoke this event when the player steps on/off a pressure plate,
+            //but currently we only have pressure plates that interact with rocks,
+            //so it's simpler to just trigger on moveable occupancy changes
         }
     }
 
@@ -121,14 +129,10 @@ public class GridManager : MonoBehaviour
     }
 
 
-
-
     public bool IsCellInBounds(int column, int row)
     {
         return column >= 0 && row >= 0 && column < NumberOfColumns && row < NumberOfRows;
     }
-
-
 
 
     public bool IsCellPassableByPlayer(int column, int row)
@@ -138,7 +142,6 @@ public class GridManager : MonoBehaviour
     }
 
 
-
     public bool IsCellValidRockDestination(int column, int row)
     {
         GroundTileData tile = GetTileAt(column, row);
@@ -146,10 +149,7 @@ public class GridManager : MonoBehaviour
     }
 
 
-
-
     // Coordinate conversions, assumes grid origin is at the GameObject's position and grid is aligned with world axes
-
     public Vector2Int ConvertWorldPositionToGridPosition(Vector3 worldPosition)
     {
         Vector3 localPosition = worldPosition - transform.position;
@@ -160,30 +160,102 @@ public class GridManager : MonoBehaviour
     }
 
 
-
     public Vector3 ConvertGridPositionToWorldPosition(int column, int row)
     {
-        return 
-            transform.position + new Vector3(
-                column * WorldTileSize + WorldTileSize * 0.5f,
-                row * WorldTileSize + WorldTileSize * 0.5f,
-                0f);
-
+        return transform.position + new Vector3(
+            column * WorldTileSize + WorldTileSize * 0.5f,
+            row * WorldTileSize + WorldTileSize * 0.5f,
+            0f
+        );
     }
 
 
 
+    // ── Play mode debug tile rendering ──
+
+    private List<GameObject> debugTileObjects = new List<GameObject>();
+
+    void OnEnable()
+    {
+        if (Application.isPlaying && showTilesInPlayMode)
+            CreateDebugTiles();
+    }
+
+    void OnDisable()
+    {
+        DestroyDebugTiles();
+    }
+
+    void CreateDebugTiles()
+    {
+        DestroyDebugTiles();
+
+        if (serializedTileGridArray == null) return;
+
+        for (int column = 0; column < NumberOfColumns; column++)
+        {
+            for (int row = 0; row < NumberOfRows; row++)
+            {
+                int index = row * NumberOfColumns + column;
+                if (index >= serializedTileGridArray.Length) continue;
+
+                GroundTileData tile = serializedTileGridArray[index];
+                Color color = TileEditorColors.GetColorForTileType(tile.GroundTileType);
+                color.a = tileGizmoAlpha;
+
+                GameObject debugTile = new GameObject($"DebugTile_{column}_{row}");
+                debugTile.transform.SetParent(transform);
+                debugTile.transform.position = ConvertGridPositionToWorldPosition(column, row);
+                debugTile.transform.localScale = Vector3.one * (WorldTileSize * 0.9f);
+
+                SpriteRenderer spriteRenderer = debugTile.AddComponent<SpriteRenderer>();
+                spriteRenderer.sprite = CreateWhiteSquareSprite();
+                spriteRenderer.color = color;
+                spriteRenderer.sortingOrder = -10;
+
+                debugTileObjects.Add(debugTile);
+            }
+        }
+    }
+
+    void DestroyDebugTiles()
+    {
+        foreach (GameObject debugTile in debugTileObjects)
+        {
+            if (debugTile != null)
+                Destroy(debugTile);
+        }
+
+        debugTileObjects.Clear();
+    }
+
+    Sprite CreateWhiteSquareSprite()
+    {
+        Texture2D texture = new Texture2D(1, 1);
+        texture.SetPixel(0, 0, Color.white);
+        texture.Apply();
+
+        return Sprite.Create(
+            texture,
+            new Rect(0, 0, 1, 1),
+            new Vector2(0.5f, 0.5f),
+            1f
+        );
+    }
+
+
+    // ── Editor visualisation ──
 
 #if UNITY_EDITOR
     void OnDrawGizmos()
     {
-        DrawPaintedTiles();
+        DrawPaintedTilesWithHandles();
         DrawCellGrid();
         DrawGridBounds();
         DrawOriginMarker();
     }
 
-    void DrawPaintedTiles()
+    void DrawPaintedTilesWithHandles()
     {
         if (serializedTileGridArray == null) return;
 
@@ -195,26 +267,27 @@ public class GridManager : MonoBehaviour
                 if (index >= serializedTileGridArray.Length) continue;
 
                 GroundTileData tile = serializedTileGridArray[index];
-
-                Gizmos.color = GetTileGizmoColor(tile.GroundTileType);
-
+                float halfSize = WorldTileSize * 0.45f;
                 Vector3 center = transform.position + new Vector3(
                     column * WorldTileSize + WorldTileSize * 0.5f,
                     row * WorldTileSize + WorldTileSize * 0.5f,
                     0f
                 );
 
-                float insetSize = WorldTileSize * 0.9f;
-                Gizmos.DrawCube(center, new Vector3(insetSize, insetSize, 0f));
+                Vector3[] corners = new Vector3[]
+                {
+                    center + new Vector3(-halfSize, -halfSize, 0),
+                    center + new Vector3( halfSize, -halfSize, 0),
+                    center + new Vector3( halfSize,  halfSize, 0),
+                    center + new Vector3(-halfSize,  halfSize, 0),
+                };
+
+                Color tileColor = TileEditorColors.GetColorForTileType(tile.GroundTileType);
+                tileColor.a = tileGizmoAlpha;
+
+                UnityEditor.Handles.DrawSolidRectangleWithOutline(corners, tileColor, Color.clear);
             }
         }
-    }
-
-    Color GetTileGizmoColor(GroundTileTypeEnum tileType)
-    {
-        Color color = TileEditorColors.GetColorForTileType(tileType);
-        color.a = 0.85f;
-        return color;
     }
 
     void DrawCellGrid()

@@ -1,50 +1,117 @@
-using Unity.VisualScripting;
+﻿using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 5f;
-    [SerializeField] private InputActionReference moveAction;
+    [SerializeField] private float stepDelay = 0.15f;
+    [SerializeField] private float movementSpeed = 10f;
 
-    Rigidbody2D rb;
-    private Animator animator; 
-    private Vector2 moveInput;
+    private GridManager gridManager;
+    private Vector2Int currentGridPosition;
+    private Vector3 targetWorldPosition;
+    private float stepCooldownTimer;
+    private bool isWalking;
+
+    private Animator animator;
+    private Vector2 movementInput;
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
-    private void Update()
+
+    void Start()
     {
-        Vector2 input = moveAction.action.ReadValue<Vector2>();
-        if (input.x != 0)
+        gridManager = GridManager.Instance;
+        currentGridPosition = gridManager.ConvertWorldPositionToGridPosition(transform.position);
+        transform.position = gridManager.ConvertGridPositionToWorldPosition(currentGridPosition.x, currentGridPosition.y);
+        targetWorldPosition = transform.position;
+    }
+
+    void Update()
+    {
+        movementInput = InputManager.Instance.Movement;
+
+        HandleMovementInput();
+        SmoothMoveToTarget();
+        AnimationHandler();
+    }
+
+    // ── Movement ──
+
+    void HandleMovementInput()
+    {
+        stepCooldownTimer -= Time.deltaTime;
+        if (stepCooldownTimer > 0f) return;
+
+        DirectionEnum? moveDirection = GetDirectionFromInput();
+        if (moveDirection == null) return;
+
+        TryMove(moveDirection.Value);
+    }
+
+    void TryMove(DirectionEnum moveDirection)
+    {
+        Vector2Int targetGridPosition = currentGridPosition + moveDirection.ToVector();
+
+        if (!gridManager.IsCellPassableByPlayer(targetGridPosition.x, targetGridPosition.y)) return;
+
+        currentGridPosition = targetGridPosition;
+        targetWorldPosition = gridManager.ConvertGridPositionToWorldPosition(
+            currentGridPosition.x,
+            currentGridPosition.y
+        );
+
+        stepCooldownTimer = stepDelay;
+        isWalking = true;
+    }
+
+    void SmoothMoveToTarget()
+    {
+        if (!isWalking) return;
+
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            targetWorldPosition,
+            movementSpeed * Time.deltaTime
+        );
+
+        if (Vector3.Distance(transform.position, targetWorldPosition) < 0.001f)
         {
-            moveInput = new Vector2(Mathf.Sign(input.x), 0);
+            transform.position = targetWorldPosition;
+            isWalking = false;
         }
-       
-        else if (input.y != 0)
+    }
+
+    // ── Input ──
+
+    DirectionEnum? GetDirectionFromInput()
+    {
+
+        Vector2 movementInput = InputManager.Instance.Movement;
+        if (movementInput == Vector2.zero) return null;
+
+        if (Mathf.Abs(movementInput.x) >= Mathf.Abs(movementInput.y))
         {
-            moveInput = new Vector2(0, Mathf.Sign(input.y));
+            return movementInput.x > 0f ? DirectionEnum.East : DirectionEnum.West;
         }
         else
         {
-            moveInput = Vector2.zero;
+            return movementInput.y > 0f ? DirectionEnum.North : DirectionEnum.South;
         }
-
-        //animation settings
-        bool IsWalking = moveInput != Vector2.zero;
-
-        animator.SetBool("IsWalking",IsWalking);
-
-        animator.SetFloat("MoveX", moveInput.x);
-        animator.SetFloat("MoveY", moveInput.y);
-
     }
 
-    void FixedUpdate()
+    void AnimationHandler()
     {
-        rb.MovePosition(rb.position + moveInput.normalized * moveSpeed * Time.fixedDeltaTime);
+        animator.SetBool("IsWalking", isWalking);
+        animator.SetFloat("MoveX", movementInput.x);
+        animator.SetFloat("MoveY", movementInput.y);
     }
+
 }
+
+
+
+
+
