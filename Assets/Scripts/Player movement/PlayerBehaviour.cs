@@ -7,9 +7,9 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] private InputActionReference moveAction;
 
+    Rigidbody2D rb;
     private Animator animator; 
     private Vector2 moveInput;
-    Rigidbody2D rb;
 
     void Awake()
     {
@@ -33,6 +33,7 @@ public class PlayerBehaviour : MonoBehaviour
             moveInput = Vector2.zero;
         }
 
+        //animation settings
         bool IsWalking = moveInput != Vector2.zero;
 
         animator.SetBool("IsWalking",IsWalking);
