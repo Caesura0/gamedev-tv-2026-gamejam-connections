@@ -4,8 +4,8 @@ public interface IInteractable
 {
 
 
-    public bool TryInteract();
+    public bool TryInteract(PlayerBehaviour player);
 
-    public bool TryInteractAlternate();
+    public bool TryInteractAlternate(PlayerBehaviour player);
 
 }

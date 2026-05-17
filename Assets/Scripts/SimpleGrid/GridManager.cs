@@ -12,7 +12,7 @@ public class GridManager : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private float tileGizmoAlpha = 0.4f;
     [SerializeField] private bool showTilesInPlayMode = false;
-
+    [SerializeField] private bool showGridCoordinates;
     // Serialized so the tile data is saved with the scene and visible to the custom editor
     [SerializeField] private GroundTileData[] serializedTileGridArray;
 
@@ -40,7 +40,7 @@ public class GridManager : MonoBehaviour
 
 
     // Reads from the serializedTileGrid, falls back to Hedge if not yet painted
-    GroundTileData GetSerializedTileAt(int column, int row)
+    public GroundTileData GetSerializedTileAt(int column, int row)
     {
         int index = row * NumberOfColumns + column;
 
@@ -100,11 +100,21 @@ public class GridManager : MonoBehaviour
             tile.GroundTileType = GroundTileTypeEnum.Stone;
             int index = row * NumberOfColumns + column;
             if (serializedTileGridArray != null && index < serializedTileGridArray.Length)
+            {
                 serializedTileGridArray[index].GroundTileType = GroundTileTypeEnum.Stone;
+                serializedTileGridArray[index].IsOccupiedByMoveable = false;
+                serializedTileGridArray[index].IsInWater = true;
+                //repaint the tile in the editor so it doesn't look like a water tile anymore
+                //TODO: replaceSprite so it shows bridge type thing
+            }
+
         }
 
-        //TODO: We don't need the rock to be set to occupied, we will push rocks over rocks
-        tile.IsOccupiedByMoveable = isOccupied;
+        if(!tile.IsInWater)
+        {
+            tile.IsOccupiedByMoveable = isOccupied;
+        }
+ 
 
         // Pressure plate activation
         if (tile.GroundTileType == GroundTileTypeEnum.PressurePlate)
@@ -121,11 +131,29 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    public void SetDoorState(int column, int row, bool isOpen)
+    {
+        if (!IsCellInBounds(column, row)) return;
+        tileGrid[column, row].IsDoorOpen = isOpen;
+        tileGrid[column, row].GroundTileType = GroundTileTypeEnum.Door;
+    }
 
     public GroundTileData GetTileAt(int column, int row)
     {
         if (!IsCellInBounds(column, row)) return null;
         return tileGrid[column, row];
+    }
+
+    public void RegisterInteractable(int column, int row, IInteractable interactable)
+    {
+        if (!IsCellInBounds(column, row)) return;
+        tileGrid[column, row].Interactable = interactable;
+    }
+
+    public IInteractable GetInteractableAtGridPosition(int column, int row)
+    {
+        if (!IsCellInBounds(column, row)) return null;
+        return tileGrid[column, row].Interactable;
     }
 
 
@@ -138,6 +166,7 @@ public class GridManager : MonoBehaviour
     public bool IsCellPassableByPlayer(int column, int row)
     {
         GroundTileData tile = GetTileAt(column, row);
+        Debug.Log( tile.IsPassableByPlayer + " , " + !tile.IsOccupiedByMoveable);
         return tile != null && tile.IsPassableByPlayer && !tile.IsOccupiedByMoveable;
     }
 
@@ -146,6 +175,11 @@ public class GridManager : MonoBehaviour
     {
         GroundTileData tile = GetTileAt(column, row);
         return tile != null && tile.IsValidRockDestination;
+    }
+
+    public IInteractable GetInteractableAtCell(int x, int y) 
+    { 
+        return null; 
     }
 
 
@@ -174,6 +208,7 @@ public class GridManager : MonoBehaviour
     // ── Play mode debug tile rendering ──
 
     private List<GameObject> debugTileObjects = new List<GameObject>();
+
 
     void OnEnable()
     {
@@ -253,6 +288,9 @@ public class GridManager : MonoBehaviour
         DrawCellGrid();
         DrawGridBounds();
         DrawOriginMarker();
+
+        if (showGridCoordinates)
+            DrawGridCoordinates();
     }
 
     void DrawPaintedTilesWithHandles()
@@ -338,6 +376,30 @@ public class GridManager : MonoBehaviour
             origin + new Vector3(0.05f, -0.35f, 0),
             $"{NumberOfColumns} x {NumberOfRows}  (tile: {WorldTileSize})"
         );
+
     }
+
+    void DrawGridCoordinates()
+    {
+        GUIStyle labelStyle = new GUIStyle();
+        labelStyle.fontSize = 10;
+        labelStyle.normal.textColor = new Color(1f, 1f, 1f, 0.7f);
+        labelStyle.alignment = TextAnchor.MiddleCenter;
+
+        for (int column = 0; column < NumberOfColumns; column++)
+        {
+            for (int row = 0; row < NumberOfRows; row++)
+            {
+                Vector3 center = transform.position + new Vector3(
+                    column * WorldTileSize + WorldTileSize * 0.5f,
+                    row * WorldTileSize + WorldTileSize * 0.5f,
+                    0f
+                );
+
+                UnityEditor.Handles.Label(center, $"{column},{row}", labelStyle);
+            }
+        }
+    }
+
 #endif
-}
+    }

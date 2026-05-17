@@ -9,12 +9,17 @@ public class PlayerBehaviour : MonoBehaviour
 
     private GridManager gridManager;
     private Vector2Int currentGridPosition;
+    private DirectionEnum lastMoveDirection;
+
     private Vector3 targetWorldPosition;
     private float stepCooldownTimer;
     private bool isWalking;
 
     private Animator animator;
     private Vector2 movementInput;
+
+    public Vector2Int CurrentGridPosition => currentGridPosition;
+
 
     void Awake()
     {
@@ -27,6 +32,7 @@ public class PlayerBehaviour : MonoBehaviour
         currentGridPosition = gridManager.ConvertWorldPositionToGridPosition(transform.position);
         transform.position = gridManager.ConvertGridPositionToWorldPosition(currentGridPosition.x, currentGridPosition.y);
         targetWorldPosition = transform.position;
+        InputManager.Instance.OnInteractPressed += HandleInteractionInput;
     }
 
     void Update()
@@ -38,7 +44,7 @@ public class PlayerBehaviour : MonoBehaviour
         AnimationHandler();
     }
 
-    // ── Movement ──
+
 
     void HandleMovementInput()
     {
@@ -51,17 +57,38 @@ public class PlayerBehaviour : MonoBehaviour
         TryMove(moveDirection.Value);
     }
 
+    void HandleInteractionInput()
+    {
+        TryInteract();
+        
+    }
+
+    public void TryInteract()
+    {
+        Vector2Int facingCell = currentGridPosition + lastMoveDirection.ToVector();
+        IInteractable interactable = gridManager.GetInteractableAtGridPosition(facingCell.x, facingCell.y);
+
+        interactable?.TryInteract(this);
+    }
+
+
+
+
     void TryMove(DirectionEnum moveDirection)
     {
         Vector2Int targetGridPosition = currentGridPosition + moveDirection.ToVector();
+        lastMoveDirection = moveDirection;
 
         if (!gridManager.IsCellPassableByPlayer(targetGridPosition.x, targetGridPosition.y)) return;
 
+        gridManager.SetCellMoveableOccupancy(currentGridPosition.x, currentGridPosition.y, false);
         currentGridPosition = targetGridPosition;
         targetWorldPosition = gridManager.ConvertGridPositionToWorldPosition(
             currentGridPosition.x,
             currentGridPosition.y
         );
+
+        gridManager.SetCellMoveableOccupancy(currentGridPosition.x, currentGridPosition.y, true);
 
         stepCooldownTimer = stepDelay;
         isWalking = true;
@@ -84,12 +111,11 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    // ── Input ──
 
     DirectionEnum? GetDirectionFromInput()
     {
-
         Vector2 movementInput = InputManager.Instance.Movement;
+
         if (movementInput == Vector2.zero) return null;
 
         if (Mathf.Abs(movementInput.x) >= Mathf.Abs(movementInput.y))
