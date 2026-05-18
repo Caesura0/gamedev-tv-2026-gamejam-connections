@@ -59,6 +59,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void HandleInteractionInput()
     {
+        Debug.Log("Interact button pressed, attempting interaction...");
         TryInteract();
         
     }

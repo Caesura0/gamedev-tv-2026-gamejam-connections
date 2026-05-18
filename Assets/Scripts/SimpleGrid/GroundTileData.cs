@@ -5,7 +5,9 @@ public class GroundTileData
     public bool IsOccupiedByMoveable;
     public bool IsPressurePlateActivated;
     public bool IsInWater;
+    public bool IsRunePowered;
     [System.NonSerialized] public IInteractable Interactable;
+    [System.NonSerialized] public RotatableRuneBlock RotatableRuneBlock;
 
     public bool IsDoorOpen;
 
@@ -13,6 +15,7 @@ public class GroundTileData
         (GroundTileType == GroundTileTypeEnum.Door && IsDoorOpen) ||
         GroundTileType == GroundTileTypeEnum.Grass ||
         GroundTileType == GroundTileTypeEnum.Stone ||
+        GroundTileType == GroundTileTypeEnum.RuneChannel ||
         GroundTileType == GroundTileTypeEnum.PressurePlate;
 
 

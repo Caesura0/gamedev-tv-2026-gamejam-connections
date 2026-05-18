@@ -15,6 +15,9 @@ public class GridManager : MonoBehaviour
     [SerializeField] private bool showGridCoordinates;
     // Serialized so the tile data is saved with the scene and visible to the custom editor
     [SerializeField] private GroundTileData[] serializedTileGridArray;
+    private List<GameObject> debugTileObjects = new List<GameObject>();
+    private Dictionary<Vector2Int, SpriteRenderer> debugTileRenderers = new Dictionary<Vector2Int, SpriteRenderer>();
+
 
     private GroundTileData[,] tileGrid;
 
@@ -27,6 +30,12 @@ public class GridManager : MonoBehaviour
         Instance = this;
         InitialiseGrid();
     }
+
+    private void Start()
+    {
+        SubscribeToRuneEvents();
+    }
+
 
 
     void InitialiseGrid()
@@ -110,11 +119,11 @@ public class GridManager : MonoBehaviour
 
         }
 
-        if(!tile.IsInWater)
+        if (!tile.IsInWater)
         {
             tile.IsOccupiedByMoveable = isOccupied;
         }
- 
+
 
         // Pressure plate activation
         if (tile.GroundTileType == GroundTileTypeEnum.PressurePlate)
@@ -144,6 +153,18 @@ public class GridManager : MonoBehaviour
         return tileGrid[column, row];
     }
 
+    public void RegisterRotatableRuneBlock(int column, int row, RotatableRuneBlock block)
+    {
+        if (!IsCellInBounds(column, row)) return;
+        tileGrid[column, row].RotatableRuneBlock = block;
+    }
+
+    public RotatableRuneBlock GetRotatableRuneBlockAt(int column, int row)
+    {
+        if (!IsCellInBounds(column, row)) return null;
+        return tileGrid[column, row].RotatableRuneBlock;
+    }
+
     public void RegisterInteractable(int column, int row, IInteractable interactable)
     {
         if (!IsCellInBounds(column, row)) return;
@@ -166,7 +187,7 @@ public class GridManager : MonoBehaviour
     public bool IsCellPassableByPlayer(int column, int row)
     {
         GroundTileData tile = GetTileAt(column, row);
-        Debug.Log( tile.IsPassableByPlayer + " , " + !tile.IsOccupiedByMoveable);
+        //Debug.Log(tile.IsPassableByPlayer + " , " + !tile.IsOccupiedByMoveable);
         return tile != null && tile.IsPassableByPlayer && !tile.IsOccupiedByMoveable;
     }
 
@@ -177,10 +198,6 @@ public class GridManager : MonoBehaviour
         return tile != null && tile.IsValidRockDestination;
     }
 
-    public IInteractable GetInteractableAtCell(int x, int y) 
-    { 
-        return null; 
-    }
 
 
     // Coordinate conversions, assumes grid origin is at the GameObject's position and grid is aligned with world axes
@@ -205,9 +222,6 @@ public class GridManager : MonoBehaviour
 
 
 
-    // ── Play mode debug tile rendering ──
-
-    private List<GameObject> debugTileObjects = new List<GameObject>();
 
 
     void OnEnable()
@@ -221,9 +235,43 @@ public class GridManager : MonoBehaviour
         DestroyDebugTiles();
     }
 
+    public void SubscribeToRuneEvents()
+    {
+        if (RunePowerSystem.Instance == null)
+        {
+            Debug.LogWarning("GridManager: RunePowerSystem.Instance is null during SubscribeToRuneEvents");
+            return;
+        }
+
+        Debug.Log($"GridManager: Subscribing to rune events. Renderer dict has {debugTileRenderers.Count} entries.");
+        RunePowerSystem.Instance.OnTileRunePowerChanged += HandleTileRunePowerChanged;
+    }
+
+    void HandleTileRunePowerChanged(int column, int row, bool isPowered)
+    {
+        Vector2Int key = new Vector2Int(column, row);
+
+        Debug.Log($"GridManager: HandleTileRunePowerChanged ({column},{row}) powered={isPowered}. Dict has {debugTileRenderers.Count} entries. ContainsKey={debugTileRenderers.ContainsKey(key)}");
+
+        if (!debugTileRenderers.ContainsKey(key)) return;
+
+        SpriteRenderer spriteRenderer = debugTileRenderers[key];
+        GroundTileData tile = GetTileAt(column, row);
+        if (tile == null) return;
+
+        Color color = isPowered
+            ? new Color(1.0f, 0.9f, 0.2f, tileGizmoAlpha)
+            : TileEditorColors.GetColorForTileType(tile.GroundTileType);
+
+        color.a = tileGizmoAlpha;
+        spriteRenderer.color = color;
+    }
+
     void CreateDebugTiles()
     {
         DestroyDebugTiles();
+
+        Debug.Log("GridManager: CreateDebugTiles called");
 
         if (serializedTileGridArray == null) return;
 
@@ -248,6 +296,8 @@ public class GridManager : MonoBehaviour
                 spriteRenderer.color = color;
                 spriteRenderer.sortingOrder = -10;
 
+                Vector2Int key = new Vector2Int(column, row);
+                debugTileRenderers[key] = spriteRenderer;
                 debugTileObjects.Add(debugTile);
             }
         }
@@ -255,6 +305,9 @@ public class GridManager : MonoBehaviour
 
     void DestroyDebugTiles()
     {
+        if (RunePowerSystem.Instance != null)
+            RunePowerSystem.Instance.OnTileRunePowerChanged -= HandleTileRunePowerChanged;
+
         foreach (GameObject debugTile in debugTileObjects)
         {
             if (debugTile != null)
@@ -262,6 +315,7 @@ public class GridManager : MonoBehaviour
         }
 
         debugTileObjects.Clear();
+        debugTileRenderers.Clear();
     }
 
     Sprite CreateWhiteSquareSprite()
@@ -279,7 +333,7 @@ public class GridManager : MonoBehaviour
     }
 
 
-    // ── Editor visualisation ──
+
 
 #if UNITY_EDITOR
     void OnDrawGizmos()
@@ -402,4 +456,4 @@ public class GridManager : MonoBehaviour
     }
 
 #endif
-    }
+}

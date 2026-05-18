@@ -46,7 +46,7 @@ public class PushableRock : MonoBehaviour, IInteractable
     {
         // Calculate push direction from player position to rock position
         Vector2Int pushDirection = currentGridPosition - player.CurrentGridPosition;
-
+        Debug.Log($"Attempting to push rock in direction {pushDirection}");
         return TryMove(pushDirection);
     }
 
