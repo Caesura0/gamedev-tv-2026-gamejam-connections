@@ -27,6 +27,7 @@ public class GridManagerEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        DrawDefaultInspector();
         GridManager gridManager = (GridManager)target;
 
         EditorGUI.BeginChangeCheck();
@@ -60,6 +61,7 @@ public class GridManagerEditor : Editor
             if (GUILayout.Toggle(isSelected, brushLabels[i], buttonStyle))
                 selectedBrush = (GroundTileTypeEnum)i;
         }
+
         GUI.backgroundColor = Color.white;
         EditorGUILayout.EndHorizontal();
 
@@ -80,8 +82,6 @@ public class GridManagerEditor : Editor
             EditorUtility.SetDirty(gridManager);
         }
     }
-
-
 
 
     void OnSceneGUI()
@@ -133,6 +133,7 @@ public class GridManagerEditor : Editor
         return new Vector2Int(column, row);
     }
 
+
     void FillAll(GridManager gridManager, GroundTileTypeEnum tileType)
     {
         gridManager.RebuildSerializedGrid();
@@ -141,4 +142,5 @@ public class GridManagerEditor : Editor
             for (int row = 0; row < gridManager.NumberOfRows; row++)
                 gridManager.PaintTile(column, row, tileType);
     }
+
 }
