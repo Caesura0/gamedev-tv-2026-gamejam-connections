@@ -56,7 +56,14 @@ public class PlayerBehaviour : MonoBehaviour
         DirectionEnum? moveDirection = GetDirectionFromInput();
         if (moveDirection == null) return;
 
-        TryMove(moveDirection.Value);
+        if (isHoldingInteract)
+        {
+            HandleInteractionInput();
+        }
+        else
+        {
+            TryMove(moveDirection.Value);
+        }
     }
 
     void HandleInteractionInput()
@@ -80,21 +87,39 @@ public class PlayerBehaviour : MonoBehaviour
             if (isPressingMove) 
             { 
                 Debug.Log("Is trying to push rock");
-                if (validMoveDirection)
-                { Debug.Log("Push direction valid"); }
+                if (movementInput == lastMoveDirection.ToVector())
+                {
+                    if (interactable.TryInteract(this))
+                    {
+                        TryMove((lastMoveDirection));
+                    }
+                }
+                else if (movementInput == -lastMoveDirection.ToVector())
+                {
+                    
+                    if (TryMove(lastMoveDirection.Opposite()))
+                    {
+                        interactable.TryInteract(this);
+                    }
+                }
+                //if (validMoveDirection)
+                //{ 
+                //    Debug.Log("Push direction valid");
+                //    if (interactable.TryInteract(this))
+                //    {
+                //        TryMove(lastMoveDirection);
+                //    }
+                //}
             }
             //Debug.Log("Trying to push rock in valid direction");
             // Check if move button also pressed
-            
+
             // Check if valid direction
-            
+
             // Rock can be pushed in given direction
             // FIXME: Change direction player and rock move to the current held arrow key while interact held
             // Player and rock can move into each others space as long as other can move...
-            if (interactable.TryInteract(this))
-            {
-                TryMove(lastMoveDirection);
-            }
+            
             // Rock cannot be pushed
             else { }
         }
@@ -104,20 +129,13 @@ public class PlayerBehaviour : MonoBehaviour
 
 
 
-    void TryMove(DirectionEnum moveDirection)
+    bool TryMove(DirectionEnum moveDirection)
     {
         Vector2Int targetGridPosition = currentGridPosition + moveDirection.ToVector();
         lastMoveDirection = moveDirection;
 
-        // HOLDING INTERACT
-        if (isHoldingInteract)
-        {
-            HoldInteractMoveDirection = moveDirection;
-
-        }
-        // NOT HOLDING INTERACT
         // Player cannot move to destination
-        if (!gridManager.IsCellPassableByPlayer(targetGridPosition.x, targetGridPosition.y)) return;
+        if (!gridManager.IsCellPassableByPlayer(targetGridPosition.x, targetGridPosition.y)) return false;
 
         // Player moves to destination
         gridManager.SetCellMoveableOccupancy(currentGridPosition.x, currentGridPosition.y, false);
@@ -131,6 +149,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         stepCooldownTimer = stepDelay;
         isWalking = true;
+        return true;
     }
 
     void SmoothMoveToTarget()
