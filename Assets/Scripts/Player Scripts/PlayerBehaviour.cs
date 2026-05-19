@@ -77,7 +77,8 @@ public class PlayerBehaviour : MonoBehaviour
         Vector2Int facingCell = currentGridPosition + lastMoveDirection.ToVector();
         // FIXME for null references - interact pushed when no object
         IInteractable interactable = gridManager.GetInteractableAtGridPosition(facingCell.x, facingCell.y);
-        bool isPushableRock = interactable.GetType() == typeof(PushableRock);
+        if (interactable == null) return;
+        bool isPushableRock = interactable is PushableRock pushableRock;
         bool validMoveDirection = movementInput == lastMoveDirection.ToVector() || movementInput == -lastMoveDirection.ToVector();
         
         // Trying to work out code to push/pull

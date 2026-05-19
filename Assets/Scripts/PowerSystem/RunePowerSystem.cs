@@ -123,24 +123,20 @@ public class RunePowerSystem : MonoBehaviour
     bool CanTravelThroughTile(GroundTileData tile, Vector2Int cell)
     {
         if (tile == null) return false;
-
         if (gridManager.GetRotatableRuneBlockAt(cell.x, cell.y) != null) return true;
 
         return tile.GroundTileType == GroundTileTypeEnum.RuneSource ||
-               tile.GroundTileType == GroundTileTypeEnum.RuneChannelHorizontal ||
-               tile.GroundTileType == GroundTileTypeEnum.RuneChannelVertical ||
-               tile.GroundTileType == GroundTileTypeEnum.RuneReceiver;
+               tile.GroundTileType == GroundTileTypeEnum.RuneReceiver ||
+               tile.RuneChannel != RuneChannelTypeEnum.None;        
     }
 
     bool IsRunePassable(GroundTileData tile, Vector2Int cell)
     {
         if (tile == null) return false;
-
         if (gridManager.GetRotatableRuneBlockAt(cell.x, cell.y) != null) return true;
-
-        return tile.GroundTileType == GroundTileTypeEnum.RuneChannelHorizontal ||
-               tile.GroundTileType == GroundTileTypeEnum.RuneChannelVertical ||
-               tile.GroundTileType == GroundTileTypeEnum.RuneReceiver;
+        //add a condition here to block if there is a moveable block here
+        return tile.GroundTileType == GroundTileTypeEnum.RuneReceiver ||
+               tile.RuneChannel != RuneChannelTypeEnum.None;        
     }
 
     // Returns true if the cell can connect in the given direction.
@@ -148,24 +144,20 @@ public class RunePowerSystem : MonoBehaviour
     bool CellCanConnectInDirection(Vector2Int cell, DirectionEnum direction)
     {
         RotatableRuneBlock block = gridManager.GetRotatableRuneBlockAt(cell.x, cell.y);
-        if (block != null)
-            return block.ActiveConnections[(int)direction];
+        if (block != null) return block.ActiveConnections[(int)direction];
 
         GroundTileData tile = gridManager.GetTileAt(cell.x, cell.y);
         if (tile == null) return false;
 
-        switch (tile.GroundTileType)
-        {
-            case GroundTileTypeEnum.RuneChannelHorizontal:
-                return direction == DirectionEnum.East || direction == DirectionEnum.West;
+        // Channel overlay takes priority over ground type
+        if (tile.RuneChannel == RuneChannelTypeEnum.Horizontal)
+            return direction == DirectionEnum.East || direction == DirectionEnum.West;
 
-            case GroundTileTypeEnum.RuneChannelVertical:
-                return direction == DirectionEnum.North || direction == DirectionEnum.South;
+        if (tile.RuneChannel == RuneChannelTypeEnum.Vertical)
+            return direction == DirectionEnum.North || direction == DirectionEnum.South;
 
-            default:
-                // Sources, receivers, and other rune tiles connect in all directions
-                return true;
-        }
+        // Sources, receivers connect in all directions
+        return true;
     }
 
     void ApplyPowerState(HashSet<Vector2Int> newlyPoweredCells)

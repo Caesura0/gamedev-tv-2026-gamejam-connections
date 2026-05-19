@@ -83,7 +83,7 @@ public class GridManager : MonoBehaviour
 
 
     // Called by the editor script when a cell is painted
-    public void PaintTile(int column, int row, GroundTileTypeEnum groundTileType)
+    public void PaintGroundTile(int column, int row, GroundTileTypeEnum groundTileType)
     {
         if (!IsCellInBounds(column, row)) return;
 
@@ -93,6 +93,14 @@ public class GridManager : MonoBehaviour
             RebuildSerializedGrid();
 
         serializedTileGridArray[index].GroundTileType = groundTileType;
+    }
+
+    public void PaintChannelOverlay(int column, int row, RuneChannelTypeEnum channel)
+    {
+        if (!IsCellInBounds(column, row)) return;
+        int index = row * NumberOfColumns + column;
+        if (serializedTileGridArray == null || index >= serializedTileGridArray.Length) return;
+        serializedTileGridArray[index].RuneChannel = channel;
     }
 
 
@@ -150,6 +158,16 @@ public class GridManager : MonoBehaviour
     public GroundTileData GetTileAt(int column, int row)
     {
         if (!IsCellInBounds(column, row)) return null;
+
+#if UNITY_EDITOR
+        if (!Application.isPlaying)
+        {
+            int index = row * NumberOfColumns + column;
+            if (serializedTileGridArray == null || index >= serializedTileGridArray.Length) return null;
+            return serializedTileGridArray[index];
+        }
+#endif
+
         return tileGrid[column, row];
     }
 
@@ -256,7 +274,7 @@ public class GridManager : MonoBehaviour
     {
         Vector2Int key = new Vector2Int(column, row);
 
-        Debug.Log($"GridManager: HandleTileRunePowerChanged ({column},{row}) powered={isPowered}. Dict has {debugTileRenderers.Count} entries. ContainsKey={debugTileRenderers.ContainsKey(key)}");
+        //Debug.Log($"GridManager: HandleTileRunePowerChanged ({column},{row}) powered={isPowered}. Dict has {debugTileRenderers.Count} entries. ContainsKey={debugTileRenderers.ContainsKey(key)}");
 
         if (!debugTileRenderers.ContainsKey(key)) return;
 
@@ -276,7 +294,7 @@ public class GridManager : MonoBehaviour
     {
         DestroyDebugTiles();
 
-        Debug.Log("GridManager: CreateDebugTiles called");
+        //Debug.Log("GridManager: CreateDebugTiles called");
 
         if (serializedTileGridArray == null) return;
 

@@ -24,9 +24,14 @@ public static class TileEditorColors
         GroundTileTypeEnum.PressurePlate => PressurePlate,
         GroundTileTypeEnum.Door => Door,
         GroundTileTypeEnum.RuneSource => RuneSource,
-        GroundTileTypeEnum.RuneChannelHorizontal => RuneChannelHorizontal,
-        GroundTileTypeEnum.RuneChannelVertical => RuneChannelVertical,
         GroundTileTypeEnum.RuneReceiver => RuneReceiver,
         _ => Color.black,
+    };
+
+    public static Color GetColorForTileType(RuneChannelTypeEnum tileType) => tileType switch
+    {
+        RuneChannelTypeEnum.None => Color.clear,
+        RuneChannelTypeEnum.Horizontal => RuneChannelHorizontal,
+        RuneChannelTypeEnum.Vertical => RuneChannelVertical,
     };
 }
