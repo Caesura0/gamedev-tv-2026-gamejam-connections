@@ -11,7 +11,7 @@ public class InputManager : MonoBehaviour
     // Read your movement input as a Vector2 (x for horizontal, y for vertical)
     public Vector2 Movement { get; private set; }
     public bool InteractHeld { get; private set; }
-    //public bool MoveButtonPushed {  get; private set; }
+    public bool MoveButtonPushed {  get; private set; }
 
     //public Vector2 InteractObjectDirection { get; private set; }
 
@@ -81,13 +81,13 @@ public class InputManager : MonoBehaviour
 
     private void OnMovementPerformed(InputAction.CallbackContext context)
     {
-        //MoveButtonPushed = true;
+        MoveButtonPushed = true;
         Movement = context.ReadValue<Vector2>();
     }
 
     private void OnMovementCanceled(InputAction.CallbackContext context)
     {
-        //MoveButtonPushed = false;
+        MoveButtonPushed = false;
         Movement = Vector2.zero;
     }
 

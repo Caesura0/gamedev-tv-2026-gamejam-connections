@@ -15,6 +15,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float stepCooldownTimer;
     private bool isWalking;
     private bool isHoldingInteract;
+    private bool isPressingMove;
 
     private Animator animator;
     private Vector2 movementInput;
@@ -39,6 +40,7 @@ public class PlayerBehaviour : MonoBehaviour
     void Update()
     {
         movementInput = InputManager.Instance.Movement;
+        isPressingMove = InputManager.Instance.Movement != Vector2.zero;
         isHoldingInteract = InputManager.Instance.InteractHeld;
 
         HandleMovementInput();
@@ -74,7 +76,14 @@ public class PlayerBehaviour : MonoBehaviour
         // Trying to work out code to push/pull
         if (interactable != null && isPushableRock)
         {
-            Debug.Log("Trying to push rock in valid direction");
+            Debug.Log("Rock is Pushable");
+            if (isPressingMove) 
+            { 
+                Debug.Log("Is trying to push rock");
+                if (validMoveDirection)
+                { Debug.Log("Push direction valid"); }
+            }
+            //Debug.Log("Trying to push rock in valid direction");
             // Check if move button also pressed
             
             // Check if valid direction
