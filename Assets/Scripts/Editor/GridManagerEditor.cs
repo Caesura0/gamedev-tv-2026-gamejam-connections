@@ -68,7 +68,8 @@ public class GridManagerEditor : Editor
         {
             GroundTileTypeEnum.Door,
             GroundTileTypeEnum.RuneSource,
-            GroundTileTypeEnum.RuneChannel,
+            GroundTileTypeEnum.RuneChannelHorizontal,
+            GroundTileTypeEnum.RuneChannelVertical,
             GroundTileTypeEnum.RuneReceiver,
         });
 
