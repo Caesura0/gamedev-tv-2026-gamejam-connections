@@ -15,7 +15,8 @@ public class GroundTileData
         (GroundTileType == GroundTileTypeEnum.Door && IsDoorOpen) ||
         GroundTileType == GroundTileTypeEnum.Grass ||
         GroundTileType == GroundTileTypeEnum.Stone ||
-        GroundTileType == GroundTileTypeEnum.RuneChannel ||
+        GroundTileType == GroundTileTypeEnum.RuneChannelVertical ||
+        GroundTileType == GroundTileTypeEnum.RuneChannelHorizontal ||
         GroundTileType == GroundTileTypeEnum.PressurePlate;
 
 

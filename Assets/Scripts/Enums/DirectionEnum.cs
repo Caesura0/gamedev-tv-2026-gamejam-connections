@@ -22,6 +22,7 @@ public static class DirectionEnumExtensions
         }
     }
 
+
     public static DirectionEnum Opposite(this DirectionEnum direction)
     {
         switch (direction)
