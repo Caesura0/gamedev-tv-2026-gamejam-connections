@@ -11,7 +11,8 @@ public static class TileEditorColors
 
     // Rune layer
     public static readonly Color RuneSource = new Color(0.90f, 0.20f, 0.90f);
-    public static readonly Color RuneChannel = new Color(0.60f, 0.20f, 0.80f);
+    public static readonly Color RuneChannelHorizontal = new Color(0.60f, 0.20f, 0.80f);
+    public static readonly Color RuneChannelVertical = new Color(0.50f, 0.15f, 0.70f);
     public static readonly Color RuneReceiver = new Color(0.20f, 0.80f, 0.90f);
 
     public static Color GetColorForTileType(GroundTileTypeEnum tileType) => tileType switch
@@ -23,7 +24,8 @@ public static class TileEditorColors
         GroundTileTypeEnum.PressurePlate => PressurePlate,
         GroundTileTypeEnum.Door => Door,
         GroundTileTypeEnum.RuneSource => RuneSource,
-        GroundTileTypeEnum.RuneChannel => RuneChannel,
+        GroundTileTypeEnum.RuneChannelHorizontal => RuneChannelHorizontal,
+        GroundTileTypeEnum.RuneChannelVertical => RuneChannelVertical,
         GroundTileTypeEnum.RuneReceiver => RuneReceiver,
         _ => Color.black,
     };

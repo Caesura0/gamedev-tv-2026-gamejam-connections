@@ -1,6 +1,7 @@
 ﻿using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class PlayerBehaviour : MonoBehaviour
     private Vector3 targetWorldPosition;
     private float stepCooldownTimer;
     private bool isWalking;
-
+    private bool isHoldingInteract;
     private Animator animator;
     private Vector2 movementInput;
 
@@ -38,7 +39,6 @@ public class PlayerBehaviour : MonoBehaviour
     void Update()
     {
         movementInput = InputManager.Instance.Movement;
-
         HandleMovementInput();
         SmoothMoveToTarget();
         AnimationHandler();
