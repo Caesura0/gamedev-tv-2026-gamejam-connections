@@ -191,13 +191,18 @@ public class GridManager : MonoBehaviour
         return tile != null && tile.IsPassableByPlayer && !tile.IsOccupiedByMoveable;
     }
 
-
     public bool IsCellValidRockDestination(int column, int row)
     {
         GroundTileData tile = GetTileAt(column, row);
         return tile != null && tile.IsValidRockDestination;
     }
 
+    //public bool CanPlayerMoveRock(int playerCol, int playerRow, int rockCol, int rockRow, DirectionEnum moveDirection)
+    //{
+    //    GetInteractableAtGridPosition(rockCol, rockRow);
+    //    IsCellValidRockDestination(rockCol,rockRow);
+    //    return false;
+    //}
 
 
     // Coordinate conversions, assumes grid origin is at the GameObject's position and grid is aligned with world axes
