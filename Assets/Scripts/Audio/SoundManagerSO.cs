@@ -7,7 +7,7 @@ public class SoundManagerSO :  ScriptableObject
    
 
     public AudioClip boulderSound;
-    public AudioClip footstepSound;
+    public AudioClip[] footstepSoundArray;
     public AudioClip hitSound;
     public AudioClip pickupPointsSound;
     public AudioClip pickupBigPointsSound;
