@@ -131,7 +131,7 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
         if (connections == null) return;
 
         Vector3 center = transform.position;
-        float size = 0.35f;
+        float size = 0.7f;
 
         // Direction vectors for N, E, S, W
         Vector3[] directions = new Vector3[]
@@ -151,13 +151,13 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
                 // Active connection — bright cyan line with arrow
                 Gizmos.color = new Color(0.0f, 1.0f, 0.9f, 1.0f);
                 Gizmos.DrawLine(center, center + directions[i] * size);
-                Gizmos.DrawSphere(center + directions[i] * size, 0.06f);
+                Gizmos.DrawSphere(center + directions[i] * size, 0.24f);
             }
             else
             {
                 // Inactive connection — faint red dot
                 Gizmos.color = new Color(1.0f, 0.2f, 0.2f, 0.3f);
-                Gizmos.DrawSphere(center + directions[i] * size, 0.04f);
+                Gizmos.DrawSphere(center + directions[i] * size, 0.18f);
             }
 
             UnityEditor.Handles.color = connections[i]

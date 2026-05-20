@@ -401,8 +401,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2f41801a575be4ba6cc465d6cc62bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameEventListener
-  isPressurePlateNeeded: 1
-  isRuneReceiverNeeded: 1
+  isPressurePlateNeededToBeActive: 1
+  isRuneReceiverNeededToBeActive: 1
 --- !u!1001 &1441854323
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -786,8 +786,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2f41801a575be4ba6cc465d6cc62bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameEventListener
-  isPressurePlateNeeded: 1
-  isRuneReceiverNeeded: 0
+  isPressurePlateNeededToBeActive: 0
+  isRuneReceiverNeededToBeActive: 0
 --- !u!1001 &1940968639619337184
 PrefabInstance:
   m_ObjectHideFlags: 0
