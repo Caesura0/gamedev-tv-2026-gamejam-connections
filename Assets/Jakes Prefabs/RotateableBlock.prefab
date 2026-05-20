@@ -138,3 +138,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RotatableRuneBlock
   connectorShape: 1
   startingRotation: 0
+  isStartingInactive: 0
+  visual: {fileID: 1693229715387060530}

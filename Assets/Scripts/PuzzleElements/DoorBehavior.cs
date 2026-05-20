@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 public class DoorBehaviour : MonoBehaviour
 {
-    [SerializeField] private List<Vector2Int> requiredPlatePositions = new List<Vector2Int>();
 
     private GridManager gridManager;
     private Vector2Int gridPosition;
@@ -15,71 +14,34 @@ public class DoorBehaviour : MonoBehaviour
 
     public Vector2Int GridPosition => gridPosition;
 
+    GameEventListener gameEventListener;
+
+    bool isConditionsMet = false;
+
+
     void Start()
     {
         gridManager = GridManager.Instance;
-        gridManager.OnPressurePlateStateChanged += HandlePressurePlateStateChanged;
-        gridPosition = GridManager.Instance.ConvertWorldPositionToGridPosition(transform.position);
-        Debug.Log($"{gameObject.name} initialized at grid position {gridPosition}");
+        gridPosition = gridManager.ConvertWorldPositionToGridPosition(transform.position);
         gridManager.SetDoorState(gridPosition.x, gridPosition.y, isDoorOpen);
 
-        EvaluateDoorState();
-    }
-
-    void OnDestroy()
-    {
-        if (gridManager != null)
-            gridManager.OnPressurePlateStateChanged -= HandlePressurePlateStateChanged;
-    }
-
-    void HandlePressurePlateStateChanged(int column, int row, bool isActivated)
-    {
-        EvaluateDoorState();
-    }
-
-    void EvaluateDoorState()
-    {
-        bool allPlatesActive = AreAllRequiredPlatesActive();
-
-        if (allPlatesActive == isDoorOpen) return;
-
-        isDoorOpen = allPlatesActive;
-
-        if (isDoorOpen)
-            OpenDoor();
-        else
-            CloseDoor();
-    }
-
-    bool AreAllRequiredPlatesActive()
-    {
-        if (requiredPlatePositions.Count == 0) return false;
-
-        foreach (Vector2Int platePosition in requiredPlatePositions)
+        if (TryGetComponent(out gameEventListener))
         {
-            GroundTileData tile = gridManager.GetTileAt(platePosition.x, platePosition.y);
-
-            if (tile == null || !tile.IsPressurePlateActivated)
-                return false;
+            gameEventListener.OnFullConditionMet += GameEventListener_OnFullConditionMet; ;
         }
-
-        return true;
     }
 
-    void OpenDoor()
+    private void GameEventListener_OnFullConditionMet(bool obj)
     {
-
-        gridManager.SetDoorState(gridPosition.x, gridPosition.y, true);
-        visual.SetActive(false);
-        Debug.Log($"{gameObject.name} opened");
+        isConditionsMet = obj;
+        SetDoorOpen(isConditionsMet);
     }
 
-    void CloseDoor()
+    void SetDoorOpen(bool isOpen)
     {
-
-        gridManager.SetDoorState(gridPosition.x, gridPosition.y, false);
-        visual.SetActive(true);
-
-        Debug.Log($"{gameObject.name} closed");
+        isDoorOpen = isOpen;
+        gridManager.SetDoorState(gridPosition.x, gridPosition.y, isOpen);
+        visual.SetActive(!isOpen);
+        Debug.Log($"{gameObject.name} {(isOpen ? "opened" : "closed")}");
     }
 }

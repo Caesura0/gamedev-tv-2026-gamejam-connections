@@ -1,13 +1,12 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(DoorBehaviour))]
-public class DoorBehaviourEditor : Editor
+[CustomEditor(typeof(PressurePlateGroupListenerTrigger))]
+public class PressurePlateGroupEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        DrawDefaultInspector();
-        DoorBehaviour door = (DoorBehaviour)target;
+        PressurePlateGroupListenerTrigger group = (PressurePlateGroupListenerTrigger)target;
         GridManager gridManager = FindAnyObjectByType<GridManager>();
 
         serializedObject.Update();
@@ -22,7 +21,6 @@ public class DoorBehaviourEditor : Editor
             return;
         }
 
-        // Collect all pressure plate positions from the grid
         bool anyPlatesFound = false;
 
         for (int row = gridManager.NumberOfRows - 1; row >= 0; row--)
@@ -36,19 +34,14 @@ public class DoorBehaviourEditor : Editor
                 Vector2Int position = new Vector2Int(column, row);
                 bool isRequired = IsPositionRequired(requiredPositions, position);
 
-                bool newValue = EditorGUILayout.ToggleLeft(
-                    $"Plate at ({column}, {row})",
-                    isRequired
-                );
+                bool newValue = EditorGUILayout.ToggleLeft($"Plate at ({column}, {row})", isRequired);
 
                 if (newValue == isRequired) continue;
 
-                Undo.RecordObject(door, "Toggle Required Plate");
+                Undo.RecordObject(group, "Toggle Required Plate");
 
-                if (newValue)
-                    AddPosition(requiredPositions, position);
-                else
-                    RemovePosition(requiredPositions, position);
+                if (newValue) AddPosition(requiredPositions, position);
+                else RemovePosition(requiredPositions, position);
             }
         }
 

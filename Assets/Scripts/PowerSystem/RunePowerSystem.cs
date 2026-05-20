@@ -52,11 +52,8 @@ public class RunePowerSystem : MonoBehaviour
             Vector2Int currentCell = propagationQueue.Dequeue();
             GroundTileData currentTile = gridManager.GetTileAt(currentCell.x, currentCell.y);
 
-            Debug.Log($"[POWER] Processing cell {currentCell}");
-
             if (!CanTravelThroughTile(currentTile, currentCell))
             {
-                Debug.LogWarning($"[POWER] Cannot travel through {currentCell}");
                 continue;
             }
 
@@ -65,26 +62,19 @@ public class RunePowerSystem : MonoBehaviour
                 DirectionEnum travelDirection = (DirectionEnum)directionIndex;
                 Vector2Int neighbourCell = currentCell + travelDirection.ToVector();
 
-                Debug.Log($"[POWER] Trying {travelDirection} from {currentCell} -> {neighbourCell}");
+                //Debug.Log($"[POWER] Trying {travelDirection} from {currentCell} -> {neighbourCell}");
 
                 if (newlyPoweredCells.Contains(neighbourCell))
                 {
-                    Debug.Log($"[POWER] {neighbourCell} already powered");
                     continue;
                 }
 
                 // Check current cell can output in this direction
                 bool currentCanOutput = CellCanConnectInDirection(currentCell, travelDirection);
 
-                Debug.Log(
-                    $"[POWER] Current cell {currentCell} output {travelDirection}: {currentCanOutput}"
-                );
 
                 if (!currentCanOutput)
                 {
-                    Debug.LogWarning(
-                        $"[POWER] BLOCKED: {currentCell} cannot output {travelDirection}"
-                    );
                     continue;
                 }
 
@@ -92,21 +82,16 @@ public class RunePowerSystem : MonoBehaviour
 
                 if (neighbourTile == null)
                 {
-                    Debug.LogWarning($"[POWER] No tile at {neighbourCell}");
+
                     continue;
                 }
 
                 bool neighbourPassable = IsRunePassable(neighbourTile, neighbourCell);
 
-                Debug.Log(
-                    $"[POWER] Neighbour {neighbourCell} passable: {neighbourPassable}"
-                );
 
                 if (!neighbourPassable)
                 {
-                    Debug.LogWarning(
-                        $"[POWER] BLOCKED: neighbour {neighbourCell} is not rune passable"
-                    );
+
                     continue;
                 }
 
@@ -115,21 +100,13 @@ public class RunePowerSystem : MonoBehaviour
                 bool neighbourCanReceive =
                     CellCanConnectInDirection(neighbourCell, oppositeDirection);
 
-                Debug.Log(
-                    $"[POWER] Neighbour {neighbourCell} receive from {oppositeDirection}: {neighbourCanReceive}"
-                );
 
                 if (!neighbourCanReceive)
                 {
-                    Debug.LogWarning(
-                        $"[POWER] BLOCKED: neighbour {neighbourCell} cannot receive from {oppositeDirection}"
-                    );
+
                     continue;
                 }
 
-                Debug.Log(
-                    $"[POWER] SUCCESS: Connected {currentCell} -> {neighbourCell}"
-                );
 
                 newlyPoweredCells.Add(neighbourCell);
                 propagationQueue.Enqueue(neighbourCell);
@@ -146,48 +123,40 @@ public class RunePowerSystem : MonoBehaviour
     bool CanTravelThroughTile(GroundTileData tile, Vector2Int cell)
     {
         if (tile == null) return false;
-
-        // Rotatable blocks are always travellable if they exist on this cell
         if (gridManager.GetRotatableRuneBlockAt(cell.x, cell.y) != null) return true;
 
         return tile.GroundTileType == GroundTileTypeEnum.RuneSource ||
-               tile.GroundTileType == GroundTileTypeEnum.RuneChannel ||
-               tile.GroundTileType == GroundTileTypeEnum.RuneReceiver;
+               tile.GroundTileType == GroundTileTypeEnum.RuneReceiver ||
+               tile.RuneChannel != RuneChannelTypeEnum.None;        
     }
 
     bool IsRunePassable(GroundTileData tile, Vector2Int cell)
     {
         if (tile == null) return false;
-
-        // Rotatable blocks can receive power on any passable tile
         if (gridManager.GetRotatableRuneBlockAt(cell.x, cell.y) != null) return true;
-
-        return tile.GroundTileType == GroundTileTypeEnum.RuneChannel ||
-               tile.GroundTileType == GroundTileTypeEnum.RuneReceiver;
+        //add a condition here to block if there is a moveable block here
+        return tile.GroundTileType == GroundTileTypeEnum.RuneReceiver ||
+               tile.RuneChannel != RuneChannelTypeEnum.None;        
     }
 
     // Returns true if the cell can connect in the given direction.
-    // Fixed rune tiles connect in all directions; rotatable blocks use their connection table.
+    // Channel tiles only connect along their axis; rotatable blocks use their connection table.
     bool CellCanConnectInDirection(Vector2Int cell, DirectionEnum direction)
     {
         RotatableRuneBlock block = gridManager.GetRotatableRuneBlockAt(cell.x, cell.y);
+        if (block != null) return block.ActiveConnections[(int)direction];
 
-        if (block != null)
-        {
-            bool result = block.ActiveConnections[(int)direction];
+        GroundTileData tile = gridManager.GetTileAt(cell.x, cell.y);
+        if (tile == null) return false;
 
-            Debug.Log(
-                $"[CONNECTION] Block at {cell} checking {direction} = {result}"
-            );
+        // Channel overlay takes priority over ground type
+        if (tile.RuneChannel == RuneChannelTypeEnum.Horizontal)
+            return direction == DirectionEnum.East || direction == DirectionEnum.West;
 
-            return result;
-        }
+        if (tile.RuneChannel == RuneChannelTypeEnum.Vertical)
+            return direction == DirectionEnum.North || direction == DirectionEnum.South;
 
-        Debug.Log(
-            $"[CONNECTION] Fixed tile at {cell} automatically connects {direction}"
-        );
-
-        // Fixed tiles connect in all directions
+        // Sources, receivers connect in all directions
         return true;
     }
 

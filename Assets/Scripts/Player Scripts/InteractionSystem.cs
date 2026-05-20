@@ -98,7 +98,7 @@ public class InteractionSystem : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             isPlayerInRange = true;
-            Debug.Log("Player is in the area!");
+            //Debug.Log("Player is in the area!");
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -106,7 +106,7 @@ public class InteractionSystem : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             isPlayerInRange = false;
-            Debug.Log("Player is out the area!");
+            //Debug.Log("Player is out the area!");
             if (isDialogActive)
             {
                 CloseDialog();

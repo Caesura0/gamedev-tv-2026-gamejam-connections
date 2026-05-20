@@ -83,7 +83,7 @@ public class GridManager : MonoBehaviour
 
 
     // Called by the editor script when a cell is painted
-    public void PaintTile(int column, int row, GroundTileTypeEnum groundTileType)
+    public void PaintGroundTile(int column, int row, GroundTileTypeEnum groundTileType)
     {
         if (!IsCellInBounds(column, row)) return;
 
@@ -93,6 +93,14 @@ public class GridManager : MonoBehaviour
             RebuildSerializedGrid();
 
         serializedTileGridArray[index].GroundTileType = groundTileType;
+    }
+
+    public void PaintChannelOverlay(int column, int row, RuneChannelTypeEnum channel)
+    {
+        if (!IsCellInBounds(column, row)) return;
+        int index = row * NumberOfColumns + column;
+        if (serializedTileGridArray == null || index >= serializedTileGridArray.Length) return;
+        serializedTileGridArray[index].RuneChannel = channel;
     }
 
 
@@ -150,6 +158,16 @@ public class GridManager : MonoBehaviour
     public GroundTileData GetTileAt(int column, int row)
     {
         if (!IsCellInBounds(column, row)) return null;
+
+#if UNITY_EDITOR
+        if (!Application.isPlaying)
+        {
+            int index = row * NumberOfColumns + column;
+            if (serializedTileGridArray == null || index >= serializedTileGridArray.Length) return null;
+            return serializedTileGridArray[index];
+        }
+#endif
+
         return tileGrid[column, row];
     }
 
@@ -191,13 +209,18 @@ public class GridManager : MonoBehaviour
         return tile != null && tile.IsPassableByPlayer && !tile.IsOccupiedByMoveable;
     }
 
-
     public bool IsCellValidRockDestination(int column, int row)
     {
         GroundTileData tile = GetTileAt(column, row);
         return tile != null && tile.IsValidRockDestination;
     }
 
+    //public bool CanPlayerMoveRock(int playerCol, int playerRow, int rockCol, int rockRow, DirectionEnum moveDirection)
+    //{
+    //    GetInteractableAtGridPosition(rockCol, rockRow);
+    //    IsCellValidRockDestination(rockCol,rockRow);
+    //    return false;
+    //}
 
 
     // Coordinate conversions, assumes grid origin is at the GameObject's position and grid is aligned with world axes
@@ -243,7 +266,7 @@ public class GridManager : MonoBehaviour
             return;
         }
 
-        Debug.Log($"GridManager: Subscribing to rune events. Renderer dict has {debugTileRenderers.Count} entries.");
+        //Debug.Log($"GridManager: Subscribing to rune events. Renderer dict has {debugTileRenderers.Count} entries.");
         RunePowerSystem.Instance.OnTileRunePowerChanged += HandleTileRunePowerChanged;
     }
 
@@ -251,7 +274,7 @@ public class GridManager : MonoBehaviour
     {
         Vector2Int key = new Vector2Int(column, row);
 
-        Debug.Log($"GridManager: HandleTileRunePowerChanged ({column},{row}) powered={isPowered}. Dict has {debugTileRenderers.Count} entries. ContainsKey={debugTileRenderers.ContainsKey(key)}");
+        //Debug.Log($"GridManager: HandleTileRunePowerChanged ({column},{row}) powered={isPowered}. Dict has {debugTileRenderers.Count} entries. ContainsKey={debugTileRenderers.ContainsKey(key)}");
 
         if (!debugTileRenderers.ContainsKey(key)) return;
 
@@ -271,7 +294,7 @@ public class GridManager : MonoBehaviour
     {
         DestroyDebugTiles();
 
-        Debug.Log("GridManager: CreateDebugTiles called");
+        //Debug.Log("GridManager: CreateDebugTiles called");
 
         if (serializedTileGridArray == null) return;
 

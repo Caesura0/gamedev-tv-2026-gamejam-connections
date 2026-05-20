@@ -84,7 +84,8 @@ public class AudioManager : MonoBehaviour
 
     public void PlayFootstepSound()
     {
-        audioSource.PlayOneShot(soundManager.footstepSound, soundEffectVolume);
+        int randomIndex = UnityEngine.Random.Range(0, soundManager.footstepSoundArray.Length);
+        audioSource.PlayOneShot(soundManager.footstepSoundArray[randomIndex], soundEffectVolume);
     }
 
     public void PlayHitSound()

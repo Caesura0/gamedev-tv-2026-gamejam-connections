@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class RotatableRuneBlock : MonoBehaviour, IInteractable
 {
     [SerializeField] private ConnectorShapeEnum connectorShape;
     [SerializeField] private int startingRotation = 0;
+    [SerializeField] private bool isStartingInactive;
 
     private GridManager gridManager;
     private RunePowerSystem runePowerSystem;
@@ -14,6 +16,10 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
     public bool[] ActiveConnections => activeConnections;
     public Vector2Int GridPosition => gridPosition;
 
+    [SerializeField] private GameObject visual;
+
+    private GameEventListener gameEventListener;
+
     void Start()
     {
         gridManager = GridManager.Instance;
@@ -22,9 +28,24 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
         currentRotation = startingRotation;
         activeConnections = Connections.Get(connectorShape, currentRotation);
 
-        gridManager.RegisterRotatableRuneBlock(gridPosition.x, gridPosition.y, this);
-        gridManager.RegisterInteractable(gridPosition.x, gridPosition.y, this);
-        gridManager.SetCellMoveableOccupancy(gridPosition.x, gridPosition.y, true);
+        if (TryGetComponent(out gameEventListener))
+            gameEventListener.OnFullConditionMet += OnConditionMet;
+
+        if (isStartingInactive)
+        {
+            SetActive(false);
+            return;
+        }
+        else
+        {
+            SetActive(true);
+        }
+
+    }
+
+    private void OnConditionMet(bool obj)
+    {
+        SetActive(obj);
     }
 
     void OnDestroy()
@@ -70,6 +91,26 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
         runePowerSystem.RunEnergyThrough();
     }
 
+
+    void SetActive(bool isActive)
+    {
+        visual.SetActive(isActive);
+
+        if (isActive)
+        {
+            gridManager.RegisterRotatableRuneBlock(gridPosition.x, gridPosition.y, this);
+            gridManager.RegisterInteractable(gridPosition.x, gridPosition.y, this);
+            gridManager.SetCellMoveableOccupancy(gridPosition.x, gridPosition.y, true);
+        }
+        else
+        {
+            gridManager.RegisterRotatableRuneBlock(gridPosition.x, gridPosition.y, null);
+            gridManager.RegisterInteractable(gridPosition.x, gridPosition.y, null);
+            gridManager.SetCellMoveableOccupancy(gridPosition.x, gridPosition.y, true);
+        }
+    }
+
+
 #if UNITY_EDITOR
     void OnDrawGizmos()
     {
@@ -90,7 +131,7 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
         if (connections == null) return;
 
         Vector3 center = transform.position;
-        float size = 0.35f;
+        float size = 0.7f;
 
         // Direction vectors for N, E, S, W
         Vector3[] directions = new Vector3[]
@@ -110,13 +151,13 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
                 // Active connection — bright cyan line with arrow
                 Gizmos.color = new Color(0.0f, 1.0f, 0.9f, 1.0f);
                 Gizmos.DrawLine(center, center + directions[i] * size);
-                Gizmos.DrawSphere(center + directions[i] * size, 0.06f);
+                Gizmos.DrawSphere(center + directions[i] * size, 0.24f);
             }
             else
             {
                 // Inactive connection — faint red dot
                 Gizmos.color = new Color(1.0f, 0.2f, 0.2f, 0.3f);
-                Gizmos.DrawSphere(center + directions[i] * size, 0.04f);
+                Gizmos.DrawSphere(center + directions[i] * size, 0.18f);
             }
 
             UnityEditor.Handles.color = connections[i]
