@@ -1,19 +1,18 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(DoorBehaviour))]
-public class DoorBehaviourEditor : Editor
+[CustomEditor(typeof(RuneReceiverGroup))]
+public class RuneReceiverGroupEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        DrawDefaultInspector();
-        DoorBehaviour door = (DoorBehaviour)target;
+        RuneReceiverGroup group = (RuneReceiverGroup)target;
         GridManager gridManager = FindAnyObjectByType<GridManager>();
 
         serializedObject.Update();
-        SerializedProperty requiredPositions = serializedObject.FindProperty("requiredPlatePositions");
+        SerializedProperty requiredPositions = serializedObject.FindProperty("requiredReceiverPositions");
 
-        EditorGUILayout.LabelField("Required Pressure Plates", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Required Rune Receivers", EditorStyles.boldLabel);
 
         if (gridManager == null)
         {
@@ -22,38 +21,32 @@ public class DoorBehaviourEditor : Editor
             return;
         }
 
-        // Collect all pressure plate positions from the grid
-        bool anyPlatesFound = false;
+        bool anyReceiversFound = false;
 
         for (int row = gridManager.NumberOfRows - 1; row >= 0; row--)
         {
             for (int column = 0; column < gridManager.NumberOfColumns; column++)
             {
                 GroundTileData tile = gridManager.GetSerializedTileAt(column, row);
-                if (tile == null || tile.GroundTileType != GroundTileTypeEnum.PressurePlate) continue;
+                if (tile == null || tile.GroundTileType != GroundTileTypeEnum.RuneReceiver) continue;
 
-                anyPlatesFound = true;
+                anyReceiversFound = true;
                 Vector2Int position = new Vector2Int(column, row);
                 bool isRequired = IsPositionRequired(requiredPositions, position);
 
-                bool newValue = EditorGUILayout.ToggleLeft(
-                    $"Plate at ({column}, {row})",
-                    isRequired
-                );
+                bool newValue = EditorGUILayout.ToggleLeft($"Receiver at ({column}, {row})", isRequired);
 
                 if (newValue == isRequired) continue;
 
-                Undo.RecordObject(door, "Toggle Required Plate");
+                Undo.RecordObject(group, "Toggle Required Receiver");
 
-                if (newValue)
-                    AddPosition(requiredPositions, position);
-                else
-                    RemovePosition(requiredPositions, position);
+                if (newValue) AddPosition(requiredPositions, position);
+                else RemovePosition(requiredPositions, position);
             }
         }
 
-        if (!anyPlatesFound)
-            EditorGUILayout.HelpBox("No pressure plate tiles found in the grid.", MessageType.Info);
+        if (!anyReceiversFound)
+            EditorGUILayout.HelpBox("No rune receiver tiles found in the grid.", MessageType.Info);
 
         serializedObject.ApplyModifiedProperties();
     }
