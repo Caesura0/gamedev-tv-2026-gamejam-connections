@@ -68,7 +68,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void HandleInteractionInput()
     {
-        Debug.Log("Interact button pressed, attempting interaction...");
+        //Debug.Log("Interact button pressed, attempting interaction...");
         TryInteract();
     }
 
@@ -84,10 +84,10 @@ public class PlayerBehaviour : MonoBehaviour
         // Trying to work out code to push/pull
         if (interactable != null && isPushableRock)
         {
-            Debug.Log("Rock is Pushable");
+            //Debug.Log("Rock is Pushable");
             if (isPressingMove) 
             { 
-                Debug.Log("Is trying to push rock");
+                //Debug.Log("Is trying to push rock");
                 if (movementInput == lastMoveDirection.ToVector())
                 {
                     if (interactable.TryInteract(this))

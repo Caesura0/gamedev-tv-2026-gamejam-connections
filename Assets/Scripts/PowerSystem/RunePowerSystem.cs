@@ -62,7 +62,7 @@ public class RunePowerSystem : MonoBehaviour
                 DirectionEnum travelDirection = (DirectionEnum)directionIndex;
                 Vector2Int neighbourCell = currentCell + travelDirection.ToVector();
 
-                Debug.Log($"[POWER] Trying {travelDirection} from {currentCell} -> {neighbourCell}");
+                //Debug.Log($"[POWER] Trying {travelDirection} from {currentCell} -> {neighbourCell}");
 
                 if (newlyPoweredCells.Contains(neighbourCell))
                 {

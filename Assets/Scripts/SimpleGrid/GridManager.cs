@@ -266,7 +266,7 @@ public class GridManager : MonoBehaviour
             return;
         }
 
-        Debug.Log($"GridManager: Subscribing to rune events. Renderer dict has {debugTileRenderers.Count} entries.");
+        //Debug.Log($"GridManager: Subscribing to rune events. Renderer dict has {debugTileRenderers.Count} entries.");
         RunePowerSystem.Instance.OnTileRunePowerChanged += HandleTileRunePowerChanged;
     }
 

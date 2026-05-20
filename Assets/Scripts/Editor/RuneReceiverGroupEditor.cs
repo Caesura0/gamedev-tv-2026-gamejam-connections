@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(RuneReceiverGroup))]
+[CustomEditor(typeof(RuneReceiverGroupListenerTrigger))]
 public class RuneReceiverGroupEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        RuneReceiverGroup group = (RuneReceiverGroup)target;
+        RuneReceiverGroupListenerTrigger group = (RuneReceiverGroupListenerTrigger)target;
         GridManager gridManager = FindAnyObjectByType<GridManager>();
 
         serializedObject.Update();

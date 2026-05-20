@@ -95,8 +95,8 @@ public class InputManager : MonoBehaviour
 
     private void OnInteract(InputAction.CallbackContext context)
     {
-        Debug.Log("Interact Pressed");
-        Debug.Log($"Direction Pressed: {Movement}");
+        //Debug.Log("Interact Pressed");
+       // Debug.Log($"Direction Pressed: {Movement}");
         OnInteractPressed?.Invoke();
     }
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class RuneReceiverGroup : MonoBehaviour
+public class RuneReceiverGroupListenerTrigger : MonoBehaviour
 {
     [SerializeField] private List<Vector2Int> requiredReceiverPositions = new List<Vector2Int>();
 

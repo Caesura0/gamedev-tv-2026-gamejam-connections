@@ -14,13 +14,27 @@ public class DoorBehaviour : MonoBehaviour
 
     public Vector2Int GridPosition => gridPosition;
 
+    GameEventListener gameEventListener;
+
+    bool isConditionsMet = false;
+
+
     void Start()
     {
         gridManager = GridManager.Instance;
         gridPosition = gridManager.ConvertWorldPositionToGridPosition(transform.position);
         gridManager.SetDoorState(gridPosition.x, gridPosition.y, isDoorOpen);
 
-        //get the GameEventListener attached to this door and subscribe to its event
+        if (TryGetComponent(out gameEventListener))
+        {
+            gameEventListener.OnFullConditionMet += GameEventListener_OnFullConditionMet; ;
+        }
+    }
+
+    private void GameEventListener_OnFullConditionMet(bool obj)
+    {
+        isConditionsMet = obj;
+        SetDoorOpen(isConditionsMet);
     }
 
     void SetDoorOpen(bool isOpen)

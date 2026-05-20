@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class PressurePlateGroup : MonoBehaviour
+public class PressurePlateGroupListenerTrigger : MonoBehaviour
 {
     [SerializeField] private List<Vector2Int> requiredPlatePositions = new List<Vector2Int>();
 

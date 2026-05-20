@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class RotatableRuneBlock : MonoBehaviour, IInteractable
 {
     [SerializeField] private ConnectorShapeEnum connectorShape;
     [SerializeField] private int startingRotation = 0;
+    [SerializeField] private bool isStartingInactive;
 
     private GridManager gridManager;
     private RunePowerSystem runePowerSystem;
@@ -14,6 +16,10 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
     public bool[] ActiveConnections => activeConnections;
     public Vector2Int GridPosition => gridPosition;
 
+    [SerializeField] private GameObject visual;
+
+    private GameEventListener gameEventListener;
+
     void Start()
     {
         gridManager = GridManager.Instance;
@@ -22,9 +28,24 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
         currentRotation = startingRotation;
         activeConnections = Connections.Get(connectorShape, currentRotation);
 
-        gridManager.RegisterRotatableRuneBlock(gridPosition.x, gridPosition.y, this);
-        gridManager.RegisterInteractable(gridPosition.x, gridPosition.y, this);
-        gridManager.SetCellMoveableOccupancy(gridPosition.x, gridPosition.y, true);
+        if (TryGetComponent(out gameEventListener))
+            gameEventListener.OnFullConditionMet += OnConditionMet;
+
+        if (isStartingInactive)
+        {
+            SetActive(false);
+            return;
+        }
+        else
+        {
+            SetActive(true);
+        }
+
+    }
+
+    private void OnConditionMet(bool obj)
+    {
+        SetActive(obj);
     }
 
     void OnDestroy()
@@ -69,6 +90,26 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
 
         runePowerSystem.RunEnergyThrough();
     }
+
+
+    void SetActive(bool isActive)
+    {
+        visual.SetActive(isActive);
+
+        if (isActive)
+        {
+            gridManager.RegisterRotatableRuneBlock(gridPosition.x, gridPosition.y, this);
+            gridManager.RegisterInteractable(gridPosition.x, gridPosition.y, this);
+            gridManager.SetCellMoveableOccupancy(gridPosition.x, gridPosition.y, true);
+        }
+        else
+        {
+            gridManager.RegisterRotatableRuneBlock(gridPosition.x, gridPosition.y, null);
+            gridManager.RegisterInteractable(gridPosition.x, gridPosition.y, null);
+            gridManager.SetCellMoveableOccupancy(gridPosition.x, gridPosition.y, true);
+        }
+    }
+
 
 #if UNITY_EDITOR
     void OnDrawGizmos()

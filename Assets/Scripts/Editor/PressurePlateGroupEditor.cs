@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(PressurePlateGroup))]
+[CustomEditor(typeof(PressurePlateGroupListenerTrigger))]
 public class PressurePlateGroupEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        PressurePlateGroup group = (PressurePlateGroup)target;
+        PressurePlateGroupListenerTrigger group = (PressurePlateGroupListenerTrigger)target;
         GridManager gridManager = FindAnyObjectByType<GridManager>();
 
         serializedObject.Update();
