@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using Unity.VisualScripting;
 
 [CustomEditor(typeof(GridManager))]
 public class GridManagerEditor : Editor
@@ -10,6 +11,8 @@ public class GridManagerEditor : Editor
 
     private readonly string[] brushLabels = System.Enum.GetNames(typeof(GroundTileTypeEnum));
     private Color[] brushColors;
+
+
 
 
     void OnEnable()
@@ -50,20 +53,24 @@ public class GridManagerEditor : Editor
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Paint Brush", EditorStyles.boldLabel);
 
-        // Brush selector buttons
-        EditorGUILayout.BeginHorizontal();
-        for (int i = 0; i < brushLabels.Length; i++)
+        // Row 1 — ground tiles
+        DrawBrushRow(new GroundTileTypeEnum[]
         {
-            GUI.backgroundColor = brushColors[i];
-            bool isSelected = (int)selectedBrush == i;
-            GUIStyle buttonStyle = isSelected ? EditorStyles.miniButtonMid : EditorStyles.miniButton;
+            GroundTileTypeEnum.Hedge,
+            GroundTileTypeEnum.Grass,
+            GroundTileTypeEnum.Stone,
+            GroundTileTypeEnum.Water,
+            GroundTileTypeEnum.PressurePlate,
+        });
 
-            if (GUILayout.Toggle(isSelected, brushLabels[i], buttonStyle))
-                selectedBrush = (GroundTileTypeEnum)i;
-        }
-
-        GUI.backgroundColor = Color.white;
-        EditorGUILayout.EndHorizontal();
+        // Row 2 — door and rune tiles
+        DrawBrushRow(new GroundTileTypeEnum[]
+        {
+            GroundTileTypeEnum.Door,
+            GroundTileTypeEnum.RuneSource,
+            GroundTileTypeEnum.RuneChannel,
+            GroundTileTypeEnum.RuneReceiver,
+        });
 
         EditorGUILayout.Space();
         EditorGUILayout.HelpBox("Click or drag in the Scene view to paint tiles.", MessageType.Info);
@@ -83,6 +90,25 @@ public class GridManagerEditor : Editor
         }
     }
 
+    void DrawBrushRow(GroundTileTypeEnum[] tileTypes)
+    {
+        EditorGUILayout.BeginHorizontal();
+
+        foreach (GroundTileTypeEnum tileType in tileTypes)
+        {
+            int index = (int)tileType;
+            bool isSelected = selectedBrush == tileType;
+
+            GUI.backgroundColor = index < brushColors.Length ? brushColors[index] : Color.white;
+            GUIStyle buttonStyle = isSelected ? EditorStyles.miniButtonMid : EditorStyles.miniButton;
+
+            if (GUILayout.Toggle(isSelected, brushLabels[index], buttonStyle))
+                selectedBrush = tileType;
+        }
+
+        GUI.backgroundColor = Color.white;
+        EditorGUILayout.EndHorizontal();
+    }
 
     void OnSceneGUI()
     {
