@@ -8,17 +8,21 @@ public class InputManager : MonoBehaviour
 
     private InputSystem_Actions inputActions;
 
+
     // Read your movement input as a Vector2 (x for horizontal, y for vertical)
     public Vector2 Movement { get; private set; }
     public bool InteractHeld { get; private set; }
     public bool MoveButtonPushed {  get; private set; }
 
-    //public Vector2 InteractObjectDirection { get; private set; }
+    public Vector2Int CurrentInteractableLocation { get; private set; }
+
 
     // ========= EVENTS =========
     // Triggered when a relevent button is pressed, access by subscribing to these event in other scripts.
     //For example, in a PlayerController script, you could subscribe to OnInteractPressed to handle interaction logic when the player presses the interact button
 
+    public event Action OnInteractStarted;
+    //public event Action OnInteractCanceled;
     public event Action OnInteractPressed; 
     public event Action OnSecondaryInteractPressed;
     public event Action OnMenuPressed;
@@ -47,6 +51,8 @@ public class InputManager : MonoBehaviour
 
         // Interact
         inputActions.Player.Interact.performed += OnInteract;
+        inputActions.Player.Interact.started += OnInteractPressedThisFrame;
+        //inputActions.Player.Interact.canceled += OnInteractCanceled;
         inputActions.Player.Interact.started += OnInteractHeld;
         inputActions.Player.Interact.canceled += OnInteractHeldCancel;
 
@@ -65,8 +71,9 @@ public class InputManager : MonoBehaviour
 
         // Interact
         inputActions.Player.Interact.performed -= OnInteract;
+        inputActions.Player.Interact.started -= OnInteractPressedThisFrame;
         inputActions.Player.Interact.started -= OnInteractHeld;
-        inputActions.Player.Interact.canceled -= OnInteractHeld;
+        inputActions.Player.Interact.canceled -= OnInteractHeldCancel;
 
         // Secondary Interact
         inputActions.Player.SecondaryInteract.performed -= OnSecondaryInteract;
@@ -97,11 +104,20 @@ public class InputManager : MonoBehaviour
     {
         //Debug.Log("Interact Pressed");
        // Debug.Log($"Direction Pressed: {Movement}");
+        Debug.Log("Interact Pressed");
+        Debug.Log($"Direction Pressed: {Movement}");
+        //InteractObjectLocation = PlayerBehaviour.CurrentGridPosition + Vector2Int.RoundToInt(Movement);
         OnInteractPressed?.Invoke();
+    }
+
+    private void OnInteractPressedThisFrame(InputAction.CallbackContext context)
+    {
+        OnInteractStarted?.Invoke();            //CurrentInteractableLocation = PlayerBehaviour.CurrentGridPosition + Vector2Int.RoundToInt(Movement);
     }
 
     //Might not need
     // These set the public InteractHeld property for reading.
+
     private void OnInteractHeld(InputAction.CallbackContext context)
     {
         InteractHeld = true;
@@ -109,6 +125,7 @@ public class InputManager : MonoBehaviour
     private void OnInteractHeldCancel(InputAction.CallbackContext context)
     {
         InteractHeld = false;
+
     }
 
     // Likely Won't need
