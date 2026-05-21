@@ -215,14 +215,6 @@ public class GridManager : MonoBehaviour
         return tile != null && tile.IsValidRockDestination;
     }
 
-    //public bool CanPlayerMoveRock(int playerCol, int playerRow, int rockCol, int rockRow, DirectionEnum moveDirection)
-    //{
-    //    GetInteractableAtGridPosition(rockCol, rockRow);
-    //    IsCellValidRockDestination(rockCol,rockRow);
-    //    return false;
-    //}
-
-
     // Coordinate conversions, assumes grid origin is at the GameObject's position and grid is aligned with world axes
     public Vector2Int ConvertWorldPositionToGridPosition(Vector3 worldPosition)
     {
