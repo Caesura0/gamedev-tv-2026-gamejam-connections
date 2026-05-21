@@ -45,7 +45,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         HandleMovementInput();
         SmoothMoveToTarget();
-        AnimationHandler();
+        //AnimationHandler();
     }
 
     void HandleMovementInput()
