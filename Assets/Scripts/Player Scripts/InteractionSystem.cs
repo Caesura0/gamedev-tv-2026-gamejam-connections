@@ -98,6 +98,17 @@ public class InteractionSystem : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             isPlayerInRange = true;
+            if (isPlayerInRange)
+            {
+                if (!isDialogActive)
+                {
+                    StartDialog();
+                }
+                else
+                {
+                    CloseDialog();
+                }
+            }
             //Debug.Log("Player is in the area!");
         }
     }
