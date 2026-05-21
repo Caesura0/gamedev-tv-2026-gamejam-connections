@@ -19,9 +19,12 @@ public class PlayerBehaviour : MonoBehaviour
 
     private Animator animator;
     private Vector2 movementInput;
+    private IInteractable currentInteractableObject;
+    private DirectionEnum currentInteractableRelativePosition;
 
     public Vector2Int CurrentGridPosition => currentGridPosition;
     public DirectionEnum HoldInteractMoveDirection;
+
 
     void Awake()
     {
@@ -35,6 +38,7 @@ public class PlayerBehaviour : MonoBehaviour
         transform.position = gridManager.ConvertGridPositionToWorldPosition(currentGridPosition.x, currentGridPosition.y);
         targetWorldPosition = transform.position;
         InputManager.Instance.OnInteractPressed += HandleInteractionInput;
+        InputManager.Instance.OnInteractStarted += SetInteractObject;
     }
 
     void Update()
@@ -66,6 +70,18 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    void SetInteractObject() 
+    {
+        var currentFacingDirection = lastMoveDirection;//GetDirectionFromInput();
+
+        currentInteractableRelativePosition = (DirectionEnum)currentFacingDirection;
+        Vector2Int interactObjectLocation = currentGridPosition + currentInteractableRelativePosition.ToVector();
+        //Debug.Log($"Current Interactable Object location: ({interactObjectLocation.x}, {interactObjectLocation.y})");
+
+        currentInteractableObject = gridManager.GetInteractableAtGridPosition(interactObjectLocation.x, interactObjectLocation.y);
+        //Debug.Log($"Setting Current Interactable Object to {currentInteractableObject.GetType()}");
+    }
+    
     void HandleInteractionInput()
     {
         //Debug.Log("Interact button pressed, attempting interaction...");
@@ -74,57 +90,34 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void TryInteract()
     {
-        Vector2Int facingCell = currentGridPosition + lastMoveDirection.ToVector();
-        // FIXME for null references - interact pushed when no object
-        IInteractable interactable = gridManager.GetInteractableAtGridPosition(facingCell.x, facingCell.y);
-        if (interactable == null) return;
-        bool isPushableRock = interactable is PushableRock pushableRock;
-        bool validMoveDirection = movementInput == lastMoveDirection.ToVector() || movementInput == -lastMoveDirection.ToVector();
-        
-        // Trying to work out code to push/pull
-        if (interactable != null && isPushableRock)
-        {
+        if (currentInteractableObject != null && currentInteractableObject.GetType() == typeof(PushableRock))
+                {
             //Debug.Log("Rock is Pushable");
             if (isPressingMove) 
-            { 
-                //Debug.Log("Is trying to push rock");
-                if (movementInput == lastMoveDirection.ToVector())
+            {
+                DirectionEnum? movementDirection = GetDirectionFromInput();
+                // Attempt to Push Rock
+                if (movementDirection == currentInteractableRelativePosition)
                 {
-                    if (interactable.TryInteract(this))
+                    // Rock tries to move first
+                    if (currentInteractableObject.TryInteract(this))
                     {
-                        TryMove((lastMoveDirection));
+                        TryMove((currentInteractableRelativePosition));
                     }
                 }
-                else if (movementInput == -lastMoveDirection.ToVector())
+                // Attempt to Pull Rock
+                else if (movementDirection == currentInteractableRelativePosition.Opposite())
                 {
-                    
-                    if (TryMove(lastMoveDirection.Opposite()))
+                    // Player tries to move first
+                    if (TryMove(currentInteractableRelativePosition.Opposite()))
                     {
-                        interactable.TryInteract(this);
+                        currentInteractableObject.TryInteract(this);
                     }
                 }
-                //if (validMoveDirection)
-                //{ 
-                //    Debug.Log("Push direction valid");
-                //    if (interactable.TryInteract(this))
-                //    {
-                //        TryMove(lastMoveDirection);
-                //    }
-                //}
             }
-            //Debug.Log("Trying to push rock in valid direction");
-            // Check if move button also pressed
-
-            // Check if valid direction
-
-            // Rock can be pushed in given direction
-            // FIXME: Change direction player and rock move to the current held arrow key while interact held
-            // Player and rock can move into each others space as long as other can move...
-            
-            // Rock cannot be pushed
-            else { }
         }
-        else { interactable?.TryInteract(this); }
+        // Interactables that aren't moving rocks
+        else { currentInteractableObject?.TryInteract(this); }
     }
 
 

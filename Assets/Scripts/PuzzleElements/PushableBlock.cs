@@ -42,18 +42,11 @@ public class PushableRock : MonoBehaviour, IInteractable
         return true;
     }
 
-    //public bool TryInteract(PlayerBehaviour player)
-    //{
-    //    // Calculate push direction from player position to rock position
-    //    Vector2Int pushDirection = currentGridPosition - player.CurrentGridPosition;
-    //    Debug.Log($"Attempting to push rock in direction {pushDirection}");
-    //    return TryMove(pushDirection);
-    //}
     public bool TryInteract(PlayerBehaviour player)
     {
         // Calculate push direction from player position to rock position
-        Vector2Int pushDirection = Vector2Int.RoundToInt(InputManager.Instance.Movement);//currentGridPosition - player.CurrentGridPosition;
-        Debug.Log($"Attempting to push rock in direction {pushDirection}");
+        Vector2Int pushDirection = Vector2Int.RoundToInt(InputManager.Instance.Movement);
+        //Debug.Log($"Attempting to push rock in direction {pushDirection}");
         return TryMove(pushDirection);
     }
 
