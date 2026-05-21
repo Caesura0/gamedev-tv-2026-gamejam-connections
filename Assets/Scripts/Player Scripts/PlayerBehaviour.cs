@@ -21,6 +21,7 @@ public class PlayerBehaviour : MonoBehaviour
     private Vector2 movementInput;
     private IInteractable currentInteractableObject;
     private DirectionEnum currentInteractableRelativePosition;
+    private AudioManager audioManager;
 
     public Vector2Int CurrentGridPosition => currentGridPosition;
     public DirectionEnum HoldInteractMoveDirection;
@@ -39,6 +40,7 @@ public class PlayerBehaviour : MonoBehaviour
         targetWorldPosition = transform.position;
         InputManager.Instance.OnInteractPressed += HandleInteractionInput;
         InputManager.Instance.OnInteractStarted += SetInteractObject;
+        audioManager = AudioManager.Instance;
     }
 
     void Update()
@@ -47,9 +49,11 @@ public class PlayerBehaviour : MonoBehaviour
         isPressingMove = InputManager.Instance.Movement != Vector2.zero;
         isHoldingInteract = InputManager.Instance.InteractHeld;
 
+        
         HandleMovementInput();
         SmoothMoveToTarget();
         AnimationHandler();
+        HandleSounds();
     }
 
     void HandleMovementInput()
@@ -187,6 +191,14 @@ public class PlayerBehaviour : MonoBehaviour
         animator.SetFloat("MoveY", movementInput.y);
     }
 
+    void HandleSounds()
+    {
+        if (isWalking) 
+        {
+            GroundTileTypeEnum groundTileType = gridManager.GetSerializedTileAt(currentGridPosition.x, currentGridPosition.y).GroundTileType;
+            audioManager.PlayFootstepSound(groundTileType);
+        }
+    }
 }
 
 

@@ -1,6 +1,4 @@
 using System;
-
-
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -41,7 +39,7 @@ public class AudioManager : MonoBehaviour
         }
         if (!PlayerPrefs.HasKey(SOUNDEFFECTFLOATNAME))
         {
-            PlayerPrefs.SetFloat(SOUNDEFFECTFLOATNAME, 1f);
+            PlayerPrefs.SetFloat(SOUNDEFFECTFLOATNAME, 0.5f);
         }
         SetMusicVolume(MUSICFLOATNAME, PlayerPrefs.GetFloat(MUSICFLOATNAME));
         SetSoundEffectVolume(SOUNDEFFECTFLOATNAME, PlayerPrefs.GetFloat(SOUNDEFFECTFLOATNAME));
@@ -82,10 +80,27 @@ public class AudioManager : MonoBehaviour
         audioSource.PlayOneShot(soundManager.boulderSound, soundEffectVolume);
     }
 
-    public void PlayFootstepSound()
+    public void PlayFootstepSound(GroundTileTypeEnum groundType)
     {
-        int randomIndex = UnityEngine.Random.Range(0, soundManager.footstepSoundArray.Length);
-        audioSource.PlayOneShot(soundManager.footstepSoundArray[randomIndex], soundEffectVolume);
+        AudioClip[] footstepSounds = null;
+        int numberSoundClips = 0;
+        switch (groundType) 
+        {
+            case GroundTileTypeEnum.Grass:
+                footstepSounds = soundManager.footstepOnGrassSoundArray;
+                numberSoundClips = footstepSounds.Length;
+                break;
+            case GroundTileTypeEnum.Stone:
+                footstepSounds = soundManager.footstepOnStoneSoundArray;
+                numberSoundClips = footstepSounds.Length;
+                break;
+            default: break;
+        }
+        if (numberSoundClips > 0 && footstepSounds != null)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, numberSoundClips);
+            audioSource.PlayOneShot(footstepSounds[randomIndex], soundEffectVolume);
+        }
     }
 
     public void PlayHitSound()
