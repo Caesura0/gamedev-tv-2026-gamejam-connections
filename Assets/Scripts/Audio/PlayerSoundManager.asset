@@ -13,7 +13,36 @@ MonoBehaviour:
   m_Name: PlayerSoundManager
   m_EditorClassIdentifier: Assembly-CSharp::SoundManagerSO
   boulderSound: {fileID: 0}
-  footstepSoundArray: []
+  footstepOnGrassSoundArray:
+  - {fileID: 8300000, guid: 0e2effb6138200c4d853096598ab3b79, type: 3}
+  - {fileID: 8300000, guid: 643d7d0fb7695034592f051240af86cf, type: 3}
+  - {fileID: 8300000, guid: 097bb42780471e54787d4465d2c7f28a, type: 3}
+  - {fileID: 8300000, guid: 0acc63a1d91813e4192d8824bbfb5b9a, type: 3}
+  - {fileID: 8300000, guid: 8c69920361801bb428ae70ce3ef52fa7, type: 3}
+  - {fileID: 8300000, guid: 3fdfd7fc184684b46bccc78a1dafc881, type: 3}
+  - {fileID: 8300000, guid: 49264ca60b07f294f87eb8bc6c5ec168, type: 3}
+  - {fileID: 8300000, guid: 6ff969c04a6a2644eb0c35815e1523ea, type: 3}
+  - {fileID: 8300000, guid: 7c32479ecf8ad73429ef0196cd9fbfb6, type: 3}
+  - {fileID: 8300000, guid: be93b559d40fd5f41a366287dda33f81, type: 3}
+  - {fileID: 8300000, guid: a6dbae6a4d729bc4da44c21acb800fa1, type: 3}
+  - {fileID: 8300000, guid: 2fef57ead18ee8a4a8f42f175e68c4d0, type: 3}
+  - {fileID: 8300000, guid: a51eef9dc3c95c444a75e224343e5697, type: 3}
+  - {fileID: 8300000, guid: 6411c380a1e5e6c408100ef9becbeac5, type: 3}
+  footstepOnStoneSoundArray:
+  - {fileID: 8300000, guid: 4c82047afeb40de429c12d43fae1dddc, type: 3}
+  - {fileID: 8300000, guid: 26162bce85fa5544b939deb44e889489, type: 3}
+  - {fileID: 8300000, guid: 735863d8eea0acd4b9b73c2908fd009f, type: 3}
+  - {fileID: 8300000, guid: ba6c6343f51045347a06321632d49bcd, type: 3}
+  - {fileID: 8300000, guid: 31c40a18339df8248b62c97505fa22a4, type: 3}
+  - {fileID: 8300000, guid: ed2752f8401365e4c9fdf7b36daad9a6, type: 3}
+  - {fileID: 8300000, guid: 1043dec2dacfea644b8fe7be072ca9ce, type: 3}
+  - {fileID: 8300000, guid: 1d14d49b33adcf24499b19f873c4e927, type: 3}
+  - {fileID: 8300000, guid: b7a9c0253d2b7494db73ad16bbeb27b8, type: 3}
+  - {fileID: 8300000, guid: eddb7a6cc37fb8d4f99d211d675f7226, type: 3}
+  - {fileID: 8300000, guid: 518cb2a57dacda941961534bf3d79ba1, type: 3}
+  - {fileID: 8300000, guid: 3625f13d949f56147be612320378be97, type: 3}
+  - {fileID: 8300000, guid: fabab20a740b71243ac50772bfefc93e, type: 3}
+  - {fileID: 8300000, guid: 02a14a4e4d9c6204eb2e4e36ed5b5c94, type: 3}
   hitSound: {fileID: 0}
   pickupPointsSound: {fileID: 0}
   pickupBigPointsSound: {fileID: 0}
