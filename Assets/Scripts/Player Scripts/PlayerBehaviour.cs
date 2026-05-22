@@ -1,4 +1,5 @@
-﻿using Unity.VisualScripting;
+﻿using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +7,7 @@ public class PlayerBehaviour : MonoBehaviour
 {
     [SerializeField] private float stepDelay = 0.15f;
     [SerializeField] private float movementSpeed = 10f;
+    [SerializeField] private int footstepsPerMovementBetweenTiles = 2;
 
     private GridManager gridManager;
     private Vector2Int currentGridPosition;
@@ -26,6 +28,8 @@ public class PlayerBehaviour : MonoBehaviour
     public Vector2Int CurrentGridPosition => currentGridPosition;
     public DirectionEnum HoldInteractMoveDirection;
 
+    private float travelTimePerTile;
+
 
     void Awake()
     {
@@ -41,6 +45,8 @@ public class PlayerBehaviour : MonoBehaviour
         InputManager.Instance.OnInteractPressed += HandleInteractionInput;
         InputManager.Instance.OnInteractStarted += SetInteractObject;
         audioManager = AudioManager.Instance;
+        // we use this to get how long it takes the player to move tile to tile for the sound manager since its consistant
+        travelTimePerTile = GridManager.Instance.WorldTileSize / movementSpeed; 
     }
 
     void Update()
@@ -53,7 +59,6 @@ public class PlayerBehaviour : MonoBehaviour
         HandleMovementInput();
         SmoothMoveToTarget();
         AnimationHandler();
-        HandleSounds();
 
     }
 
@@ -136,6 +141,17 @@ public class PlayerBehaviour : MonoBehaviour
         // Player cannot move to destination
         if (!gridManager.IsCellPassableByPlayer(targetGridPosition.x, targetGridPosition.y)) return false;
 
+        // Capture tile types BEFORE moving
+        GroundTileTypeEnum liftTileType = gridManager
+            .GetSerializedTileAt(currentGridPosition.x, currentGridPosition.y)
+            .GroundTileType;
+
+        // Capture destination tile type
+        GroundTileTypeEnum landTileType = gridManager
+            .GetSerializedTileAt(targetGridPosition.x, targetGridPosition.y)
+            .GroundTileType;
+
+        StartCoroutine(PlayTwoFootsteps(liftTileType, landTileType));
         // Player moves to destination
         gridManager.SetCellMoveableOccupancy(currentGridPosition.x, currentGridPosition.y, false);
         currentGridPosition = targetGridPosition;
@@ -220,6 +236,26 @@ public class PlayerBehaviour : MonoBehaviour
     public void SetPlayerFaceDirection(DirectionEnum directionFacing)
     {
         lastMoveDirection = directionFacing;
+    }
+
+    private IEnumerator PlayTwoFootsteps(GroundTileTypeEnum startTileType, GroundTileTypeEnum destinationTileType)
+    {
+        int liftSteps = footstepsPerMovementBetweenTiles / 2;
+        int landSteps = footstepsPerMovementBetweenTiles - liftSteps; // odd remainder goes to destination, eg, 3 steps, 1 on start, 2 on destination
+
+        float interval = travelTimePerTile / footstepsPerMovementBetweenTiles;
+
+        for (int i = 0; i < liftSteps; i++)
+        {
+            audioManager.PlayFootstepSound(startTileType);
+            yield return new WaitForSeconds(interval);
+        }
+
+        for (int i = 0; i < landSteps; i++)
+        {
+            audioManager.PlayFootstepSound(destinationTileType);
+            yield return new WaitForSeconds(interval);
+        }
     }
 }
 
