@@ -10,7 +10,11 @@ public class SceneController : MonoBehaviour
     {
         Debug.Log($"Trigger: Level complete. Loading Scene {nextScene}");
         Debug.Log($"Starting location: {playerStartLocation}");
+        SceneChangeData.Instance.playerStartLocation = playerStartLocation;
+        SceneChangeData.Instance.playerStartFacing = playerStartFacing;
+
         Loader.Load(nextScene);
+
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         PlayerBehaviour playerScript = player.GetComponent<PlayerBehaviour>();
         if (playerScript != null)

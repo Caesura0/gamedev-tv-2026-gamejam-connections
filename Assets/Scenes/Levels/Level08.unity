@@ -583,7 +583,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7250680965311680342, guid: d39c1bb07f5ded34695c9a94869c1cd7, type: 3}
       propertyPath: m_Name
-      value: RotateableBlock (3)
+      value: RotateableBlockHidden
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -855,7 +855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2f41801a575be4ba6cc465d6cc62bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameEventListener
-  isPressurePlateNeededToBeActive: 0
+  isPressurePlateNeededToBeActive: 1
   isRuneReceiverNeededToBeActive: 0
 --- !u!1001 &1940968639619337184
 PrefabInstance:

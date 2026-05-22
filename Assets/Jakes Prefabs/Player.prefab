@@ -188,8 +188,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af8310214362bbc418db4fffd6278961, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBehaviour
-  stepDelay: 0.15
+  stepDelay: 0.25
   movementSpeed: 10
+  footstepsPerMovementBetweenTiles: 2
   HoldInteractMoveDirection: 0
 --- !u!114 &8812986448916195513
 MonoBehaviour:

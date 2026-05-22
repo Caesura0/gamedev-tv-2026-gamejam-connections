@@ -39,8 +39,9 @@ public class PlayerBehaviour : MonoBehaviour
     void Start()
     {
         gridManager = GridManager.Instance;
-        currentGridPosition = gridManager.ConvertWorldPositionToGridPosition(transform.position);
-        transform.position = gridManager.ConvertGridPositionToWorldPosition(currentGridPosition.x, currentGridPosition.y);
+        //transform.position = SceneChangeData.Instance.playerStartLocation;
+        //currentGridPosition = gridManager.ConvertWorldPositionToGridPosition(transform.position);
+        transform.position = gridManager.ConvertGridPositionToWorldPosition(SceneChangeData.Instance.playerStartLocation.x, SceneChangeData.Instance.playerStartLocation.y);
         targetWorldPosition = transform.position;
         InputManager.Instance.OnInteractPressed += HandleInteractionInput;
         InputManager.Instance.OnInteractStarted += SetInteractObject;
@@ -219,19 +220,21 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void SetPlayerLocation(Vector2Int newPlayerCoordinates)
     {
-        // Player moves to destination
-        gridManager.SetCellMoveableOccupancy(currentGridPosition.x, currentGridPosition.y, false);
         currentGridPosition = newPlayerCoordinates;
-        targetWorldPosition = gridManager.ConvertGridPositionToWorldPosition(
-            currentGridPosition.x,
-            currentGridPosition.y
-        );
 
-        gridManager.SetCellMoveableOccupancy(currentGridPosition.x, currentGridPosition.y, true);
+        //// Player moves to destination
+        //gridManager.SetCellMoveableOccupancy(currentGridPosition.x, currentGridPosition.y, false);
+        //currentGridPosition = newPlayerCoordinates;
+        //targetWorldPosition = gridManager.ConvertGridPositionToWorldPosition(
+        //    currentGridPosition.x,
+        //    currentGridPosition.y
+        //);
 
-        //stepCooldownTimer = stepDelay;
-        isWalking = false;
-        //transform.position = targetWorldPosition;
+        //gridManager.SetCellMoveableOccupancy(currentGridPosition.x, currentGridPosition.y, true);
+
+        ////stepCooldownTimer = stepDelay;
+        //isWalking = false;
+        ////transform.position = targetWorldPosition;
     }
 
     public void SetPlayerFaceDirection(DirectionEnum directionFacing)
