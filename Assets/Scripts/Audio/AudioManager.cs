@@ -9,7 +9,7 @@ public class AudioManager : MonoBehaviour
     float soundEffectVolume;
 
     [SerializeField] SoundManagerSO soundManager;
-
+    [SerializeField] float footstepFineTuneVolume = 0.3f;
     const string MUSICFLOATNAME = "musicVolume";
     const string SOUNDEFFECTFLOATNAME = "soundEffectVolume";
 
@@ -99,7 +99,7 @@ public class AudioManager : MonoBehaviour
         if (numberSoundClips > 0 && footstepSounds != null)
         {
             int randomIndex = UnityEngine.Random.Range(0, numberSoundClips);
-            audioSource.PlayOneShot(footstepSounds[randomIndex], soundEffectVolume);
+            audioSource.PlayOneShot(footstepSounds[randomIndex], soundEffectVolume * footstepFineTuneVolume);
             Debug.Log($"Sound played: footstepSounds #{randomIndex}");
         }
     }
