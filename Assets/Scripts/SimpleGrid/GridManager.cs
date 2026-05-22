@@ -120,9 +120,10 @@ public class GridManager : MonoBehaviour
             {
                 serializedTileGridArray[index].GroundTileType = GroundTileTypeEnum.Stone;
                 serializedTileGridArray[index].IsOccupiedByMoveable = false;
-                serializedTileGridArray[index].IsInWater = true;
+                serializedTileGridArray[index].Interactable = null;
                 //repaint the tile in the editor so it doesn't look like a water tile anymore
                 //TODO: replaceSprite so it shows bridge type thing
+                return;
             }
 
         }

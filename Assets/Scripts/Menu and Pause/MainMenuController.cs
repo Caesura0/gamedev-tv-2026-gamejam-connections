@@ -4,7 +4,9 @@ using UnityEngine.SceneManagement;
 public class MainMenuController : MonoBehaviour
 {
     [SerializeField] GameObject optionsWindow;
-
+    SceneEnum nextScene = SceneEnum.Level01;
+    private Vector2Int playerStartLocation = new Vector2Int(8,2);
+    private DirectionEnum playerStartFacing = DirectionEnum.North;
 
     private void Start()
     {
@@ -12,8 +14,10 @@ public class MainMenuController : MonoBehaviour
     }
     public void StartGame()
     {
-
-        //Loader.Load(Loader.Scene.Gameplay);
+        Debug.Log("Start Game Pressed");
+        SceneChangeData.Instance.playerStartLocation = playerStartLocation;
+        SceneChangeData.Instance.playerStartFacing = playerStartFacing;
+        Loader.Load(nextScene);
         //AudioManager.Instance.PlayButtonClick();
     }
 
