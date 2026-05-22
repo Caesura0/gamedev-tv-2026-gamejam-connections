@@ -100,6 +100,7 @@ public class AudioManager : MonoBehaviour
         {
             int randomIndex = UnityEngine.Random.Range(0, numberSoundClips);
             audioSource.PlayOneShot(footstepSounds[randomIndex], soundEffectVolume);
+            Debug.Log($"Sound played: footstepSounds #{randomIndex}");
         }
     }
 

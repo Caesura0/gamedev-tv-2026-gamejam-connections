@@ -17,7 +17,7 @@ public static class Loader
     {
         MainMenu,
         Gameplay,
-        Loading, 
+        Loading,
 
     }
 
@@ -25,19 +25,22 @@ public static class Loader
     private static Action onLoaderCallback;
     private static AsyncOperation loadingAsyncOperation;
 
-    public static void Load(Scene scene)
+    public static void Load(SceneEnum scene)
     {
+        
         Debug.Log(scene.ToString());
+        SceneManager.LoadScene(scene.ToString());
+
         //this creates a method/function through the lambda that can then be called in the loader callback 
-        onLoaderCallback = () =>
-        {
-            GameObject loadingGameObject = new GameObject("Loading Game Object");
-            loadingGameObject.AddComponent<LoadingMonoBehavior>().StartCoroutine(LoadSceneAsync(scene));
-            //stores the target scene to be loaded
-            
-        };
-        //loads the loading scene, acts as a buffer for smoother transitions
-        SceneManager.LoadScene(Scene.Loading.ToString());
+        //onLoaderCallback = () =>
+        //{
+        //    GameObject loadingGameObject = new GameObject("Loading Game Object");
+        //    loadingGameObject.AddComponent<LoadingMonoBehavior>().StartCoroutine(LoadSceneAsync(scene));
+        //    //stores the target scene to be loaded
+
+        //};
+        ////loads the loading scene, acts as a buffer for smoother transitions
+        //SceneManager.LoadScene(Scene.Loading.ToString());
     }
 
 

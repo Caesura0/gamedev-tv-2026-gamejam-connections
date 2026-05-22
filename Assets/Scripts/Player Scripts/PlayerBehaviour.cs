@@ -199,6 +199,27 @@ public class PlayerBehaviour : MonoBehaviour
             audioManager.PlayFootstepSound(groundTileType);
         }
     }
+
+    public void SetPlayerLocation(Vector2Int newPlayerCoordinates)
+    {
+        // Player moves to destination
+        gridManager.SetCellMoveableOccupancy(currentGridPosition.x, currentGridPosition.y, false);
+        currentGridPosition = newPlayerCoordinates;
+        targetWorldPosition = gridManager.ConvertGridPositionToWorldPosition(
+            currentGridPosition.x,
+            currentGridPosition.y
+        );
+
+        gridManager.SetCellMoveableOccupancy(currentGridPosition.x, currentGridPosition.y, true);
+
+        stepCooldownTimer = stepDelay;
+        isWalking = false;
+    }
+
+    public void SetPlayerFaceDirection(DirectionEnum directionFacing)
+    {
+        lastMoveDirection = directionFacing;
+    }
 }
 
 
