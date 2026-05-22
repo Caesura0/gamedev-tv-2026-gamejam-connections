@@ -40,8 +40,16 @@ public class PlayerBehaviour : MonoBehaviour
     {
         gridManager = GridManager.Instance;
         //transform.position = SceneChangeData.Instance.playerStartLocation;
-        //currentGridPosition = gridManager.ConvertWorldPositionToGridPosition(transform.position);
-        transform.position = gridManager.ConvertGridPositionToWorldPosition(SceneChangeData.Instance.playerStartLocation.x, SceneChangeData.Instance.playerStartLocation.y);
+ 
+        if(SceneChangeData.Instance != null)
+        {
+               transform.position = gridManager.ConvertGridPositionToWorldPosition(SceneChangeData.Instance.playerStartLocation.x, SceneChangeData.Instance.playerStartLocation.y);
+        }
+        else
+        {
+            Debug.LogWarning("SceneChangeData instance is null. Defaulting player start location to (0,0).");
+        }
+        currentGridPosition = gridManager.ConvertWorldPositionToGridPosition(transform.position);
         targetWorldPosition = transform.position;
         InputManager.Instance.OnInteractPressed += HandleInteractionInput;
         InputManager.Instance.OnInteractStarted += SetInteractObject;

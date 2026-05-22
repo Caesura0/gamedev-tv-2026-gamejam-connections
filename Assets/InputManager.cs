@@ -61,6 +61,7 @@ public class InputManager : MonoBehaviour
 
     private void OnDisable()
     {
+        if(inputActions == null) return; // In case OnDisable is called before Awake
         // Movement
         inputActions.Player.Movement.performed -= OnMovementPerformed;
         inputActions.Player.Movement.canceled -= OnMovementCanceled;
