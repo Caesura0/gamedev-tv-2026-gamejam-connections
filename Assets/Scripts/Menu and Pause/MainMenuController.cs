@@ -13,7 +13,7 @@ public class MainMenuController : MonoBehaviour
     public void StartGame()
     {
 
-        Loader.Load(Loader.Scene.Gameplay);
+        //Loader.Load(Loader.Scene.Gameplay);
         //AudioManager.Instance.PlayButtonClick();
     }
 
