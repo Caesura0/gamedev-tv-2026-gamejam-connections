@@ -229,8 +229,9 @@ public class PlayerBehaviour : MonoBehaviour
 
         gridManager.SetCellMoveableOccupancy(currentGridPosition.x, currentGridPosition.y, true);
 
-        stepCooldownTimer = stepDelay;
+        //stepCooldownTimer = stepDelay;
         isWalking = false;
+        //transform.position = targetWorldPosition;
     }
 
     public void SetPlayerFaceDirection(DirectionEnum directionFacing)

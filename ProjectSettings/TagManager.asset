@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Exit
   layers:
   - Default
   - TransparentFX
@@ -44,3 +45,6 @@ TagManager:
   - name: Player
     uniqueID: 1526880591
     locked: 0
+  m_RenderingLayers:
+  - Default
+  m_MigratedRenderPipelines: []

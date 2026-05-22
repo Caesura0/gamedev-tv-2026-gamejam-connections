@@ -9,11 +9,13 @@ public class SceneController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log($"Trigger: Level complete. Loading Scene {nextScene}");
+        Debug.Log($"Starting location: {playerStartLocation}");
         Loader.Load(nextScene);
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         PlayerBehaviour playerScript = player.GetComponent<PlayerBehaviour>();
         if (playerScript != null)
         {
+            Debug.Log($"Starting location: {playerStartLocation}");
             playerScript.SetPlayerLocation(playerStartLocation);
             playerScript.SetPlayerFaceDirection(playerStartFacing);
         }
