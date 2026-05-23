@@ -186,8 +186,8 @@ MonoBehaviour:
   switchButtonClick: {fileID: 8300000, guid: 15dcaa5a97f3d77458cfa4ff4a14cf94, type: 3}
   closeClick: {fileID: 8300000, guid: 97ec68a4dc85744409d87e667db9bec6, type: 3}
   invalidClick: {fileID: 0}
-  pauseClick: {fileID: 0}
-  resumeClick: {fileID: 0}
+  pauseClick: {fileID: 8300000, guid: 46c73f01c84e46e44a665e1e407a9851, type: 3}
+  resumeClick: {fileID: 8300000, guid: 46c73f01c84e46e44a665e1e407a9851, type: 3}
   changeVolumeClick: {fileID: 0}
   introMusic: {fileID: 8300000, guid: 71a7a826f421e1545a1d2db84661d546, type: 3}
   mainMenuMusic: {fileID: 8300000, guid: cb576133d4cee3845af7e7fbe6819f54, type: 3}

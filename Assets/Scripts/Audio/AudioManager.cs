@@ -14,7 +14,11 @@ public class AudioManager : MonoBehaviour
     const string SOUNDEFFECTFLOATNAME = "soundEffectVolume";
 
 
-    AudioSource audioSource;
+    [SerializeField] AudioSource musicAudioSource;
+    [SerializeField] AudioSource soundAudioSource;
+
+
+
     private void Awake()
     {
         if(Instance == null)
@@ -30,7 +34,7 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+
 
 
         if (!PlayerPrefs.HasKey(MUSICFLOATNAME))
@@ -50,7 +54,7 @@ public class AudioManager : MonoBehaviour
     public void SetMusicVolume(string floatName, float volume) 
     {
         musicVolume = volume;
-        audioSource.volume = musicVolume;
+        musicAudioSource.volume = musicVolume;
         PlayerPrefs.SetFloat(floatName, musicVolume);
         SaveVolumes();
 
@@ -78,6 +82,7 @@ public class AudioManager : MonoBehaviour
     
     public void PlayFootstepSound(GroundTileTypeEnum groundType)
     {
+
         AudioClip[] footstepSounds = null;
         int numberSoundClips = 0;
         switch (groundType) 
@@ -92,11 +97,14 @@ public class AudioManager : MonoBehaviour
                 break;
             default: break;
         }
+
+
         if (numberSoundClips > 0 && footstepSounds != null)
         {
             int randomIndex = UnityEngine.Random.Range(0, numberSoundClips);
-            audioSource.PlayOneShot(footstepSounds[randomIndex], soundEffectVolume * footstepFineTuneVolume);
-            Debug.Log($"Sound played: footstepSounds #{randomIndex}");
+
+            soundAudioSource.PlayOneShot(footstepSounds[randomIndex], soundEffectVolume * footstepFineTuneVolume);
+
         }
     }
 
@@ -158,31 +166,31 @@ public class AudioManager : MonoBehaviour
     // Button click sounds
     public void PlayButtonClick()
     {
-        audioSource.PlayOneShot(soundManager.buttonClick, soundEffectVolume);
+        soundAudioSource.PlayOneShot(soundManager.buttonClick, soundEffectVolume);
     }
 
     public void PlaySwitchButtonClick()
     {
-        audioSource.PlayOneShot(soundManager.switchButtonClick, soundEffectVolume);
+        soundAudioSource.PlayOneShot(soundManager.switchButtonClick, soundEffectVolume);
     }
 
     public void PlayCloseClick()
     {
-        audioSource.PlayOneShot(soundManager.closeClick, soundEffectVolume);
+        soundAudioSource.PlayOneShot(soundManager.closeClick, soundEffectVolume);
     }
 
     public void PlayInvalidClick()
     {
-        audioSource.PlayOneShot(soundManager.invalidClick, soundEffectVolume);
+        soundAudioSource.PlayOneShot(soundManager.invalidClick, soundEffectVolume);
     }
 
     public void PlayPauseClick()
     {
-        audioSource.PlayOneShot(soundManager.pauseClick, soundEffectVolume);
+        soundAudioSource.PlayOneShot(soundManager.pauseClick, soundEffectVolume);
     }
     public void PlayResumeClick()
     {
-        audioSource.PlayOneShot(soundManager.resumeClick, soundEffectVolume);
+        soundAudioSource.PlayOneShot(soundManager.resumeClick, soundEffectVolume);
     }
 
     //// Win/Lose sounds
@@ -219,20 +227,20 @@ public class AudioManager : MonoBehaviour
 
     private void PlayMusic(AudioClip clip)
     {
-        if (audioSource.isPlaying)
+        if (musicAudioSource.isPlaying)
         {
-            audioSource.Stop();
+            musicAudioSource.Stop();
         }
-        audioSource.clip = clip;
-        audioSource.volume = musicVolume;
-        audioSource.loop = true;
-        audioSource.Play();
-        Debug.Log(audioSource.clip + "" + musicVolume);
+        musicAudioSource.clip = clip;
+        musicAudioSource.volume = musicVolume;
+        musicAudioSource.loop = true;
+        musicAudioSource.Play();
+        Debug.Log(musicAudioSource.clip + "" + musicVolume);
     }
 
     public void ChangeVolumeClick()
     {
-        audioSource.PlayOneShot(soundManager.changeVolumeClick, soundEffectVolume);
+        soundAudioSource.PlayOneShot(soundManager.changeVolumeClick, soundEffectVolume);
     }
 
     //public void PlayLowTimeAlert()

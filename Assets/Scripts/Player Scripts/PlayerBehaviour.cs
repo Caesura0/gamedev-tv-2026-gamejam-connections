@@ -51,7 +51,6 @@ public class PlayerBehaviour : MonoBehaviour
         targetWorldPosition = transform.position;
         InputManager.Instance.OnInteractPressed += HandleInteractionInput;
         InputManager.Instance.OnInteractStarted += SetInteractObject;
-        audioManager = AudioManager.Instance;
         // we use this to get how long it takes the player to move tile to tile for the sound manager since its consistant
         travelTimePerTile = GridManager.Instance.WorldTileSize / movementSpeed; 
     }
@@ -65,26 +64,31 @@ public class PlayerBehaviour : MonoBehaviour
         
         HandleMovementInput();
         SmoothMoveToTarget();
-        AnimationHandler();
+        //AnimationHandler();
 
     }
+
+
+
 
     void HandleMovementInput()
     {
         stepCooldownTimer -= Time.deltaTime;
         if (stepCooldownTimer > 0f) return;
+        if (isWalking) return;
 
         DirectionEnum? moveDirection = GetDirectionFromInput();
-        if (moveDirection == null) return;
+
+        if (moveDirection == null)
+        {
+            animator.SetFloat("Speed", 0f);
+            return;
+        }
 
         if (isHoldingInteract)
-        {
             HandleInteractionInput();
-        }
         else
-        {
             TryMove(moveDirection.Value);
-        }
     }
 
     void SetInteractObject() 
@@ -145,28 +149,20 @@ public class PlayerBehaviour : MonoBehaviour
         Vector2Int targetGridPosition = currentGridPosition + moveDirection.ToVector();
         lastMoveDirection = moveDirection;
 
-        // Player cannot move to destination
         if (!gridManager.IsCellPassableByPlayer(targetGridPosition.x, targetGridPosition.y)) return false;
 
-        // Capture tile types BEFORE moving
-        GroundTileTypeEnum liftTileType = gridManager
-            .GetSerializedTileAt(currentGridPosition.x, currentGridPosition.y)
-            .GroundTileType;
+        Vector2Int dir = lastMoveDirection.ToVector();
+        animator.SetFloat("MoveX", dir.x);
+        animator.SetFloat("MoveY", dir.y);
+        animator.SetFloat("Speed", 1f);
 
-        // Capture destination tile type
-        GroundTileTypeEnum landTileType = gridManager
-            .GetSerializedTileAt(targetGridPosition.x, targetGridPosition.y)
-            .GroundTileType;
-
+        GroundTileTypeEnum liftTileType = gridManager.GetSerializedTileAt(currentGridPosition.x, currentGridPosition.y).GroundTileType;
+        GroundTileTypeEnum landTileType = gridManager.GetSerializedTileAt(targetGridPosition.x, targetGridPosition.y).GroundTileType;
         StartCoroutine(PlayTwoFootsteps(liftTileType, landTileType));
-        // Player moves to destination
+
         gridManager.SetCellMoveableOccupancy(currentGridPosition.x, currentGridPosition.y, false);
         currentGridPosition = targetGridPosition;
-        targetWorldPosition = gridManager.ConvertGridPositionToWorldPosition(
-            currentGridPosition.x,
-            currentGridPosition.y
-        );
-
+        targetWorldPosition = gridManager.ConvertGridPositionToWorldPosition(currentGridPosition.x, currentGridPosition.y);
         gridManager.SetCellMoveableOccupancy(currentGridPosition.x, currentGridPosition.y, true);
 
         stepCooldownTimer = stepDelay;
@@ -188,6 +184,9 @@ public class PlayerBehaviour : MonoBehaviour
         {
             transform.position = targetWorldPosition;
             isWalking = false;
+
+            if (!isPressingMove)
+                animator.SetFloat("Speed", 0f);
         }
     }
 
@@ -208,24 +207,22 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    void AnimationHandler()
-    {
+    //void AnimationHandler()
+    //{
 
-        animator.SetBool("IsWalking", isWalking);
+    //    Vector2Int directionVector = lastMoveDirection.ToVector();
+    //    animator.SetFloat("MoveX", directionVector.x);
+    //    animator.SetFloat("MoveY", directionVector.y);
+    //}
 
-        Vector2Int directionVector = lastMoveDirection.ToVector();
-        animator.SetFloat("MoveX", directionVector.x);
-        animator.SetFloat("MoveY", directionVector.y);
-    }
-
-    void HandleSounds()
-    {
-        if (isWalking) 
-        {
-            GroundTileTypeEnum groundTileType = gridManager.GetSerializedTileAt(currentGridPosition.x, currentGridPosition.y).GroundTileType;
-            audioManager.PlayFootstepSound(groundTileType);
-        }
-    }
+    //void HandleSounds()
+    //{
+    //    if (isWalking) 
+    //    {
+    //        GroundTileTypeEnum groundTileType = gridManager.GetSerializedTileAt(currentGridPosition.x, currentGridPosition.y).GroundTileType;
+    //        audioManager.PlayFootstepSound(groundTileType);
+    //    }
+    //}
 
     public void SetPlayerLocation(Vector2Int newPlayerCoordinates)
     {
@@ -260,13 +257,13 @@ public class PlayerBehaviour : MonoBehaviour
 
         for (int i = 0; i < liftSteps; i++)
         {
-            audioManager.PlayFootstepSound(startTileType);
+            AudioManager.Instance.PlayFootstepSound(startTileType);
             yield return new WaitForSeconds(interval);
         }
 
         for (int i = 0; i < landSteps; i++)
         {
-            audioManager.PlayFootstepSound(destinationTileType);
+            AudioManager.Instance.PlayFootstepSound(destinationTileType);
             yield return new WaitForSeconds(interval);
         }
     }
