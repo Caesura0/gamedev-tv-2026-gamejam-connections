@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ed5fc1cc7d10644885d7ba69a3b4908, type: 3}
   m_Name: PlayerSoundManager
   m_EditorClassIdentifier: Assembly-CSharp::SoundManagerSO
-  boulderSound: {fileID: 0}
+  boulderSound: {fileID: 8300000, guid: 00589f7a0681b1e48a56a817dd45a436, type: 3}
   footstepOnGrassSoundArray:
   - {fileID: 8300000, guid: 0e2effb6138200c4d853096598ab3b79, type: 3}
   - {fileID: 8300000, guid: 643d7d0fb7695034592f051240af86cf, type: 3}
@@ -43,6 +43,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3625f13d949f56147be612320378be97, type: 3}
   - {fileID: 8300000, guid: fabab20a740b71243ac50772bfefc93e, type: 3}
   - {fileID: 8300000, guid: 02a14a4e4d9c6204eb2e4e36ed5b5c94, type: 3}
+  slideRock: []
+  rockSplash: []
+  pressurePlatePushed: []
+  pressurePlateReleased: []
   hitSound: {fileID: 0}
   pickupPointsSound: {fileID: 0}
   pickupBigPointsSound: {fileID: 0}

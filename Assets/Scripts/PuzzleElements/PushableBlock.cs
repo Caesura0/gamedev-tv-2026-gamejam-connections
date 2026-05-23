@@ -31,6 +31,7 @@ public class PushableRock : MonoBehaviour, IInteractable
         gridManager.RegisterInteractable(currentGridPosition.x, currentGridPosition.y, null);
 
         currentGridPosition = targetGridPosition;
+        AudioManager.Instance.PlayRockSounds();
         transform.position = gridManager.ConvertGridPositionToWorldPosition(
             currentGridPosition.x,
             currentGridPosition.y
