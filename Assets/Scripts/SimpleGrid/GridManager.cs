@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+//using System.Drawing;
 
 public class GridManager : MonoBehaviour
 {
@@ -121,6 +122,10 @@ public class GridManager : MonoBehaviour
                 serializedTileGridArray[index].GroundTileType = GroundTileTypeEnum.Stone;
                 serializedTileGridArray[index].IsOccupiedByMoveable = false;
                 serializedTileGridArray[index].IsInWater = true;
+
+                UnityEngine.Color color = TileEditorColors.GetColorForTileType(tile.GroundTileType);
+                SpriteRenderer spriteRenderer = debugTileObjects[index].GetComponent<SpriteRenderer>();
+                spriteRenderer.color = color;
                 //repaint the tile in the editor so it doesn't look like a water tile anymore
                 //TODO: replaceSprite so it shows bridge type thing
             }
