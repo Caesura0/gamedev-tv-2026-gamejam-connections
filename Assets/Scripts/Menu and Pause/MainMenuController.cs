@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,13 +15,24 @@ public class MainMenuController : MonoBehaviour
     }
     public void StartGame()
     {
-        Debug.Log("Start Game Pressed");
-        SceneChangeData.Instance.playerStartLocation = playerStartLocation;
-        SceneChangeData.Instance.playerStartFacing = playerStartFacing;
-        Loader.Load(nextScene);
-        //AudioManager.Instance.PlayButtonClick();
+        StartCoroutine(StartGameRoutine());
+
     }
 
+    private IEnumerator StartGameRoutine()
+    {
+        AudioManager.Instance.PlayButtonClick();
+
+        Debug.Log("Start Game Pressed");
+
+        // Small delay to let button click animation/audio finish
+        yield return new WaitForSeconds(0.15f);
+
+        SceneChangeData.Instance.playerStartLocation = playerStartLocation;
+        SceneChangeData.Instance.playerStartFacing = playerStartFacing;
+
+        Loader.Load(nextScene);
+    }
 
 
     public void QuitGame()

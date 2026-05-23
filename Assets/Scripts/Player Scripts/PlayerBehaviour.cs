@@ -51,7 +51,6 @@ public class PlayerBehaviour : MonoBehaviour
         targetWorldPosition = transform.position;
         InputManager.Instance.OnInteractPressed += HandleInteractionInput;
         InputManager.Instance.OnInteractStarted += SetInteractObject;
-        audioManager = AudioManager.Instance;
         // we use this to get how long it takes the player to move tile to tile for the sound manager since its consistant
         travelTimePerTile = GridManager.Instance.WorldTileSize / movementSpeed; 
     }
@@ -216,14 +215,14 @@ public class PlayerBehaviour : MonoBehaviour
     //    animator.SetFloat("MoveY", directionVector.y);
     //}
 
-    void HandleSounds()
-    {
-        if (isWalking) 
-        {
-            GroundTileTypeEnum groundTileType = gridManager.GetSerializedTileAt(currentGridPosition.x, currentGridPosition.y).GroundTileType;
-            audioManager.PlayFootstepSound(groundTileType);
-        }
-    }
+    //void HandleSounds()
+    //{
+    //    if (isWalking) 
+    //    {
+    //        GroundTileTypeEnum groundTileType = gridManager.GetSerializedTileAt(currentGridPosition.x, currentGridPosition.y).GroundTileType;
+    //        audioManager.PlayFootstepSound(groundTileType);
+    //    }
+    //}
 
     public void SetPlayerLocation(Vector2Int newPlayerCoordinates)
     {
@@ -258,13 +257,13 @@ public class PlayerBehaviour : MonoBehaviour
 
         for (int i = 0; i < liftSteps; i++)
         {
-            audioManager.PlayFootstepSound(startTileType);
+            AudioManager.Instance.PlayFootstepSound(startTileType);
             yield return new WaitForSeconds(interval);
         }
 
         for (int i = 0; i < landSteps; i++)
         {
-            audioManager.PlayFootstepSound(destinationTileType);
+            AudioManager.Instance.PlayFootstepSound(destinationTileType);
             yield return new WaitForSeconds(interval);
         }
     }

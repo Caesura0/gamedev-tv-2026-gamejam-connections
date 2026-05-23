@@ -13,18 +13,23 @@ MonoBehaviour:
   m_Name: SoundEffect
   m_EditorClassIdentifier: 
   boulderSound: {fileID: 0}
-  footstepSound: {fileID: 0}
+  footstepOnGrassSoundArray: []
+  footstepOnStoneSoundArray: []
+  slideRock: []
+  rockSplash: []
+  pressurePlatePushed: []
+  pressurePlateReleased: []
   hitSound: {fileID: 8300000, guid: 84c5b4616f77a7c4890e4d9b7065ff20, type: 3}
   pickupPointsSound: {fileID: 8300000, guid: edfc57486e2ede54ca58948f19102745, type: 3}
   pickupBigPointsSound: {fileID: 0}
   pickupSpeedSound: {fileID: 0}
   jumpSound: {fileID: 0}
-  buttonClick: {fileID: 0}
+  buttonClick: {fileID: 8300000, guid: 46c73f01c84e46e44a665e1e407a9851, type: 3}
   switchButtonClick: {fileID: 0}
-  closeClick: {fileID: 0}
+  closeClick: {fileID: 8300000, guid: 1ea0a752b95df034fa34ee55abc7bae3, type: 3}
   invalidClick: {fileID: 0}
-  pauseClick: {fileID: 0}
-  resumeClick: {fileID: 0}
+  pauseClick: {fileID: 8300000, guid: 46c73f01c84e46e44a665e1e407a9851, type: 3}
+  resumeClick: {fileID: 8300000, guid: 46c73f01c84e46e44a665e1e407a9851, type: 3}
   changeVolumeClick: {fileID: 0}
   loseSound: {fileID: 0}
   winSound: {fileID: 0}
