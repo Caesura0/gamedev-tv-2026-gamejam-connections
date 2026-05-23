@@ -31,13 +31,11 @@ public class PlayerBehaviour : MonoBehaviour
     private float travelTimePerTile;
 
 
-    void Awake()
-    {
-        animator = GetComponent<Animator>();
-    }
+
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         gridManager = GridManager.Instance;
         //transform.position = SceneChangeData.Instance.playerStartLocation;
  
@@ -212,9 +210,12 @@ public class PlayerBehaviour : MonoBehaviour
 
     void AnimationHandler()
     {
+
         animator.SetBool("IsWalking", isWalking);
-        animator.SetFloat("MoveX", movementInput.x);
-        animator.SetFloat("MoveY", movementInput.y);
+
+        Vector2Int directionVector = lastMoveDirection.ToVector();
+        animator.SetFloat("MoveX", directionVector.x);
+        animator.SetFloat("MoveY", directionVector.y);
     }
 
     void HandleSounds()
