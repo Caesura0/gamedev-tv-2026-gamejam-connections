@@ -5,10 +5,16 @@ using UnityEngine;
 public class SoundManagerSO :  ScriptableObject
 {
    
-
     public AudioClip boulderSound;
     public AudioClip[] footstepOnGrassSoundArray;
     public AudioClip[] footstepOnStoneSoundArray;
+
+    public AudioClip[] slideRock;
+    public AudioClip[] rockSplash;
+
+    public AudioClip[] pressurePlatePushed;
+    public AudioClip[] pressurePlateReleased;
+
     public AudioClip hitSound;
     public AudioClip pickupPointsSound;
     public AudioClip pickupBigPointsSound;
