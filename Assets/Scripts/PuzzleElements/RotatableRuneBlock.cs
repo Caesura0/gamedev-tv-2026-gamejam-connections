@@ -6,6 +6,9 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
     [SerializeField] private ConnectorShapeEnum connectorShape;
     [SerializeField] private int startingRotation = 0;
     [SerializeField] private bool isStartingInactive;
+    [SerializeField] private bool isLit;
+    [SerializeField] private Sprite[] rotationSpritesUnlit;
+    [SerializeField] private Sprite[] rotationSpritesLit;
 
     private GridManager gridManager;
     private RunePowerSystem runePowerSystem;
@@ -18,6 +21,10 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
 
     [SerializeField] private GameObject visual;
 
+    // Optional: assign a SpriteRenderer in the inspector. If left null the script will try to find one on `visual` or this GameObject.
+    [SerializeField] private SpriteRenderer visualSpriteRenderer;
+
+
     private GameEventListener gameEventListener;
 
     void Start()
@@ -26,6 +33,7 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
         runePowerSystem = RunePowerSystem.Instance;
         gridPosition = gridManager.ConvertWorldPositionToGridPosition(transform.position);
         currentRotation = startingRotation;
+        SetSprite(currentRotation); 
         activeConnections = Connections.Get(connectorShape, currentRotation);
 
         if (TryGetComponent(out gameEventListener))
@@ -86,11 +94,74 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
             $"[ROTATE] Connections N:{activeConnections[0]} E:{activeConnections[1]} S:{activeConnections[2]} W:{activeConnections[3]}"
         );
 
-        transform.rotation = Quaternion.Euler(0f, 0f, -90f * currentRotation);
+        //transform.rotation = Quaternion.Euler(0f, 0f, -90f * currentRotation);
+        SetSprite(currentRotation);
+        AudioManager.Instance.PlayRotateRune();
 
         runePowerSystem.RunEnergyThrough();
     }
 
+    void SetSprite(int currentRotation)
+    {
+        switch (currentRotation)
+        {
+            case 0:
+                SetSprite(rotationSpritesUnlit[0]);
+                visualSpriteRenderer.flipX = false;
+                break;
+
+            case 1:
+                SetSprite(rotationSpritesUnlit[0]);
+                visualSpriteRenderer.flipX = true;
+                break;
+
+            case 2:
+                SetSprite(rotationSpritesUnlit[1]);
+                visualSpriteRenderer.flipX = false;
+                break;
+            case 3:
+                SetSprite(rotationSpritesUnlit[1]);
+                visualSpriteRenderer.flipX = true;
+                break;
+
+            default:
+                SetSprite(rotationSpritesUnlit[0]);
+                visualSpriteRenderer.flipX = false;
+                break;
+
+        }
+    }
+    /// <summary>
+    /// Sets the sprite on this object's SpriteRenderer. The script will use the serialized
+    /// <see cref="visualSpriteRenderer"/> if assigned, otherwise it will try to find a
+    /// SpriteRenderer on the `visual` GameObject or on this GameObject.
+    /// </summary>
+    /// <param name="sprite">The sprite to set. If null the operation is ignored.</param>
+    public void SetSprite(Sprite sprite)
+    {
+        if (sprite == null)
+        {
+            Debug.LogWarning($"[{nameof(RotatableRuneBlock)}] SetSprite called with null sprite on '{gameObject.name}'.");
+            return;
+        }
+
+        if (visualSpriteRenderer == null)
+        {
+            if (visual != null)
+                visualSpriteRenderer = visual.GetComponent<SpriteRenderer>();
+
+            if (visualSpriteRenderer == null)
+                visualSpriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        if (visualSpriteRenderer == null)
+        {
+            Debug.LogWarning($"[{nameof(RotatableRuneBlock)}] No SpriteRenderer found on '{gameObject.name}' or its `visual` child. Assign a SpriteRenderer to `visualSpriteRenderer` or add one to the GameObject.");
+            return;
+        }
+
+        visualSpriteRenderer.sprite = sprite;
+    }
 
     void SetActive(bool isActive)
     {

@@ -79,11 +79,7 @@ public class AudioManager : MonoBehaviour
 
 
     // Gameplay sounds
-    public void PlayRockSounds()
-    {
-        soundAudioSource.PlayOneShot(soundManager.boulderSound, soundEffectVolume);
-    }
-
+    
     public void PlayFootstepSound(GroundTileTypeEnum groundType)
     {
 
@@ -112,30 +108,60 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayHitSound()
+    public void PlayRockSounds()
     {
-        soundAudioSource.PlayOneShot(soundManager.hitSound, soundEffectVolume);
+        PlaySoundEffect(soundManager.slideRock);
     }
 
-    public void PlayPickupPointsSound()
+    public void PlaySplashSounds()
     {
-        soundAudioSource.PlayOneShot(soundManager.pickupPointsSound, soundEffectVolume);
+        int numberSoundClips = soundManager.rockSplash.Length;
+        int randomIndex = UnityEngine.Random.Range(0, numberSoundClips);
+        audioSource.PlayOneShot(soundManager.rockSplash[randomIndex], soundEffectVolume);
     }
 
-    public void PlayPickupBigPointsSound()
+    public void PlayRotateRune()
     {
-        soundAudioSource.PlayOneShot(soundManager.pickupBigPointsSound, soundEffectVolume);
+        int numberSoundClips = soundManager.rockSplash.Length;
+        int randomIndex = UnityEngine.Random.Range(0, numberSoundClips);
+        audioSource.PlayOneShot(soundManager.rockSplash[randomIndex], soundEffectVolume);
     }
 
-    public void PlayPickupSpeedSound()
+    private void PlaySoundEffect(AudioClip soundEffect) 
     {
-        soundAudioSource.PlayOneShot(soundManager.pickupSpeedSound, soundEffectVolume);
+        audioSource.PlayOneShot(soundEffect, soundEffectVolume);
+    }
+    private void PlaySoundEffect(AudioClip[] soundEffectArray) 
+    {
+        int numberSoundClips = soundEffectArray.Length;
+        int randomIndex = UnityEngine.Random.Range(0, numberSoundClips);
+        audioSource.PlayOneShot(soundEffectArray[randomIndex], soundEffectVolume);
     }
 
-    public void PlayJumpSound()
-    {
-        soundAudioSource.PlayOneShot(soundManager.jumpSound, soundEffectVolume);
-    }
+    //public void PlayHitSound()
+    //{
+    //    audioSource.PlayOneShot(soundManager.hitSound, soundEffectVolume);
+    //}
+
+    //public void PlayPickupPointsSound()
+    //{
+    //    audioSource.PlayOneShot(soundManager.pickupPointsSound, soundEffectVolume);
+    //}
+
+    //public void PlayPickupBigPointsSound()
+    //{
+    //    audioSource.PlayOneShot(soundManager.pickupBigPointsSound, soundEffectVolume);
+    //}
+
+    //public void PlayPickupSpeedSound()
+    //{
+    //    audioSource.PlayOneShot(soundManager.pickupSpeedSound, soundEffectVolume);
+    //}
+
+    //public void PlayJumpSound()
+    //{
+    //    audioSource.PlayOneShot(soundManager.jumpSound, soundEffectVolume);
+    //}
 
     // Button click sounds
     public void PlayButtonClick()
@@ -167,16 +193,16 @@ public class AudioManager : MonoBehaviour
         soundAudioSource.PlayOneShot(soundManager.resumeClick, soundEffectVolume);
     }
 
-    // Win/Lose sounds
-    public void PlayLoseSound()
-    {
-        soundAudioSource.PlayOneShot(soundManager.loseSound, soundEffectVolume);
-    }
+    //// Win/Lose sounds
+    //public void PlayLoseSound()
+    //{
+    //    audioSource.PlayOneShot(soundManager.loseSound, soundEffectVolume);
+    //}
 
-    public void PlayWinSound()
-    {
-        soundAudioSource.PlayOneShot(soundManager.winSound, soundEffectVolume);
-    }
+    //public void PlayWinSound()
+    //{
+    //    audioSource.PlayOneShot(soundManager.winSound, soundEffectVolume);
+    //}
 
     // Music
     public void PlayMainMenuMusic()
@@ -217,13 +243,13 @@ public class AudioManager : MonoBehaviour
         soundAudioSource.PlayOneShot(soundManager.changeVolumeClick, soundEffectVolume);
     }
 
-    public void PlayLowTimeAlert()
-    {
-        soundAudioSource.PlayOneShot(soundManager.lowTimeAlertSound, soundEffectVolume);
-    }
+    //public void PlayLowTimeAlert()
+    //{
+    //    audioSource.PlayOneShot(soundManager.lowTimeAlertSound, soundEffectVolume);
+    //}
 
-    public void PlayAddTimeSound()
-    {
-        soundAudioSource.PlayOneShot(soundManager.addTimeSound, soundEffectVolume);
-    }
+    //public void PlayAddTimeSound()
+    //{
+    //    audioSource.PlayOneShot(soundManager.addTimeSound, soundEffectVolume);
+    //}
 }

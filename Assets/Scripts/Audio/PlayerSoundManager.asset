@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ed5fc1cc7d10644885d7ba69a3b4908, type: 3}
   m_Name: PlayerSoundManager
   m_EditorClassIdentifier: Assembly-CSharp::SoundManagerSO
-  boulderSound: {fileID: 8300000, guid: 00589f7a0681b1e48a56a817dd45a436, type: 3}
   footstepOnGrassSoundArray:
   - {fileID: 8300000, guid: 0e2effb6138200c4d853096598ab3b79, type: 3}
   - {fileID: 8300000, guid: 643d7d0fb7695034592f051240af86cf, type: 3}
@@ -43,27 +42,155 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3625f13d949f56147be612320378be97, type: 3}
   - {fileID: 8300000, guid: fabab20a740b71243ac50772bfefc93e, type: 3}
   - {fileID: 8300000, guid: 02a14a4e4d9c6204eb2e4e36ed5b5c94, type: 3}
-  slideRock: []
-  rockSplash: []
-  pressurePlatePushed: []
-  pressurePlateReleased: []
-  hitSound: {fileID: 0}
-  pickupPointsSound: {fileID: 0}
-  pickupBigPointsSound: {fileID: 0}
-  pickupSpeedSound: {fileID: 0}
-  jumpSound: {fileID: 0}
-  buttonClick: {fileID: 8300000, guid: 46c73f01c84e46e44a665e1e407a9851, type: 3}
-  switchButtonClick: {fileID: 8300000, guid: 46c73f01c84e46e44a665e1e407a9851, type: 3}
-  closeClick: {fileID: 8300000, guid: 1ea0a752b95df034fa34ee55abc7bae3, type: 3}
+  footstepOnWoodSoundArray:
+  - {fileID: 8300000, guid: ff167a1df71305741ba5aa9407ec6a5c, type: 3}
+  - {fileID: 8300000, guid: 2f1fd59d01473f04ab00e035b4fff8d4, type: 3}
+  - {fileID: 8300000, guid: 643fde78db572bf4d94db33067a2bf77, type: 3}
+  - {fileID: 8300000, guid: 64f27ac4124506346bde30540825f357, type: 3}
+  - {fileID: 8300000, guid: 8506c6bddce54fc40a9882c789256148, type: 3}
+  - {fileID: 8300000, guid: fc05ffaeff0b2ba40ac477ae9759b3c3, type: 3}
+  - {fileID: 8300000, guid: a1c90649a7b6cfd4faba726d2d409423, type: 3}
+  - {fileID: 8300000, guid: dd8f3c8e33fab054ebcc3125031dca55, type: 3}
+  - {fileID: 8300000, guid: 016e208c41d56c1429ba05245f5ed5da, type: 3}
+  - {fileID: 8300000, guid: e97f9219c28113043a8212a9c14880f7, type: 3}
+  - {fileID: 8300000, guid: da0793345fc85974a9780802c7fa86a7, type: 3}
+  - {fileID: 8300000, guid: 6e101a941c43e4f4493ecc4d48cb1085, type: 3}
+  - {fileID: 8300000, guid: 66d219b4810d2954c9a5dd75c501df78, type: 3}
+  - {fileID: 8300000, guid: b9bedcfc30b2cb14da5fd91761da8f4a, type: 3}
+  footstepOnMetalSoundArray:
+  - {fileID: 8300000, guid: b3f54ea49362c8145b281046568b8519, type: 3}
+  - {fileID: 8300000, guid: 70ff9776c4a3497429831136d9e95d89, type: 3}
+  - {fileID: 8300000, guid: a66543ce17aad264980a844a8657fe04, type: 3}
+  - {fileID: 8300000, guid: dcba2ec294ceae24c957487e4502c602, type: 3}
+  - {fileID: 8300000, guid: 108a239d6e666fb4da527ef7802ee410, type: 3}
+  - {fileID: 8300000, guid: d94d1a6344d5694428b7934f8b8107ca, type: 3}
+  - {fileID: 8300000, guid: 396de5b194e9d7b408f8f8b771f14310, type: 3}
+  - {fileID: 8300000, guid: e82b94a49c960be4aa7fd778850c450f, type: 3}
+  - {fileID: 8300000, guid: c838a7f591315f84d84835724b29f1ce, type: 3}
+  - {fileID: 8300000, guid: ae8d97ca22d9bb540a74b6e7ed452ae1, type: 3}
+  - {fileID: 8300000, guid: e61839decdbe5404981da2e85adef833, type: 3}
+  - {fileID: 8300000, guid: 9247003041065fc43afe9264900d8bac, type: 3}
+  - {fileID: 8300000, guid: 48cc87f8ff2d78b4d986006e0614d94a, type: 3}
+  - {fileID: 8300000, guid: 6e7498ab0d800ae4189300cf6451a284, type: 3}
+  footstepOnWaterSoundArray:
+  - {fileID: 8300000, guid: 16a36d9f764f6a64da2cec47f81e93db, type: 3}
+  - {fileID: 8300000, guid: 9097bb683e4705f42940d559c80c6b58, type: 3}
+  - {fileID: 8300000, guid: 1597dafa4bc977b45aa7a20b9f1ebc16, type: 3}
+  - {fileID: 8300000, guid: 4e8dfbe3f8944fb4c9f8e5f625f8b0e3, type: 3}
+  - {fileID: 8300000, guid: b928685a58bcfab468bf43fac9c04d79, type: 3}
+  - {fileID: 8300000, guid: 19b30b94de8c29b4e962d10c7bc9afd1, type: 3}
+  - {fileID: 8300000, guid: 8a6ad4ec18cf7194096d5151b1472cc4, type: 3}
+  - {fileID: 8300000, guid: 483733eb5a3f7d343b5caca7e2dee6e6, type: 3}
+  - {fileID: 8300000, guid: 0fefbb6eeb9dba74f8b1251122b00123, type: 3}
+  - {fileID: 8300000, guid: fd6daea9120b7fd4696472d05a5c5bde, type: 3}
+  - {fileID: 8300000, guid: b4ebf8b56554a924aa2a4aa287d0ebb4, type: 3}
+  - {fileID: 8300000, guid: 2a1dc011799fec145bd45bcc24c337ce, type: 3}
+  - {fileID: 8300000, guid: 4f684adf2c5258d41ba6ee9cac488582, type: 3}
+  - {fileID: 8300000, guid: b08a2c79e35043c48985d9a3f3545b6f, type: 3}
+  footstepOnDirtSoundArray:
+  - {fileID: 8300000, guid: 29c5a897206906c4b9996e1b02fc9eed, type: 3}
+  - {fileID: 8300000, guid: b9ed4537fae22654d8dd22d56050e4f5, type: 3}
+  - {fileID: 8300000, guid: 0cdc489d0110b704da5c226cb2b32d63, type: 3}
+  - {fileID: 8300000, guid: 619e9602af65a154d98d0e22e1e9f430, type: 3}
+  - {fileID: 8300000, guid: c01d50c38f6dcba479bfdef81ae2015a, type: 3}
+  - {fileID: 8300000, guid: 8d60d6f04db776842a76108b017353f4, type: 3}
+  - {fileID: 8300000, guid: 1cda8571c722be44bb168c13532bfcf9, type: 3}
+  - {fileID: 8300000, guid: 4b80960ec682ade4e9a6b0b4830d7a81, type: 3}
+  - {fileID: 8300000, guid: da585c5c190cd2d41aaedc65e39a6bd6, type: 3}
+  - {fileID: 8300000, guid: c49687937403caa40af956393000766b, type: 3}
+  - {fileID: 8300000, guid: 76a2e04e30ca90f4d929f60dcccac588, type: 3}
+  - {fileID: 8300000, guid: f05554375af00da43a7b69c0389f83e1, type: 3}
+  - {fileID: 8300000, guid: e35ed85926ec500498d2968fef3e4d9f, type: 3}
+  - {fileID: 8300000, guid: 615b1623dd7f00d42b65defac961626a, type: 3}
+  footstepOnLeavesSoundArray:
+  - {fileID: 8300000, guid: 90c7a53c010b3024db1bf4579d6e742b, type: 3}
+  - {fileID: 8300000, guid: c0e2491355377f347ad6c9ed0604924e, type: 3}
+  - {fileID: 8300000, guid: a26b249b6b2e17e49a701fe443cc67be, type: 3}
+  - {fileID: 8300000, guid: 7f64fdb13c25a234f92fdc71af29b9b9, type: 3}
+  - {fileID: 8300000, guid: 56801a3e855e4624c965a3d6883ce01e, type: 3}
+  - {fileID: 8300000, guid: 801b97cc5d7089141befc194f5dca6f8, type: 3}
+  twigSnaps:
+  - {fileID: 8300000, guid: 9368086fdbbabc54daf361c4ddd4cab8, type: 3}
+  - {fileID: 8300000, guid: db96b99684fdc3c44adab1471add79d5, type: 3}
+  - {fileID: 8300000, guid: 9beecde4d3b9502458c4d9c8db98e424, type: 3}
+  - {fileID: 8300000, guid: a00e5edcbf642274da954bfea5527b05, type: 3}
+  - {fileID: 8300000, guid: 557f71f29e42da644953082774f65762, type: 3}
+  - {fileID: 8300000, guid: 00589f7a0681b1e48a56a817dd45a436, type: 3}
+  - {fileID: 8300000, guid: fd518936492436b4ca75908e80c7968a, type: 3}
+  - {fileID: 8300000, guid: 59d6604b010f0514cba8d1eb382e7c2e, type: 3}
+  - {fileID: 8300000, guid: fcb90f1f4eac4d14e8ef6db7695eb464, type: 3}
+  - {fileID: 8300000, guid: 2643c6088bbf27f43bd8341d858d0538, type: 3}
+  - {fileID: 8300000, guid: 5ac965fda6a2b184da67133ae1df3dfe, type: 3}
+  - {fileID: 8300000, guid: e5b669e44b4be7a4292202c21e91d60a, type: 3}
+  slideRock:
+  - {fileID: 8300000, guid: fe994b00b599ecb48b05fdef151369cd, type: 3}
+  - {fileID: 8300000, guid: b13ae191895387e4bb54e559b03c044e, type: 3}
+  - {fileID: 8300000, guid: af8a3fcf2a8555346b88fddbf4af3363, type: 3}
+  rockSplash:
+  - {fileID: 8300000, guid: 2c64b7d9a2a7a7742bc4171a75264bdf, type: 3}
+  - {fileID: 8300000, guid: 366ea3aef38afb643b17adcaf94fdd78, type: 3}
+  pressurePlatePushed:
+  - {fileID: 8300000, guid: fd78cd3ba0c38aa4f8d3750a05fe86af, type: 3}
+  pressurePlateReleased:
+  - {fileID: 8300000, guid: 191ec48c3070e684ab5a30bd7c3799ad, type: 3}
+  rotateRune: []
+  runeActivated: []
+  doorOpen:
+  - {fileID: 8300000, guid: d10745132a606494180b1515e6ed47cb, type: 3}
+  - {fileID: 8300000, guid: d0e65927b1c01474e8c07d409bd354c2, type: 3}
+  - {fileID: 8300000, guid: e5642f2612c7b4b418da5f083bfb48db, type: 3}
+  doorClose: []
+  wallSink: []
+  stoneRaised: []
+  windLoop:
+  - {fileID: 8300000, guid: d6d2646d4b941354ebb5acfdb5f4bb48, type: 3}
+  - {fileID: 8300000, guid: a03b900515b05ea4d9a4319194e7b243, type: 3}
+  - {fileID: 8300000, guid: 438945dcc9174cd478d266669f387abf, type: 3}
+  - {fileID: 8300000, guid: 99c2b6d7f68b8644c9b432fba13b9e89, type: 3}
+  - {fileID: 8300000, guid: 8dd14391a1a9b9149837a5df08eeccbc, type: 3}
+  - {fileID: 8300000, guid: d71b32549f5914447a9f30ef4eb3628a, type: 3}
+  waterLoop:
+  - {fileID: 8300000, guid: 20e03a75e83aceb4984fcc8dd99dc0e7, type: 3}
+  - {fileID: 8300000, guid: 3bc05656a3355844bab41310ce7e0977, type: 3}
+  - {fileID: 8300000, guid: d7a83a18704134e48bbce22e818be84e, type: 3}
+  - {fileID: 8300000, guid: 5d357081d0481a2439a49ad825e30400, type: 3}
+  - {fileID: 8300000, guid: af0e4c40def43cb43845b0079abea180, type: 3}
+  thunderLoop:
+  - {fileID: 8300000, guid: 42694362bc0dc5a4a969fd32502cf868, type: 3}
+  - {fileID: 8300000, guid: 5fd34c58dea424648805ae4e8442676c, type: 3}
+  - {fileID: 8300000, guid: 0ebf420e894619d489f95a45a4d5e9cf, type: 3}
+  - {fileID: 8300000, guid: 32f2216f476217f48b3d4a1ab7ce6418, type: 3}
+  rainLoop:
+  - {fileID: 8300000, guid: 5f13d2ea340703d498fad823e20dcd3e, type: 3}
+  - {fileID: 8300000, guid: 05c0f221791e1684ca8c25d289a443f9, type: 3}
+  foilageLoop:
+  - {fileID: 8300000, guid: 8a841a0b00978d74c8e8acc8ce397b17, type: 3}
+  - {fileID: 8300000, guid: 56e339dd0422d294799a95fe2c2dcc81, type: 3}
+  - {fileID: 8300000, guid: 82831f3e92e67d94ebba773d1b1d5db9, type: 3}
+  - {fileID: 8300000, guid: 22f9ebace5cd2bf4085145e0d0516f33, type: 3}
+  - {fileID: 8300000, guid: 461c3dbacaaff054a85278b72d5f96bc, type: 3}
+  - {fileID: 8300000, guid: 9414af48c40e1e34f8dcfc3034d8a925, type: 3}
+  fireLoop:
+  - {fileID: 8300000, guid: fdd17732d4b25f547a2242b919665237, type: 3}
+  bugsLoop:
+  - {fileID: 8300000, guid: a340eca15159d1b4586a7b09a98c4185, type: 3}
+  - {fileID: 8300000, guid: be59aea59bf8de349a2ffe3d29f45542, type: 3}
+  - {fileID: 8300000, guid: 6d600bf89bef21c40b771982f63484fb, type: 3}
+  ambienceLoop:
+  - {fileID: 8300000, guid: 0b844c3fa19c68f4996e154e0ed4a840, type: 3}
+  - {fileID: 8300000, guid: 1b73bbdd1a5047e4b83d5fe6e1aafff1, type: 3}
+  - {fileID: 8300000, guid: 93090e541de51b44ebd88d2aae3d8353, type: 3}
+  - {fileID: 8300000, guid: 30929826f66696e4ea962ec9a973f0a7, type: 3}
+  startGame: {fileID: 8300000, guid: 1cd01e93255cc724899c9ea1cd2953d9, type: 3}
+  buttonClick: {fileID: 8300000, guid: 442b985b982ca2a4fa2854f05845c501, type: 3}
+  switchButtonClick: {fileID: 8300000, guid: 15dcaa5a97f3d77458cfa4ff4a14cf94, type: 3}
+  closeClick: {fileID: 8300000, guid: 97ec68a4dc85744409d87e667db9bec6, type: 3}
   invalidClick: {fileID: 0}
   pauseClick: {fileID: 8300000, guid: 46c73f01c84e46e44a665e1e407a9851, type: 3}
   resumeClick: {fileID: 8300000, guid: 46c73f01c84e46e44a665e1e407a9851, type: 3}
   changeVolumeClick: {fileID: 0}
-  loseSound: {fileID: 0}
-  winSound: {fileID: 0}
-  lowTimeAlertSound: {fileID: 0}
-  addTimeSound: {fileID: 0}
-  mainMenuMusic: {fileID: 0}
+  introMusic: {fileID: 8300000, guid: 71a7a826f421e1545a1d2db84661d546, type: 3}
+  mainMenuMusic: {fileID: 8300000, guid: cb576133d4cee3845af7e7fbe6819f54, type: 3}
   gameplayMusic: {fileID: 0}
   gameEndMusic: {fileID: 0}
   scoreScreenMusic: {fileID: 0}
