@@ -117,25 +117,25 @@ public class AudioManager : MonoBehaviour
     {
         int numberSoundClips = soundManager.rockSplash.Length;
         int randomIndex = UnityEngine.Random.Range(0, numberSoundClips);
-        audioSource.PlayOneShot(soundManager.rockSplash[randomIndex], soundEffectVolume);
+        soundAudioSource.PlayOneShot(soundManager.rockSplash[randomIndex], soundEffectVolume);
     }
 
     public void PlayRotateRune()
     {
         int numberSoundClips = soundManager.rockSplash.Length;
         int randomIndex = UnityEngine.Random.Range(0, numberSoundClips);
-        audioSource.PlayOneShot(soundManager.rockSplash[randomIndex], soundEffectVolume);
+        soundAudioSource.PlayOneShot(soundManager.rockSplash[randomIndex], soundEffectVolume);
     }
 
     private void PlaySoundEffect(AudioClip soundEffect) 
     {
-        audioSource.PlayOneShot(soundEffect, soundEffectVolume);
+        soundAudioSource.PlayOneShot(soundEffect, soundEffectVolume);
     }
     private void PlaySoundEffect(AudioClip[] soundEffectArray) 
     {
         int numberSoundClips = soundEffectArray.Length;
         int randomIndex = UnityEngine.Random.Range(0, numberSoundClips);
-        audioSource.PlayOneShot(soundEffectArray[randomIndex], soundEffectVolume);
+        soundAudioSource.PlayOneShot(soundEffectArray[randomIndex], soundEffectVolume);
     }
 
     //public void PlayHitSound()
