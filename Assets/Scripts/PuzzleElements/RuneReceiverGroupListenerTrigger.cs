@@ -4,7 +4,9 @@ using System.Collections.Generic;
 public class RuneReceiverGroupListenerTrigger : MonoBehaviour
 {
     [SerializeField] private List<Vector2Int> requiredReceiverPositions = new List<Vector2Int>();
-
+    [SerializeField] private Sprite inactiveReceiverSprite;
+    [SerializeField] private Sprite activeReceiverSprite;   
+    
     public event System.Action<bool> OnGroupStateChanged;
 
     private GridManager gridManager;

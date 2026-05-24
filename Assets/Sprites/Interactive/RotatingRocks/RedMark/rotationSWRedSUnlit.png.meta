@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 550562b5768fb694eaddf250777725e6
+guid: b2a97fbed55afde46b2be59fec3e8e65
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3095982857803717054
-    second: rock_redmark_puzzle_unglowing_0
+      213: -3480269266198945277
+    second: rotationSWRedSUnlit_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 250
+  spritePixelsToUnits: 200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rock_redmark_puzzle_unglowing_0
+      name: rotationSWRedSUnlit_0
       rect:
         serializedVersion: 2
         x: 277
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 24629e97efbd805d0800000000000000
-      internalID: -3095982857803717054
+      spriteID: 302a089aa8993bfc0800000000000000
+      internalID: -3480269266198945277
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      rock_redmark_puzzle_unglowing_0: -3095982857803717054
+      rotationSWRedSUnlit_0: -3480269266198945277
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

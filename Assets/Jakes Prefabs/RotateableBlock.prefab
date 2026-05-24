@@ -81,12 +81,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -3095982857803717054, guid: 550562b5768fb694eaddf250777725e6, type: 3}
+  m_Sprite: {fileID: -5489635472179863184, guid: 02fa26da2f4a1454a8143a0c7640df2b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 1.928, y: 2.792}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -137,14 +137,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RotatableRuneBlock
   connectorShape: 1
-  startingRotation: 0
+  startingRotation: 1
   isStartingInactive: 0
   isLit: 0
-  rotationSpritesUnlit:
-  - {fileID: -3095982857803717054, guid: 550562b5768fb694eaddf250777725e6, type: 3}
-  - {fileID: -3095982857803717054, guid: 550562b5768fb694eaddf250777725e6, type: 3}
-  rotationSpritesLit:
-  - {fileID: -3036114229821935346, guid: d56598e17be76494e85730996d23c1ae, type: 3}
-  - {fileID: -3036114229821935346, guid: d56598e17be76494e85730996d23c1ae, type: 3}
+  rotationElbowSpritesUnlit:
+  - {fileID: 478992771725023844, guid: 004eb1a26dadef84ebe2b21a693a51dd, type: 3}
+  - {fileID: -5489635472179863184, guid: 02fa26da2f4a1454a8143a0c7640df2b, type: 3}
+  - {fileID: -3480269266198945277, guid: b2a97fbed55afde46b2be59fec3e8e65, type: 3}
+  - {fileID: 844818563825582708, guid: c49efa8ca73d59a4cbe59b5471932cde, type: 3}
   visual: {fileID: 1693229715387060530}
   visualSpriteRenderer: {fileID: 0}

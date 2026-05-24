@@ -7,8 +7,10 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
     [SerializeField] private int startingRotation = 0;
     [SerializeField] private bool isStartingInactive;
     [SerializeField] private bool isLit;
-    [SerializeField] private Sprite[] rotationSpritesUnlit;
-    [SerializeField] private Sprite[] rotationSpritesLit;
+    [SerializeField] private Sprite[] rotationElbowSpritesUnlit;
+    //[SerializeField] private Sprite[] rotationElbowSpritesLit;
+    //[SerializeField] private Sprite[] rotationNEUnlitRed;
+
 
     private GridManager gridManager;
     private RunePowerSystem runePowerSystem;
@@ -106,26 +108,22 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
         switch (currentRotation)
         {
             case 0:
-                SetSprite(rotationSpritesUnlit[0]);
-                visualSpriteRenderer.flipX = false;
+                SetSprite(rotationElbowSpritesUnlit[0]);
                 break;
 
             case 1:
-                SetSprite(rotationSpritesUnlit[0]);
-                visualSpriteRenderer.flipX = true;
+                SetSprite(rotationElbowSpritesUnlit[1]);
                 break;
 
             case 2:
-                SetSprite(rotationSpritesUnlit[1]);
-                visualSpriteRenderer.flipX = false;
+                SetSprite(rotationElbowSpritesUnlit[2]);
                 break;
             case 3:
-                SetSprite(rotationSpritesUnlit[1]);
-                visualSpriteRenderer.flipX = true;
+                SetSprite(rotationElbowSpritesUnlit[3]);
                 break;
 
             default:
-                SetSprite(rotationSpritesUnlit[0]);
+                SetSprite(rotationElbowSpritesUnlit[0]);
                 visualSpriteRenderer.flipX = false;
                 break;
 
