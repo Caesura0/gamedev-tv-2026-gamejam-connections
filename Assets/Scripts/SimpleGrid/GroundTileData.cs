@@ -11,6 +11,8 @@ public class GroundTileData
 
     [System.NonSerialized] public IInteractable Interactable;
     [System.NonSerialized] public RotatableRuneBlock RotatableRuneBlock;
+    [System.NonSerialized] public RuneReceiver Receiver;
+    [System.NonSerialized] public RuneBeamVisual BeamVisual;
 
     public bool IsPassableByPlayer =>
         (GroundTileType == GroundTileTypeEnum.Door && IsDoorOpen) ||

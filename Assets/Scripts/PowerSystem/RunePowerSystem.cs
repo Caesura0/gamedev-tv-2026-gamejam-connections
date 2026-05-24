@@ -159,6 +159,46 @@ public class RunePowerSystem : MonoBehaviour
             tile.IsRunePowered = false;
             OnTileRunePowerChanged?.Invoke(cell.x, cell.y, false);
         }
+        foreach (Vector2Int cell in newlyPoweredCells)
+        {
+            gridManager.GetRotatableRuneBlockAt(cell.x, cell.y)?.SetPowered(true);
+            gridManager.GetReceiverAt(cell.x, cell.y)?.SetPowered(true);
+            UpdateBeamVisual(cell, true);
+        }
+
+        foreach (Vector2Int cell in previouslyPoweredCells)
+        {
+            if (newlyPoweredCells.Contains(cell)) continue;
+            gridManager.GetRotatableRuneBlockAt(cell.x, cell.y)?.SetPowered(false);
+            gridManager.GetReceiverAt(cell.x, cell.y)?.SetPowered(false);
+            UpdateBeamVisual(cell, false);
+        }
+
+
+    }
+
+
+    void UpdateBeamVisual(Vector2Int cell, bool powered)
+    {
+        RuneBeamVisual beam = gridManager.GetBeamVisualAt(cell.x, cell.y);
+        if (beam == null) return;
+
+        if (!powered)
+        {
+            beam.SetPowered(false, false);
+            return;
+        }
+
+        GroundTileData tile = gridManager.GetTileAt(cell.x, cell.y);
+        if (tile == null) return;
+
+        bool horizontal = tile.RuneChannel == RuneChannelTypeEnum.Horizontal
+                       || tile.RuneChannel == RuneChannelTypeEnum.Omni;
+
+        bool vertical = tile.RuneChannel == RuneChannelTypeEnum.Vertical
+                       || tile.RuneChannel == RuneChannelTypeEnum.Omni;
+
+        beam.SetPowered(horizontal, vertical);
     }
 
     void CheckAllReceiversPowered()

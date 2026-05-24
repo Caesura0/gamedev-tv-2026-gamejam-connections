@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4299083009440630991}
   - component: {fileID: 7545160659255903424}
+  - component: {fileID: 4488761076299445796}
   m_Layer: 0
   m_Name: ReceiverRune
   m_TagString: RuneReceiver
@@ -91,3 +92,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &4488761076299445796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6890609765256034522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cfd9ce0c7080ed4a8d631234549e794, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RuneReceiver
+  unpoweredSprite: {fileID: 21300000, guid: 9b971ff3bdbc9cd429b273ff10371c6a, type: 3}
+  poweredSprite: {fileID: 21300000, guid: e2e9eadead38c5b46bf6936dc0e231cd, type: 3}
+  visualSpriteRenderer: {fileID: 7545160659255903424}

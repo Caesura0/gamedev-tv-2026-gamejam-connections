@@ -145,5 +145,10 @@ MonoBehaviour:
   - {fileID: -5489635472179863184, guid: 02fa26da2f4a1454a8143a0c7640df2b, type: 3}
   - {fileID: -3480269266198945277, guid: b2a97fbed55afde46b2be59fec3e8e65, type: 3}
   - {fileID: 844818563825582708, guid: c49efa8ca73d59a4cbe59b5471932cde, type: 3}
+  rotationElbowSpritesLit:
+  - {fileID: -7283414062857850145, guid: 15ebe20d84b42b3488a1be811fc781ad, type: 3}
+  - {fileID: 6523890734658077731, guid: 645b8f5d28c679a47a327f7cfbbc2d23, type: 3}
+  - {fileID: 3837055340389450009, guid: cc791bcfb5e3fa447a101e6507d58eb2, type: 3}
+  - {fileID: 844818563825582708, guid: c49efa8ca73d59a4cbe59b5471932cde, type: 3}
   visual: {fileID: 1693229715387060530}
   visualSpriteRenderer: {fileID: 0}

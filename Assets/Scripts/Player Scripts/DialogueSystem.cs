@@ -34,10 +34,6 @@ public class DialogueSystem : MonoBehaviour
     }
 
 
-
-   
-
-
     void Start()
     {
         InputManager.Instance.OnInteractPressed += OnInteract;
@@ -79,7 +75,7 @@ public class DialogueSystem : MonoBehaviour
             yield return new WaitForSeconds(typingSpeed);
         }
     }
-    private void CloseDialog()
+    public  void CloseDialog()
     {
         SceneChangeData.Instance.isInDiagloue = false;
         isDialogActive = false;

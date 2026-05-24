@@ -8,7 +8,7 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
     [SerializeField] private bool isStartingInactive;
     [SerializeField] private bool isLit;
     [SerializeField] private Sprite[] rotationElbowSpritesUnlit;
-    //[SerializeField] private Sprite[] rotationElbowSpritesLit;
+    [SerializeField] private Sprite[] rotationElbowSpritesLit;
     //[SerializeField] private Sprite[] rotationNEUnlitRed;
 
 
@@ -52,6 +52,14 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
         }
 
     }
+
+    public void SetPowered(bool powered)
+    {
+        if (isLit == powered) return; // no change, skip sprite swap
+        isLit = powered;
+        SetSprite(currentRotation);
+    }
+
 
     private void OnConditionMet(bool obj)
     {
@@ -103,38 +111,24 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
         runePowerSystem.RunEnergyThrough();
     }
 
-    void SetSprite(int currentRotation)
+    void SetSprite(int rotation)
     {
-        switch (currentRotation)
-        {
-            case 0:
-                SetSprite(rotationElbowSpritesUnlit[0]);
-                break;
+        Sprite[] sprites = isLit ? rotationElbowSpritesLit : rotationElbowSpritesUnlit;
 
-            case 1:
-                SetSprite(rotationElbowSpritesUnlit[1]);
-                break;
+        // Guard: fall back to unlit if lit array isn't populated yet
+        if (sprites == null || sprites.Length == 0)
+            sprites = rotationElbowSpritesUnlit;
 
-            case 2:
-                SetSprite(rotationElbowSpritesUnlit[2]);
-                break;
-            case 3:
-                SetSprite(rotationElbowSpritesUnlit[3]);
-                break;
-
-            default:
-                SetSprite(rotationElbowSpritesUnlit[0]);
-                visualSpriteRenderer.flipX = false;
-                break;
-
-        }
+        int index = Mathf.Clamp(rotation, 0, sprites.Length - 1);
+        SetSprite(sprites[index]);
     }
-    /// <summary>
-    /// Sets the sprite on this object's SpriteRenderer. The script will use the serialized
-    /// <see cref="visualSpriteRenderer"/> if assigned, otherwise it will try to find a
-    /// SpriteRenderer on the `visual` GameObject or on this GameObject.
-    /// </summary>
-    /// <param name="sprite">The sprite to set. If null the operation is ignored.</param>
+
+    ///// <summary>
+    ///// Sets the sprite on this object's SpriteRenderer. The script will use the serialized
+    ///// <see cref="visualSpriteRenderer"/> if assigned, otherwise it will try to find a
+    ///// SpriteRenderer on the `visual` GameObject or on this GameObject.
+    ///// </summary>
+    ///// <param name="sprite">The sprite to set. If null the operation is ignored.</param>
     public void SetSprite(Sprite sprite)
     {
         if (sprite == null)
@@ -147,19 +141,22 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
         {
             if (visual != null)
                 visualSpriteRenderer = visual.GetComponent<SpriteRenderer>();
-
             if (visualSpriteRenderer == null)
                 visualSpriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         if (visualSpriteRenderer == null)
         {
-            Debug.LogWarning($"[{nameof(RotatableRuneBlock)}] No SpriteRenderer found on '{gameObject.name}' or its `visual` child. Assign a SpriteRenderer to `visualSpriteRenderer` or add one to the GameObject.");
+            Debug.LogWarning($"[{nameof(RotatableRuneBlock)}] No SpriteRenderer found on '{gameObject.name}'.");
             return;
         }
 
         visualSpriteRenderer.sprite = sprite;
     }
+
+
+
+
 
     void SetActive(bool isActive)
     {

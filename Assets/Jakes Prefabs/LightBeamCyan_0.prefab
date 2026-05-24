@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4014462821415567573}
-  - component: {fileID: 123728222368724898}
-  - component: {fileID: 2355203092201429523}
+  - component: {fileID: 5193529254938037573}
+  - component: {fileID: 8236793113490349378}
   m_Layer: 0
   m_Name: LightBeamCyan_0
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &123728222368724898
+--- !u!212 &5193529254938037573
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -78,21 +78,21 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1526880591
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 8111657392532414014, guid: 8e3b3497d54e19345b1eb35402679490, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.56, y: 1.54}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
---- !u!95 &2355203092201429523
+--- !u!95 &8236793113490349378
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
