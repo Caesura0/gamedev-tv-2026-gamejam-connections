@@ -133,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 532284474056706281, guid: d39c1bb07f5ded34695c9a94869c1cd7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.23
+      value: 9.02
       objectReference: {fileID: 0}
     - target: {fileID: 532284474056706281, guid: d39c1bb07f5ded34695c9a94869c1cd7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -409,7 +409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 532284474056706281, guid: d39c1bb07f5ded34695c9a94869c1cd7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.06
+      value: 9.02
       objectReference: {fileID: 0}
     - target: {fileID: 532284474056706281, guid: d39c1bb07f5ded34695c9a94869c1cd7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -675,7 +675,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 532284474056706281, guid: d39c1bb07f5ded34695c9a94869c1cd7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.04
+      value: 9.02
       objectReference: {fileID: 0}
     - target: {fileID: 532284474056706281, guid: d39c1bb07f5ded34695c9a94869c1cd7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2461,6 +2461,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
+--- !u!1001 &3792899326543582652
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4014462821415567573, guid: 851aaa52571a4524d99bf138a1c95a97, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 26.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014462821415567573, guid: 851aaa52571a4524d99bf138a1c95a97, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 9.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014462821415567573, guid: 851aaa52571a4524d99bf138a1c95a97, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014462821415567573, guid: 851aaa52571a4524d99bf138a1c95a97, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014462821415567573, guid: 851aaa52571a4524d99bf138a1c95a97, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014462821415567573, guid: 851aaa52571a4524d99bf138a1c95a97, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014462821415567573, guid: 851aaa52571a4524d99bf138a1c95a97, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014462821415567573, guid: 851aaa52571a4524d99bf138a1c95a97, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014462821415567573, guid: 851aaa52571a4524d99bf138a1c95a97, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014462821415567573, guid: 851aaa52571a4524d99bf138a1c95a97, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998088064541106098, guid: 851aaa52571a4524d99bf138a1c95a97, type: 3}
+      propertyPath: m_Name
+      value: LightBeamCyan_0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 851aaa52571a4524d99bf138a1c95a97, type: 3}
 --- !u!1001 &7892772237771829733
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2540,3 +2597,4 @@ SceneRoots:
   - {fileID: 795034142}
   - {fileID: 1534220536}
   - {fileID: 1014686024}
+  - {fileID: 3792899326543582652}
