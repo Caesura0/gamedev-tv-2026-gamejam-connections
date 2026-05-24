@@ -29,22 +29,22 @@ public static class Loader
     {
         
         Debug.Log(scene.ToString());
-        SceneManager.LoadScene(scene.ToString());
+        //SceneManager.LoadScene(scene.ToString());
 
-        //this creates a method/function through the lambda that can then be called in the loader callback 
-        //onLoaderCallback = () =>
-        //{
-        //    GameObject loadingGameObject = new GameObject("Loading Game Object");
-        //    loadingGameObject.AddComponent<LoadingMonoBehavior>().StartCoroutine(LoadSceneAsync(scene));
-        //    //stores the target scene to be loaded
+        //this creates a method / function through the lambda that can then be called in the loader callback
+        onLoaderCallback = () =>
+        {
+            GameObject loadingGameObject = new GameObject("Loading Game Object");
+            loadingGameObject.AddComponent<LoadingMonoBehavior>().StartCoroutine(LoadSceneAsync(scene));
+            //stores the target scene to be loaded
 
-        //};
-        ////loads the loading scene, acts as a buffer for smoother transitions
-        //SceneManager.LoadScene(Scene.Loading.ToString());
+        };
+        //loads the loading scene, acts as a buffer for smoother transitions
+        SceneManager.LoadScene(Scene.Loading.ToString());
     }
 
 
-    static IEnumerator LoadSceneAsync(Scene scene)
+    static IEnumerator LoadSceneAsync(SceneEnum scene)
     {
         yield return null;
 
