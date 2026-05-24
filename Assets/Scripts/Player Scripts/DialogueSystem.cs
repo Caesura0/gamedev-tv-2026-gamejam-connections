@@ -2,8 +2,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using System.Collections;
+using Unity.VisualScripting;
+using System;
 
-public class InteractionSystem : MonoBehaviour
+public class DialogueSystem : MonoBehaviour
 {
     public GameObject dialogPanel;
     public TextMeshProUGUI dialogText;
@@ -15,29 +17,30 @@ public class InteractionSystem : MonoBehaviour
     private bool isDialogActive = false;
 
     private Coroutine typingCoroutine;
-    public InputActionReference interactAction;
+    public InputManager interactAction;
+    public static DialogueSystem Instance { get; private set; }
 
-    private void OnEnable()
+    private void Awake()
     {
-        if (interactAction != null)
+        if (Instance == null)
         {
-            interactAction.action.performed += OnInteract;
-            interactAction.action.Enable();
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogWarning("Multiple instances of DialogueSystem detected. Destroying duplicate.", this);
+            Destroy(gameObject);
         }
     }
 
-    private void OnDisable()
-    {
-        if (interactAction != null)
-        {
-            interactAction.action.performed -= OnInteract;
-            interactAction.action.Disable();
-        }
-    }
+
+
+   
 
 
     void Start()
     {
+        InputManager.Instance.OnInteractPressed += OnInteract;
         if (dialogPanel != null)
         {
             dialogPanel.SetActive(false);
@@ -50,20 +53,12 @@ public class InteractionSystem : MonoBehaviour
         StartDialog();
     }
 
-    private void OnInteract(InputAction.CallbackContext context)
+    private void OnInteract()
     {
-        if (isPlayerInRange)
-        {
-            if (!isDialogActive)
-            {
-                StartDialog();
-            }
-            else
-            {
-                CloseDialog();
-            }
-        }
+        CloseDialog();
     }
+
+
     private void StartDialog()
     {
         SceneChangeData.Instance.isInDiagloue = true;
@@ -97,35 +92,35 @@ public class InteractionSystem : MonoBehaviour
             typingCoroutine = null;
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            isPlayerInRange = true;
-            if (isPlayerInRange)
-            {
-                if (!isDialogActive)
-                {
-                    StartDialog();
-                }
-                else
-                {
-                    CloseDialog();
-                }
-            }
-            //Debug.Log("Player is in the area!");
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            isPlayerInRange = false;
-            //Debug.Log("Player is out the area!");
-            if (isDialogActive)
-            {
-                CloseDialog();
-            }
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("Player"))
+    //    {
+    //        isPlayerInRange = true;
+    //        if (isPlayerInRange)
+    //        {
+    //            if (!isDialogActive)
+    //            {
+    //                StartDialog();
+    //            }
+    //            else
+    //            {
+    //                CloseDialog();
+    //            }
+    //        }
+    //        //Debug.Log("Player is in the area!");
+    //    }
+    //}
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("Player"))
+    //    {
+    //        isPlayerInRange = false;
+    //        //Debug.Log("Player is out the area!");
+    //        if (isDialogActive)
+    //        {
+    //            CloseDialog();
+    //        }
+    //    }
+    //}
 }

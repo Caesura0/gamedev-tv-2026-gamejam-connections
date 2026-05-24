@@ -5,6 +5,9 @@ public class PushableRock : MonoBehaviour, IInteractable
     private GridManager gridManager;
     private Vector2Int currentGridPosition;
 
+    private Vector3 targetWorldPosition;
+    private bool isMoving;
+    private float moveSpeed = 10f;
     void Start()
     {
         gridManager = GridManager.Instance;
@@ -15,6 +18,29 @@ public class PushableRock : MonoBehaviour, IInteractable
     }
 
 
+    void Update()
+    {
+        SmoothMoveToTarget();
+    }
+
+    void SmoothMoveToTarget()
+    {
+        if (!isMoving) return;
+
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            targetWorldPosition,
+            moveSpeed * Time.deltaTime
+        );
+
+        if (Vector3.Distance(transform.position, targetWorldPosition) < 0.001f)
+        {
+            transform.position = targetWorldPosition;
+            isMoving = false;
+        }
+    }
+
+
 
     bool TryMove(Vector2Int moveDirection)
     {
@@ -22,17 +48,16 @@ public class PushableRock : MonoBehaviour, IInteractable
 
         if (!gridManager.IsCellValidRockDestination(targetGridPosition.x, targetGridPosition.y))
             return false;
-        GroundTileData tile = gridManager.GetTileAt(currentGridPosition.x, currentGridPosition.y);
 
-        if (tile.IsInWater) 
+        GroundTileData tile = gridManager.GetTileAt(currentGridPosition.x, currentGridPosition.y);
+        if (tile.IsInWater)
             return false;
 
         gridManager.SetCellMoveableOccupancy(currentGridPosition.x, currentGridPosition.y, false);
         gridManager.RegisterInteractable(currentGridPosition.x, currentGridPosition.y, null);
 
         currentGridPosition = targetGridPosition;
-        AudioManager.Instance.PlayRockSounds();
-        transform.position = gridManager.ConvertGridPositionToWorldPosition(
+        targetWorldPosition = gridManager.ConvertGridPositionToWorldPosition(
             currentGridPosition.x,
             currentGridPosition.y
         );
@@ -40,24 +65,20 @@ public class PushableRock : MonoBehaviour, IInteractable
         gridManager.SetCellMoveableOccupancy(currentGridPosition.x, currentGridPosition.y, true);
         gridManager.RegisterInteractable(currentGridPosition.x, currentGridPosition.y, this);
 
+        AudioManager.Instance.PlayRockSounds();
+        isMoving = true;
         return true;
     }
 
     public bool TryInteract(PlayerBehaviour player)
     {
-        // Calculate push direction from player position to rock position
         Vector2Int pushDirection = Vector2Int.RoundToInt(InputManager.Instance.Movement);
-        //Debug.Log($"Attempting to push rock in direction {pushDirection}");
         return TryMove(pushDirection);
     }
 
     public bool TryInteractAlternate(PlayerBehaviour player)
     {
-        // Calculate pull direction from player position to rock position
         Vector2Int pullDirection = player.CurrentGridPosition - currentGridPosition;
-        Debug.Log($"Attempting to pull rock in direction {pullDirection}");
         return TryMove(pullDirection);
-        //Debug.Log("Alternate interaction with pushable rock - no effect");
-        //return false;
     }
 }
