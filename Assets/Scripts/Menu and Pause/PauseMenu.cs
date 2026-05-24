@@ -8,26 +8,28 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject pauseMenuUI;
     [SerializeField] private GameObject gameoverPanel;
 
+
+
+
     private bool isPaused = false;
 
     public static EventHandler OnRestart;
-    private InputManager inputManager;
 
-    private void Awake()
-    {
-        inputManager = InputManager.Instance;
-    }
 
-    private void OnEnable()
-    {
-        inputManager.OnMenuPressed += TogglePause;
-    }
 
-    private void OnDisable()
+    private void Start()
     {
-        if (inputManager != null)
+        if (InputManager.Instance != null)
         {
-            inputManager.OnMenuPressed -= TogglePause;
+            InputManager.Instance.OnMenuPressed += TogglePause;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (InputManager.Instance != null)
+        {
+            InputManager.Instance.OnMenuPressed -= TogglePause;
         }
     }
 
@@ -50,7 +52,7 @@ public class PauseMenu : MonoBehaviour
         isPaused = true;
 
         pauseMenuUI.SetActive(true);
-
+        SceneChangeData.Instance.isPaused = true;
 
     }
 
@@ -60,6 +62,7 @@ public class PauseMenu : MonoBehaviour
         isPaused = false;
 
         pauseMenuUI.SetActive(false);
+        SceneChangeData.Instance.isPaused = false;
 
 
     }

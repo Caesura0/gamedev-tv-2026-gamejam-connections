@@ -22,6 +22,10 @@ public class GridManager : MonoBehaviour
 
     private GroundTileData[,] tileGrid;
 
+    [Header("Prefabs")]
+    [SerializeField] private GameObject pressurePlatePrefab;
+
+
     // Fired when a pressure plate is activated or deactivated: (column, row, isActivated)
     public event System.Action<int, int, bool> OnPressurePlateStateChanged;
 
@@ -322,6 +326,7 @@ public class GridManager : MonoBehaviour
                 debugTileObjects.Add(debugTile);
             }
         }
+        SpawnPressurePlates();
     }
 
     void DestroyDebugTiles()
@@ -352,7 +357,29 @@ public class GridManager : MonoBehaviour
             1f
         );
     }
+    void SpawnPressurePlates()
+    {
+        if (pressurePlatePrefab == null) return;
 
+        for (int column = 0; column < NumberOfColumns; column++)
+        {
+            for (int row = 0; row < NumberOfRows; row++)
+            {
+                int index = row * NumberOfColumns + column;
+                if (index >= serializedTileGridArray.Length) continue;
+
+                if (serializedTileGridArray[index].GroundTileType != GroundTileTypeEnum.PressurePlate) continue;
+
+                Vector3 worldPos = ConvertGridPositionToWorldPosition(column, row);
+                GameObject plate = Instantiate(pressurePlatePrefab, worldPos, Quaternion.identity, transform);
+                plate.name = $"PressurePlate_{column}_{row}";
+
+                PressurePlateVisual pp = plate.GetComponent<PressurePlateVisual>();
+                if (pp != null)
+                    pp.Initialise(column, row);
+            }
+        }
+    }
 
 
 

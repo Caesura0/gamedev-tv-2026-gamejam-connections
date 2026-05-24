@@ -8,6 +8,9 @@ public class SceneChangeData: MonoBehaviour
     [SerializeField] public Vector2Int playerStartLocation;
     [SerializeField] public DirectionEnum playerStartFacing;
 
+    public bool isPaused;
+    public bool isInDiagloue;
+
     private void Awake()
     {
         if (Instance == null)

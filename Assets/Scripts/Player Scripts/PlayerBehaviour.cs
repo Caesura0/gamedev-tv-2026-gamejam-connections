@@ -61,7 +61,15 @@ public class PlayerBehaviour : MonoBehaviour
         isPressingMove = InputManager.Instance.Movement != Vector2.zero;
         isHoldingInteract = InputManager.Instance.InteractHeld;
 
-        
+        if(SceneChangeData.Instance != null)
+        {
+            if (SceneChangeData.Instance.isPaused || SceneChangeData.Instance.isInDiagloue)
+            {
+                animator.SetFloat("Speed", 0f);
+                return;
+            }
+        }
+
         HandleMovementInput();
         SmoothMoveToTarget();
         //AnimationHandler();

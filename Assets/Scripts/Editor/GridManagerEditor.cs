@@ -29,7 +29,7 @@ public class GridManagerEditor : Editor
             groundBrushColors[i] = TileEditorColors.GetColorForTileType((GroundTileTypeEnum)groundEnumValues.GetValue(i));
 
         for (int i = 0; i < channelEnumValues.Length; i++)
-            channelBrushColors[i] = TileEditorColors.GetColorForTileType((RuneChannelTypeEnum)channelEnumValues.GetValue(i));
+            channelBrushColors[i] = TileEditorColors.GetColorForRuneChannel((RuneChannelTypeEnum)channelEnumValues.GetValue(i));
     }
 
 

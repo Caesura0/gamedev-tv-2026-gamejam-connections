@@ -46,6 +46,8 @@ public class InteractionSystem : MonoBehaviour
         {
             Debug.LogWarning("Something is wrong", this);
         }
+
+        StartDialog();
     }
 
     private void OnInteract(InputAction.CallbackContext context)
@@ -64,6 +66,7 @@ public class InteractionSystem : MonoBehaviour
     }
     private void StartDialog()
     {
+        SceneChangeData.Instance.isInDiagloue = true;
         isDialogActive = true;
         dialogPanel.SetActive(true);
         dialogText.text = "";
@@ -83,6 +86,7 @@ public class InteractionSystem : MonoBehaviour
     }
     private void CloseDialog()
     {
+        SceneChangeData.Instance.isInDiagloue = false;
         isDialogActive = false;
         dialogPanel.SetActive(false);
         dialogText.text = "";
