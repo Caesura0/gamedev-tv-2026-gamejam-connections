@@ -18,15 +18,21 @@ public class RuneBeamVisual : MonoBehaviour
 
     void Awake()
     {
-        horizontalBeamInstance = Instantiate(horizontalBeamPrefab, transform);
-        horizontalBeamInstance.name = "Beam_Horizontal";
-        horizontalBeamInstance.transform.localPosition = new Vector3(0f, horizontalBeamOffsetY, 0f);
-        horizontalBeamInstance.SetActive(false);
+        if (horizontalBeamPrefab != null)
+        {
+            horizontalBeamInstance = Instantiate(horizontalBeamPrefab, transform);
+            horizontalBeamInstance.name = "Beam_Horizontal";
+            horizontalBeamInstance.transform.localPosition = new Vector3(0f, horizontalBeamOffsetY, 0f);
+            horizontalBeamInstance.SetActive(false);
+        }
 
-        verticalBeamInstance = Instantiate(verticalBeamPrefab, transform);
-        verticalBeamInstance.name = "Beam_Vertical";
-        verticalBeamInstance.transform.localPosition = new Vector3(verticalBeamOffsetX, 0f, 0f);
-        verticalBeamInstance.SetActive(false);
+        if (verticalBeamPrefab != null)
+        {
+            verticalBeamInstance = Instantiate(verticalBeamPrefab, transform);
+            verticalBeamInstance.name = "Beam_Vertical";
+            verticalBeamInstance.transform.localPosition = new Vector3(verticalBeamOffsetX, 0f, 0f);
+            verticalBeamInstance.SetActive(false);
+        }
     }
 
     void Start()
@@ -44,7 +50,27 @@ public class RuneBeamVisual : MonoBehaviour
 
     public void SetPowered(bool horizontalBeamShouldBeActive, bool verticalBeamShouldBeActive)
     {
-        horizontalBeamInstance.SetActive(horizontalBeamShouldBeActive);
-        verticalBeamInstance.SetActive(verticalBeamShouldBeActive);
+        if (horizontalBeamInstance != null)
+            horizontalBeamInstance.SetActive(horizontalBeamShouldBeActive);
+
+        if (verticalBeamInstance != null)
+            verticalBeamInstance.SetActive(verticalBeamShouldBeActive);
+    }
+
+
+    public void Initialise(bool tileHasHorizontalChannel, bool tileHasVerticalChannel)
+    {
+       
+        if (!tileHasHorizontalChannel && horizontalBeamInstance != null)
+        {
+            Destroy(horizontalBeamInstance);
+            horizontalBeamInstance = null;
+        }
+
+        if (!tileHasVerticalChannel && verticalBeamInstance != null)
+        {
+            Destroy(verticalBeamInstance);
+            verticalBeamInstance = null;
+        }
     }
 }

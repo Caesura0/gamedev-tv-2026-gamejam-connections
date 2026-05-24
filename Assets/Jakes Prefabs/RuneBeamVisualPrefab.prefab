@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 4042393260406450759}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.79, y: 9.76, z: 0}
-  m_LocalScale: {x: 4.1056, y: 0.5, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 573cb2be6e7cc8b4b877f8eb224ee127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RuneBeamVisual
-  horizontalBeamPrefab: {fileID: 1356126527237256275, guid: 6b39de931619ae84b9ef1b382694d9c9, type: 3}
-  verticalBeamPrefab: {fileID: 7689507669253190444, guid: 60b3e3d11009b8b4f8e1a40a292e3d21, type: 3}
+  horizontalBeamPrefab: {fileID: 7689507669253190444, guid: 60b3e3d11009b8b4f8e1a40a292e3d21, type: 3}
+  verticalBeamPrefab: {fileID: 1356126527237256275, guid: 6b39de931619ae84b9ef1b382694d9c9, type: 3}
   horizontalBeamOffsetY: 0
   verticalBeamOffsetX: 0

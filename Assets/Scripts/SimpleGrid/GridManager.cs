@@ -428,6 +428,17 @@ public class GridManager : MonoBehaviour
                 Vector3 worldPosition = ConvertGridPositionToWorldPosition(column, row);
                 GameObject spawnedBeamObject = Instantiate(runeBeamVisualPrefab, worldPosition, Quaternion.identity, transform);
                 spawnedBeamObject.name = $"RuneBeamVisual_{column}_{row}";
+
+                RuneBeamVisual runeBeamVisual = spawnedBeamObject.GetComponent<RuneBeamVisual>();
+                if (runeBeamVisual == null) continue;
+
+                bool tileHasHorizontalChannel = tileData.RuneChannel == RuneChannelTypeEnum.Horizontal
+                                             || tileData.RuneChannel == RuneChannelTypeEnum.Omni;
+
+                bool tileHasVerticalChannel = tileData.RuneChannel == RuneChannelTypeEnum.Vertical
+                                             || tileData.RuneChannel == RuneChannelTypeEnum.Omni;
+
+                runeBeamVisual.Initialise(tileHasHorizontalChannel, tileHasVerticalChannel);
             }
         }
     }
