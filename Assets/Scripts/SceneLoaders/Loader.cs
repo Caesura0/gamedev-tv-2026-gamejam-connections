@@ -40,20 +40,23 @@ public static class Loader
 
         };
         //loads the loading scene, acts as a buffer for smoother transitions
-        SceneManager.LoadScene(Scene.Loading.ToString());
+        ScreenFader.Instance.StartCoroutine(LoadWithFade(scene));
     }
 
 
     static IEnumerator LoadSceneAsync(SceneEnum scene)
     {
-        yield return null;
-
         loadingAsyncOperation = SceneManager.LoadSceneAsync(scene.ToString());
-        
-        while(!loadingAsyncOperation.isDone)
+
+        while (!loadingAsyncOperation.isDone)
         {
             yield return null;
         }
+
+        // Allow scene Awake/Start to finish
+        yield return null;
+
+        yield return ScreenFader.Instance.FadeIn();
     }
 
 
@@ -78,5 +81,19 @@ public static class Loader
             onLoaderCallback();
             onLoaderCallback = null;
         }
+    }
+
+    private static IEnumerator LoadWithFade(SceneEnum scene)
+    {
+        yield return ScreenFader.Instance.FadeOut();
+
+        onLoaderCallback = () =>
+        {
+            ScreenFader.Instance.StartCoroutine(
+                LoadSceneAsync(scene)
+            );
+        };
+
+        SceneManager.LoadScene(Scene.Loading.ToString());
     }
 }
