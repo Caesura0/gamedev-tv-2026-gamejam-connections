@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 17, y: 8, z: 0}
-  m_LocalScale: {x: 1, y: 1.4, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9eae3111860abf4e989320f5b56de8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PressurePlateVisual
-  inactiveSprite: {fileID: 3439977272207460423, guid: dd5eadde142492b4abcd7477b88b7791, type: 3}
-  activeSprite: {fileID: -7651576518201489559, guid: fc8e998dddb6f664f8a5f3d8396b69c1, type: 3}
+  inactiveSprite: {fileID: 6575171047433457777, guid: 893df3b0cd14b9f4db2dff1def86ead2, type: 3}
+  activeSprite: {fileID: -6607196105899083855, guid: c443e5aa6416d974c8d80b02a3804735, type: 3}
 --- !u!212 &5977711599337699868
 SpriteRenderer:
   serializedVersion: 2
@@ -92,11 +92,11 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: -4
+  m_SortingLayerID: 1526880591
+  m_SortingLayer: 1
+  m_SortingOrder: -1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 3439977272207460423, guid: dd5eadde142492b4abcd7477b88b7791, type: 3}
+  m_Sprite: {fileID: 6575171047433457777, guid: 893df3b0cd14b9f4db2dff1def86ead2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

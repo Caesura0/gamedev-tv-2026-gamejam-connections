@@ -1,0 +1,762 @@
+fileFormatVersion: 2
+guid: 694c12daa0bf4bb44992dd7896e1dc47
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7525638958458084059
+    second: texture_rock2_0
+  - first:
+      213: 3921933431288516844
+    second: texture_rock2_1
+  - first:
+      213: -5837596032754211623
+    second: texture_rock2_2
+  - first:
+      213: 7540341404639718885
+    second: texture_rock2_3
+  - first:
+      213: 2994164429725847868
+    second: texture_rock2_4
+  - first:
+      213: 1017327915911961583
+    second: texture_rock2_5
+  - first:
+      213: 3944218810108817064
+    second: texture_rock2_6
+  - first:
+      213: -770744032527139967
+    second: texture_rock2_7
+  - first:
+      213: -8978499316792620126
+    second: texture_rock2_8
+  - first:
+      213: 5934474661656531925
+    second: texture_rock2_9
+  - first:
+      213: 3604555935702438305
+    second: texture_rock2_10
+  - first:
+      213: 5877123959174025461
+    second: texture_rock2_11
+  - first:
+      213: -8132207749386087393
+    second: texture_rock2_12
+  - first:
+      213: -5720698092139047428
+    second: texture_rock2_13
+  - first:
+      213: -8000198882988441256
+    second: texture_rock2_14
+  - first:
+      213: -1667903304300841364
+    second: texture_rock2_15
+  - first:
+      213: 2913710750288265535
+    second: texture_rock2_16
+  - first:
+      213: -6993966860319409010
+    second: texture_rock2_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 40
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: texture_rock2_0
+      rect:
+        serializedVersion: 2
+        x: 1579
+        y: 1667
+        width: 45
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bda1cba92c0707860800000000000000
+      internalID: 7525638958458084059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_2
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 1547
+        width: 28
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d4a47d4651bcfea0800000000000000
+      internalID: -5837596032754211623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_3
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 1565
+        width: 48
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ed68bc9e8ca4a860800000000000000
+      internalID: 7540341404639718885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_4
+      rect:
+        serializedVersion: 2
+        x: 834
+        y: 1475
+        width: 36
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c315be06fa86d8920800000000000000
+      internalID: 2994164429725847868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_5
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 1495
+        width: 30
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: feb550879564e1e00800000000000000
+      internalID: 1017327915911961583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_6
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 1450
+        width: 36
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ae23f44c1eacb630800000000000000
+      internalID: 3944218810108817064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_7
+      rect:
+        serializedVersion: 2
+        x: 1397
+        y: 1303
+        width: 32
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18bb770d264cd45f0800000000000000
+      internalID: -770744032527139967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_8
+      rect:
+        serializedVersion: 2
+        x: 1429
+        y: 1274
+        width: 37
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ab0d760176f56380800000000000000
+      internalID: -8978499316792620126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_9
+      rect:
+        serializedVersion: 2
+        x: 1217
+        y: 1193
+        width: 28
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d31898334d7b5250800000000000000
+      internalID: 5934474661656531925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_10
+      rect:
+        serializedVersion: 2
+        x: 1242
+        y: 1166
+        width: 38
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a1d1989684f50230800000000000000
+      internalID: 3604555935702438305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_11
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 935
+        width: 41
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f0518f3a1dbf8150800000000000000
+      internalID: 5877123959174025461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_12
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 919
+        width: 35
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f14d9226328942f80800000000000000
+      internalID: -8132207749386087393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_13
+      rect:
+        serializedVersion: 2
+        x: 1241
+        y: 640
+        width: 21
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf51cce056ffb90b0800000000000000
+      internalID: -5720698092139047428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_14
+      rect:
+        serializedVersion: 2
+        x: 1690
+        y: 657
+        width: 23
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8514ff6b08599f090800000000000000
+      internalID: -8000198882988441256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_15
+      rect:
+        serializedVersion: 2
+        x: 1272
+        y: 616
+        width: 31
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c66b27b18ca6ad8e0800000000000000
+      internalID: -1667903304300841364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_16
+      rect:
+        serializedVersion: 2
+        x: 636
+        y: 492
+        width: 27
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f314b296d749f6820800000000000000
+      internalID: 2913710750288265535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_17
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 473
+        width: 26
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8cbec7323070fe90800000000000000
+      internalID: -6993966860319409010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_18
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 1518
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94c427ce43687be499957c06899440a7
+      internalID: 2137709980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_19
+      rect:
+        serializedVersion: 2
+        x: 827
+        y: 1432
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6f1b13a709053b4a8cd15df3a114fa8
+      internalID: 2020552697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_20
+      rect:
+        serializedVersion: 2
+        x: 1207
+        y: 1141
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cd4002131ab149448715fe6df9991dc
+      internalID: 158244993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_21
+      rect:
+        serializedVersion: 2
+        x: 1389
+        y: 1244
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5bc9c891f51f6246b0d7d5a68304d77
+      internalID: -306842202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_24
+      rect:
+        serializedVersion: 2
+        x: 1653
+        y: 628
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c97781b0c5376304fb84e50cb354b654
+      internalID: 584588472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_25
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 433
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a31b6ca2f0cba084e8dab72e31d25d5c
+      internalID: 1093551480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_26
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 894
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f1684d9d909c0d4a90fb9648d5ef2dc
+      internalID: 1194926060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: texture_rock2_27
+      rect:
+        serializedVersion: 2
+        x: 1224
+        y: 585
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9bdcb888a8dc234e9b5136f9317d88c
+      internalID: -1293604219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      texture_rock2_0: 7525638958458084059
+      texture_rock2_1: 3921933431288516844
+      texture_rock2_10: 3604555935702438305
+      texture_rock2_11: 5877123959174025461
+      texture_rock2_12: -8132207749386087393
+      texture_rock2_13: -5720698092139047428
+      texture_rock2_14: -8000198882988441256
+      texture_rock2_15: -1667903304300841364
+      texture_rock2_16: 2913710750288265535
+      texture_rock2_17: -6993966860319409010
+      texture_rock2_18: 2137709980
+      texture_rock2_19: 2020552697
+      texture_rock2_2: -5837596032754211623
+      texture_rock2_20: 158244993
+      texture_rock2_21: -306842202
+      texture_rock2_22: 1444610363
+      texture_rock2_23: 599648632
+      texture_rock2_24: 584588472
+      texture_rock2_25: 1093551480
+      texture_rock2_26: 1194926060
+      texture_rock2_27: -1293604219
+      texture_rock2_3: 7540341404639718885
+      texture_rock2_4: 2994164429725847868
+      texture_rock2_5: 1017327915911961583
+      texture_rock2_6: 3944218810108817064
+      texture_rock2_7: -770744032527139967
+      texture_rock2_8: -8978499316792620126
+      texture_rock2_9: 5934474661656531925
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
