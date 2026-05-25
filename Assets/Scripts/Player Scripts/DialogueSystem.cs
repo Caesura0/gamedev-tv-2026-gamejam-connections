@@ -46,7 +46,7 @@ public class DialogueSystem : MonoBehaviour
             Debug.LogWarning("Something is wrong", this);
         }
 
-        StartDialog();
+        //StartDialog(dialogMessage);
     }
 
     private void OnInteract()
@@ -55,8 +55,10 @@ public class DialogueSystem : MonoBehaviour
     }
 
 
-    private void StartDialog()
+    public void StartDialog(string dialogueInput)
     {
+        if (dialogMessage != null) return;
+    
         SceneChangeData.Instance.isInDiagloue = true;
         isDialogActive = true;
         dialogPanel.SetActive(true);
@@ -65,8 +67,9 @@ public class DialogueSystem : MonoBehaviour
         {
             StopCoroutine(typingCoroutine);
         }
-        typingCoroutine = StartCoroutine(TypeDialog(dialogMessage));
+        typingCoroutine = StartCoroutine(TypeDialog(dialogueInput));
     }
+
     private IEnumerator TypeDialog(string message)
     {
         foreach (char letter in message.ToCharArray())
@@ -75,7 +78,7 @@ public class DialogueSystem : MonoBehaviour
             yield return new WaitForSeconds(typingSpeed);
         }
     }
-    public  void CloseDialog()
+    public void CloseDialog()
     {
         SceneChangeData.Instance.isInDiagloue = false;
         isDialogActive = false;
