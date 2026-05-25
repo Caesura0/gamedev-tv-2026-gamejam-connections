@@ -24,7 +24,7 @@ public class GridManager : MonoBehaviour
 
     [Header("Prefabs")]
     [SerializeField] private GameObject pressurePlatePrefab;
-
+    [SerializeField] private GameObject runeBeamVisualPrefab;
 
     // Fired when a pressure plate is activated or deactivated: (column, row, isActivated)
     public event System.Action<int, int, bool> OnPressurePlateStateChanged;
@@ -327,6 +327,7 @@ public class GridManager : MonoBehaviour
             }
         }
         SpawnPressurePlates();
+        SpawnRuneBeamVisuals();
     }
 
     void DestroyDebugTiles()
@@ -380,8 +381,67 @@ public class GridManager : MonoBehaviour
             }
         }
     }
+    public void RegisterReceiver(int column, int row, RuneReceiver receiver)
+    {
+        if (!IsCellInBounds(column, row)) return;
+        tileGrid[column, row].Receiver = receiver;
+    }
+
+    public RuneReceiver GetReceiverAt(int column, int row)
+    {
+        if (!IsCellInBounds(column, row)) return null;
+        return tileGrid[column, row].Receiver;
+    }
 
 
+    public void RegisterBeamVisual(int column, int row, RuneBeamVisual beam)
+    {
+        if (!IsCellInBounds(column, row)) return;
+        tileGrid[column, row].BeamVisual = beam;
+    }
+
+    public RuneBeamVisual GetBeamVisualAt(int column, int row)
+    {
+        if (!IsCellInBounds(column, row)) return null;
+        return tileGrid[column, row].BeamVisual;
+    }
+
+
+    void SpawnRuneBeamVisuals()
+    {
+        if (runeBeamVisualPrefab == null)
+        {
+            Debug.LogWarning("GridManager: runeBeamVisualPrefab is not assigned.");
+            return;
+        }
+
+        for (int column = 0; column < NumberOfColumns; column++)
+        {
+            for (int row = 0; row < NumberOfRows; row++)
+            {
+                int serializedIndex = row * NumberOfColumns + column;
+                if (serializedIndex >= serializedTileGridArray.Length) continue;
+
+                GroundTileData tileData = serializedTileGridArray[serializedIndex];
+                if (tileData.RuneChannel == RuneChannelTypeEnum.None) continue;
+
+                Vector3 worldPosition = ConvertGridPositionToWorldPosition(column, row);
+                GameObject spawnedBeamObject = Instantiate(runeBeamVisualPrefab, worldPosition, Quaternion.identity, transform);
+                spawnedBeamObject.name = $"RuneBeamVisual_{column}_{row}";
+
+                RuneBeamVisual runeBeamVisual = spawnedBeamObject.GetComponent<RuneBeamVisual>();
+                if (runeBeamVisual == null) continue;
+
+                bool tileHasHorizontalChannel = tileData.RuneChannel == RuneChannelTypeEnum.Horizontal
+                                             || tileData.RuneChannel == RuneChannelTypeEnum.Omni;
+
+                bool tileHasVerticalChannel = tileData.RuneChannel == RuneChannelTypeEnum.Vertical
+                                             || tileData.RuneChannel == RuneChannelTypeEnum.Omni;
+
+                runeBeamVisual.Initialise(tileHasHorizontalChannel, tileHasVerticalChannel);
+            }
+        }
+    }
 
 #if UNITY_EDITOR
     void OnDrawGizmos()

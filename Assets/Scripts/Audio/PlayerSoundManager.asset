@@ -133,8 +133,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fd78cd3ba0c38aa4f8d3750a05fe86af, type: 3}
   pressurePlateReleased:
   - {fileID: 8300000, guid: 191ec48c3070e684ab5a30bd7c3799ad, type: 3}
-  rotateRune: []
-  runeActivated: []
+  rotateRune:
+  - {fileID: 8300000, guid: 191ec48c3070e684ab5a30bd7c3799ad, type: 3}
+  runeActivated:
+  - {fileID: 0}
   doorOpen:
   - {fileID: 8300000, guid: d10745132a606494180b1515e6ed47cb, type: 3}
   - {fileID: 8300000, guid: d0e65927b1c01474e8c07d409bd354c2, type: 3}

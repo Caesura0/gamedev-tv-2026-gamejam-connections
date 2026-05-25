@@ -122,9 +122,9 @@ public class AudioManager : MonoBehaviour
 
     public void PlayRotateRune()
     {
-        int numberSoundClips = soundManager.rockSplash.Length;
+        int numberSoundClips = soundManager.rotateRune.Length;
         int randomIndex = UnityEngine.Random.Range(0, numberSoundClips);
-        soundAudioSource.PlayOneShot(soundManager.rockSplash[randomIndex], soundEffectVolume);
+        soundAudioSource.PlayOneShot(soundManager.rotateRune[randomIndex], soundEffectVolume);
     }
 
     private void PlaySoundEffect(AudioClip soundEffect) 

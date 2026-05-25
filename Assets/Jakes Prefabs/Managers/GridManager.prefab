@@ -3203,6 +3203,7 @@ MonoBehaviour:
     IsRunePowered: 0
     IsDoorOpen: 0
   pressurePlatePrefab: {fileID: 3859958740525832703, guid: 10ac4b1994016a6449ef97eafae85d47, type: 3}
+  runeBeamVisualPrefab: {fileID: 4042393260406450759, guid: c047915d3b05a494ba37a31ebd13d282, type: 3}
 --- !u!23 &5543706433284437172
 MeshRenderer:
   m_ObjectHideFlags: 0
