@@ -24,6 +24,7 @@ public class DialogueSystem : MonoBehaviour
     {
         if (Instance == null)
         {
+            Debug.Log("DialogueSystem instance created", this);
             Instance = this;
         }
         else
@@ -57,8 +58,8 @@ public class DialogueSystem : MonoBehaviour
 
     public void StartDialog(string dialogueInput)
     {
-        if (dialogMessage != null) return;
-    
+        if (dialogueInput == null) return;
+    Debug.Log("startingdialogue");
         SceneChangeData.Instance.isInDiagloue = true;
         isDialogActive = true;
         dialogPanel.SetActive(true);
