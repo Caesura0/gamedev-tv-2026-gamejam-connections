@@ -32,7 +32,17 @@ public class GridManager : MonoBehaviour
 
     void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogWarning("Multiple instances of GridManager detected. Destroying duplicate.", this);
+            Destroy(gameObject);
+            return;
+        }
+
         InitialiseGrid();
     }
 
