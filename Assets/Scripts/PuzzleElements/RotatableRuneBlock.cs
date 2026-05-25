@@ -10,7 +10,8 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
     [SerializeField] private Sprite[] rotationElbowSpritesUnlit;
     [SerializeField] private Sprite[] rotationElbowSpritesLit;
     //[SerializeField] private Sprite[] rotationNEUnlitRed;
-
+    private float lastRotateTime = -Mathf.Infinity;
+    [SerializeField] private float rotateCooldown = 0.3f;
 
     private GridManager gridManager;
     private RunePowerSystem runePowerSystem;
@@ -93,18 +94,15 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
 
     void Rotate()
     {
+        if (Time.time - lastRotateTime < rotateCooldown) return;
+        lastRotateTime = Time.time;
+
         currentRotation = (currentRotation + 1) % 4;
         activeConnections = Connections.Get(connectorShape, currentRotation);
 
-        Debug.Log(
-            $"[ROTATE] {gameObject.name} rotated to {currentRotation}"
-        );
+        Debug.Log($"[ROTATE] {gameObject.name} rotated to {currentRotation}");
+        Debug.Log($"[ROTATE] Connections N:{activeConnections[0]} E:{activeConnections[1]} S:{activeConnections[2]} W:{activeConnections[3]}");
 
-        Debug.Log(
-            $"[ROTATE] Connections N:{activeConnections[0]} E:{activeConnections[1]} S:{activeConnections[2]} W:{activeConnections[3]}"
-        );
-
-        //transform.rotation = Quaternion.Euler(0f, 0f, -90f * currentRotation);
         SetSprite(currentRotation);
         AudioManager.Instance.PlayRotateRune();
 

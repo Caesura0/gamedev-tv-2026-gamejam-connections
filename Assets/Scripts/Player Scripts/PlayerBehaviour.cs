@@ -157,11 +157,13 @@ public class PlayerBehaviour : MonoBehaviour
         Vector2Int targetGridPosition = currentGridPosition + moveDirection.ToVector();
         lastMoveDirection = moveDirection;
 
-        if (!gridManager.IsCellPassableByPlayer(targetGridPosition.x, targetGridPosition.y)) return false;
-
         Vector2Int dir = lastMoveDirection.ToVector();
         animator.SetFloat("MoveX", dir.x);
         animator.SetFloat("MoveY", dir.y);
+
+        if (!gridManager.IsCellPassableByPlayer(targetGridPosition.x, targetGridPosition.y)) return false;
+
+
         animator.SetFloat("Speed", 1f);
 
         GroundTileTypeEnum liftTileType = gridManager.GetSerializedTileAt(currentGridPosition.x, currentGridPosition.y).GroundTileType;
