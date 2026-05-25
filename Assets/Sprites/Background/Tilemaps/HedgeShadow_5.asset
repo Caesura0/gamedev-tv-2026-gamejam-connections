@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HedgeShadow_5
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.Tilemaps.Tile
   m_Sprite: {fileID: -1594920046, guid: ec35fa5750b32164eaffbde2b674628c, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.3882353, g: 0.3882353, b: 0.3882353, a: 0.7411765}
   m_Transform:
     e00: 1
     e01: 0
