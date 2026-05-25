@@ -43,6 +43,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 2792071389
+    locked: 0
+  - name: Texture
+    uniqueID: 510983789
+    locked: 0
+  - name: Shadows
+    uniqueID: 767773317
+    locked: 0
+  - name: HedgeOverhang
+    uniqueID: 1925009805
+    locked: 0
   - name: Player
     uniqueID: 1526880591
     locked: 0
