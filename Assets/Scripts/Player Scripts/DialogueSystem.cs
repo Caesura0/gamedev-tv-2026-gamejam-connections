@@ -32,12 +32,6 @@ public class DialogueSystem : MonoBehaviour
             Debug.LogWarning("Multiple instances of DialogueSystem detected. Destroying duplicate.", this);
             Destroy(gameObject);
         }
-    }
-
-
-    void Start()
-    {
-        InputManager.Instance.OnInteractPressed += OnInteract;
         if (dialogPanel != null)
         {
             dialogPanel.SetActive(false);
@@ -46,6 +40,13 @@ public class DialogueSystem : MonoBehaviour
         {
             Debug.LogWarning("Something is wrong", this);
         }
+    }
+
+
+    void Start()
+    {
+        InputManager.Instance.OnInteractPressed += OnInteract;
+
 
         //StartDialog(dialogMessage);
     }
