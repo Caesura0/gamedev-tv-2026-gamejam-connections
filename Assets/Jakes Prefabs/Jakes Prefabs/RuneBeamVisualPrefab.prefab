@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 573cb2be6e7cc8b4b877f8eb224ee127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RuneBeamVisual
-  horizontalBeamPrefab: {fileID: 7689507669253190444, guid: 60b3e3d11009b8b4f8e1a40a292e3d21, type: 3}
+  horizontalBeamPrefab: {fileID: 7689507669253190444, guid: 3518e2edf2cf2214c8d82321cbd9b072, type: 3}
   verticalBeamPrefab: {fileID: 1356126527237256275, guid: 6b39de931619ae84b9ef1b382694d9c9, type: 3}
   horizontalBeamOffsetY: 0
   verticalBeamOffsetX: 0

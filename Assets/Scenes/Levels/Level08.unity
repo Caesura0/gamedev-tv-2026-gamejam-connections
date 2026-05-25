@@ -119,6 +119,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &561144366
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 246274113917109201, guid: ac341f6d87fa0ff4fb96ae645479fef4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 20.984434
+      objectReference: {fileID: 0}
+    - target: {fileID: 246274113917109201, guid: ac341f6d87fa0ff4fb96ae645479fef4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 15.065861
+      objectReference: {fileID: 0}
+    - target: {fileID: 246274113917109201, guid: ac341f6d87fa0ff4fb96ae645479fef4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 246274113917109201, guid: ac341f6d87fa0ff4fb96ae645479fef4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 246274113917109201, guid: ac341f6d87fa0ff4fb96ae645479fef4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 246274113917109201, guid: ac341f6d87fa0ff4fb96ae645479fef4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 246274113917109201, guid: ac341f6d87fa0ff4fb96ae645479fef4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 246274113917109201, guid: ac341f6d87fa0ff4fb96ae645479fef4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 246274113917109201, guid: ac341f6d87fa0ff4fb96ae645479fef4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 246274113917109201, guid: ac341f6d87fa0ff4fb96ae645479fef4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4600771171470666241, guid: ac341f6d87fa0ff4fb96ae645479fef4, type: 3}
+      propertyPath: m_Name
+      value: RuneLightSource
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ac341f6d87fa0ff4fb96ae645479fef4, type: 3}
 --- !u!1001 &595999968
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3846,6 +3903,38 @@ PrefabInstance:
       value: 144
       objectReference: {fileID: 0}
     - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
+      propertyPath: serializedTileGridArray.Array.data[21].RuneChannel
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
+      propertyPath: serializedTileGridArray.Array.data[33].RuneChannel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
+      propertyPath: serializedTileGridArray.Array.data[34].RuneChannel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
+      propertyPath: serializedTileGridArray.Array.data[35].RuneChannel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
+      propertyPath: serializedTileGridArray.Array.data[36].RuneChannel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
+      propertyPath: serializedTileGridArray.Array.data[37].RuneChannel
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
+      propertyPath: serializedTileGridArray.Array.data[38].RuneChannel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
+      propertyPath: serializedTileGridArray.Array.data[39].RuneChannel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
       propertyPath: serializedTileGridArray.Array.data[41].RuneChannel
       value: 1
       objectReference: {fileID: 0}
@@ -3860,6 +3949,14 @@ PrefabInstance:
     - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
       propertyPath: serializedTileGridArray.Array.data[44].RuneChannel
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
+      propertyPath: serializedTileGridArray.Array.data[46].RuneChannel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
+      propertyPath: serializedTileGridArray.Array.data[53].RuneChannel
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
       propertyPath: serializedTileGridArray.Array.data[61].RuneChannel
@@ -3904,6 +4001,22 @@ PrefabInstance:
     - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
       propertyPath: serializedTileGridArray.Array.data[101].RuneChannel
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
+      propertyPath: serializedTileGridArray.Array.data[113].RuneChannel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
+      propertyPath: serializedTileGridArray.Array.data[114].RuneChannel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
+      propertyPath: serializedTileGridArray.Array.data[115].RuneChannel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
+      propertyPath: serializedTileGridArray.Array.data[116].RuneChannel
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
       propertyPath: serializedTileGridArray.Array.data[118].RuneChannel
@@ -4880,3 +4993,4 @@ SceneRoots:
   - {fileID: 1172343244}
   - {fileID: 1166408259}
   - {fileID: 636207694}
+  - {fileID: 561144366}

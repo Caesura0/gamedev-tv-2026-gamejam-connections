@@ -94,6 +94,7 @@ public class GridManagerEditor : Editor
             {
             RuneChannelTypeEnum.Horizontal,
             RuneChannelTypeEnum.Vertical,
+            RuneChannelTypeEnum.Omni,
             RuneChannelTypeEnum.None,
             });
         }
@@ -264,23 +265,42 @@ public class GridManagerEditor : Editor
 
                 if (tile == null || tile.RuneChannel == RuneChannelTypeEnum.None) continue;
 
+                if (tile.RuneChannel == RuneChannelTypeEnum.Omni)
+                {
+                    // Draw horizontal bar
+                    Handles.color = TileEditorColors.RuneChannelHorizontal;
+                    Color hFill = Handles.color; hFill.a = 0.55f;
+                    Handles.DrawSolidRectangleWithOutline(
+                        GetRectVerts(center, new Vector3(tileSize, thickness, 0f)),
+                        hFill, Color.clear
+                    );
 
-                Handles.color = tile.RuneChannel == RuneChannelTypeEnum.Horizontal
-                    ? TileEditorColors.RuneChannelHorizontal
-                    : TileEditorColors.RuneChannelVertical;
+                    // Draw vertical bar
+                    Handles.color = TileEditorColors.RuneChannelVertical;
+                    Color vFill = Handles.color; vFill.a = 0.55f;
+                    Handles.DrawSolidRectangleWithOutline(
+                        GetRectVerts(center, new Vector3(thickness, tileSize, 0f)),
+                        vFill, Color.clear
+                    );
+                }
+                else
+                {
+                    Handles.color = tile.RuneChannel == RuneChannelTypeEnum.Horizontal
+                        ? TileEditorColors.RuneChannelHorizontal
+                        : TileEditorColors.RuneChannelVertical;
 
-                Vector3 size = tile.RuneChannel == RuneChannelTypeEnum.Horizontal
-                    ? new Vector3(tileSize, thickness, 0f)
-                    : new Vector3(thickness, tileSize, 0f);
+                    Vector3 size = tile.RuneChannel == RuneChannelTypeEnum.Horizontal
+                        ? new Vector3(tileSize, thickness, 0f)
+                        : new Vector3(thickness, tileSize, 0f);
 
-                Color fillColor = Handles.color;
-                fillColor.a = 0.55f;
+                    Color fillColor = Handles.color;
+                    fillColor.a = 0.55f;
 
-                Handles.DrawSolidRectangleWithOutline(
-                    GetRectVerts(center, size),
-                    fillColor,
-                    Color.clear
-                );
+                    Handles.DrawSolidRectangleWithOutline(
+                        GetRectVerts(center, size),
+                        fillColor, Color.clear
+                    );
+                }
             }
         }
 
