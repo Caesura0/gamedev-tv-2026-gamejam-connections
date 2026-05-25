@@ -13,7 +13,7 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
     private float lastRotateTime = -Mathf.Infinity;
     [SerializeField] private float rotateCooldown = 0.3f;
 
-    private GridManager gridManager;
+
     private RunePowerSystem runePowerSystem;
     private Vector2Int gridPosition;
     private int currentRotation;
@@ -32,9 +32,9 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
 
     void Start()
     {
-        gridManager = GridManager.Instance;
+
         runePowerSystem = RunePowerSystem.Instance;
-        gridPosition = gridManager.ConvertWorldPositionToGridPosition(transform.position);
+        gridPosition = GridManager.Instance.ConvertWorldPositionToGridPosition(transform.position);
         currentRotation = startingRotation;
         SetSprite(currentRotation); 
         activeConnections = Connections.Get(connectorShape, currentRotation);
@@ -69,12 +69,14 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
 
     void OnDestroy()
     {
-        if (gridManager != null)
+        if (GridManager.Instance != null)
         {
-            gridManager.RegisterRotatableRuneBlock(gridPosition.x, gridPosition.y, null);
-            gridManager.RegisterInteractable(gridPosition.x, gridPosition.y, null);
-            gridManager.SetCellMoveableOccupancy(gridPosition.x, gridPosition.y, false);
+            GridManager.Instance.RegisterRotatableRuneBlock(gridPosition.x, gridPosition.y, null);
+            GridManager.Instance.RegisterInteractable(gridPosition.x, gridPosition.y, null);
+            GridManager.Instance.SetCellMoveableOccupancy(gridPosition.x, gridPosition.y, false);
         }
+        if(gameEventListener != null)
+            gameEventListener.OnFullConditionMet -= OnConditionMet;
     }
 
     // ── IInteractable ──
@@ -162,15 +164,15 @@ public class RotatableRuneBlock : MonoBehaviour, IInteractable
 
         if (isActive)
         {
-            gridManager.RegisterRotatableRuneBlock(gridPosition.x, gridPosition.y, this);
-            gridManager.RegisterInteractable(gridPosition.x, gridPosition.y, this);
-            gridManager.SetCellMoveableOccupancy(gridPosition.x, gridPosition.y, true);
+            GridManager.Instance.RegisterRotatableRuneBlock(gridPosition.x, gridPosition.y, this);
+            GridManager.Instance.RegisterInteractable(gridPosition.x, gridPosition.y, this);
+            GridManager.Instance.SetCellMoveableOccupancy(gridPosition.x, gridPosition.y, true);
         }
         else
         {
-            gridManager.RegisterRotatableRuneBlock(gridPosition.x, gridPosition.y, null);
-            gridManager.RegisterInteractable(gridPosition.x, gridPosition.y, null);
-            gridManager.SetCellMoveableOccupancy(gridPosition.x, gridPosition.y, true);
+            GridManager.Instance.RegisterRotatableRuneBlock(gridPosition.x, gridPosition.y, null);
+            GridManager.Instance.RegisterInteractable(gridPosition.x, gridPosition.y, null);
+            GridManager.Instance.SetCellMoveableOccupancy(gridPosition.x, gridPosition.y, true);
         }
     }
 

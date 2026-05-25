@@ -13,6 +13,7 @@ public enum SceneEnum
     Level09, 
     Level10,
     EndCutScene,
+    BossRoom,
     GoodEndingCutScene,
     BadEndingCutScene,
     Credits
