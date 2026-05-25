@@ -2,19 +2,20 @@
 
 public class PushableRock : MonoBehaviour, IInteractable
 {
-    private GridManager gridManager;
+    
     private Vector2Int currentGridPosition;
 
     private Vector3 targetWorldPosition;
     private bool isMoving;
     private float moveSpeed = 10f;
+
     void Start()
     {
-        gridManager = GridManager.Instance;
-        currentGridPosition = gridManager.ConvertWorldPositionToGridPosition(transform.position);
 
-        gridManager.SetCellMoveableOccupancy(currentGridPosition.x, currentGridPosition.y, true);
-        gridManager.RegisterInteractable(currentGridPosition.x, currentGridPosition.y, this);
+        currentGridPosition = GridManager.Instance.ConvertWorldPositionToGridPosition(transform.position);
+
+        GridManager.Instance.SetCellMoveableOccupancy(currentGridPosition.x, currentGridPosition.y, true);
+        GridManager.Instance.RegisterInteractable(currentGridPosition.x, currentGridPosition.y, this);
     }
 
 
@@ -46,24 +47,24 @@ public class PushableRock : MonoBehaviour, IInteractable
     {
         Vector2Int targetGridPosition = currentGridPosition + moveDirection;
 
-        if (!gridManager.IsCellValidRockDestination(targetGridPosition.x, targetGridPosition.y))
+        if (!GridManager.Instance.IsCellValidRockDestination(targetGridPosition.x, targetGridPosition.y))
             return false;
 
-        GroundTileData tile = gridManager.GetTileAt(currentGridPosition.x, currentGridPosition.y);
+        GroundTileData tile = GridManager.Instance.GetTileAt(currentGridPosition.x, currentGridPosition.y);
         if (tile.IsInWater)
             return false;
 
-        gridManager.SetCellMoveableOccupancy(currentGridPosition.x, currentGridPosition.y, false);
-        gridManager.RegisterInteractable(currentGridPosition.x, currentGridPosition.y, null);
+        GridManager.Instance.SetCellMoveableOccupancy(currentGridPosition.x, currentGridPosition.y, false);
+        GridManager.Instance.RegisterInteractable(currentGridPosition.x, currentGridPosition.y, null);
 
         currentGridPosition = targetGridPosition;
-        targetWorldPosition = gridManager.ConvertGridPositionToWorldPosition(
+        targetWorldPosition = GridManager.Instance.ConvertGridPositionToWorldPosition(
             currentGridPosition.x,
             currentGridPosition.y
         );
 
-        gridManager.SetCellMoveableOccupancy(currentGridPosition.x, currentGridPosition.y, true);
-        gridManager.RegisterInteractable(currentGridPosition.x, currentGridPosition.y, this);
+        GridManager.Instance.SetCellMoveableOccupancy(currentGridPosition.x, currentGridPosition.y, true);
+        GridManager.Instance.RegisterInteractable(currentGridPosition.x, currentGridPosition.y, this);
 
         AudioManager.Instance.PlayRockSounds();
         isMoving = true;

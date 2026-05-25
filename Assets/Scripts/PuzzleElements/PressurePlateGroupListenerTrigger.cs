@@ -7,22 +7,22 @@ public class PressurePlateGroupListenerTrigger : MonoBehaviour
 
     public event System.Action<bool> OnGroupStateChanged;
 
-    private GridManager gridManager;
+ 
     private bool isGroupActive = false;
 
     public bool IsGroupActive => isGroupActive;
 
     void Start()
     {
-        gridManager = GridManager.Instance;
-        gridManager.OnPressurePlateStateChanged += HandlePressurePlateStateChanged;
+
+        GridManager.Instance.OnPressurePlateStateChanged += HandlePressurePlateStateChanged;
         Evaluate();
     }
 
     void OnDestroy()
     {
-        if (gridManager != null)
-            gridManager.OnPressurePlateStateChanged -= HandlePressurePlateStateChanged;
+        if (GridManager.Instance != null)
+            GridManager.Instance.OnPressurePlateStateChanged -= HandlePressurePlateStateChanged;
     }
 
     void HandlePressurePlateStateChanged(int column, int row, bool isActivated)
@@ -45,7 +45,7 @@ public class PressurePlateGroupListenerTrigger : MonoBehaviour
 
         foreach (Vector2Int position in requiredPlatePositions)
         {
-            GroundTileData tile = gridManager.GetTileAt(position.x, position.y);
+            GroundTileData tile = GridManager.Instance.GetTileAt(position.x, position.y);
             if (tile == null || !tile.IsPressurePlateActivated) return false;
         }
 
