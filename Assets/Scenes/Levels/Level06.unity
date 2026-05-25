@@ -17390,7 +17390,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7285018189304801148, guid: cc1fdec98209cc245a9d623724657ea7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 22.19
+      value: 16.74
       objectReference: {fileID: 0}
     - target: {fileID: 7285018189304801148, guid: cc1fdec98209cc245a9d623724657ea7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -19000,7 +19000,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7285018189304801148, guid: cc1fdec98209cc245a9d623724657ea7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.11
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 7285018189304801148, guid: cc1fdec98209cc245a9d623724657ea7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -20375,7 +20375,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
       propertyPath: serializedTileGridArray.Array.data[140].GroundTileType
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
       propertyPath: serializedTileGridArray.Array.data[141].GroundTileType
