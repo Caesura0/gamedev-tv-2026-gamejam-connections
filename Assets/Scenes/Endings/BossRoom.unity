@@ -458,7 +458,7 @@ PrefabInstance:
       objectReference: {fileID: 3374252601213564325, guid: 1570023a55dca674d9711f0415b226d8, type: 3}
     - target: {fileID: 1277262871438831859, guid: 39256732571bbb54bb5d983440f6a826, type: 3}
       propertyPath: skipChoice
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1277262871438831859, guid: 39256732571bbb54bb5d983440f6a826, type: 3}
       propertyPath: freezeSlide
