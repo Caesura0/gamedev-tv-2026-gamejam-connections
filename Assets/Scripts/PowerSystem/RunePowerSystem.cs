@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
 public class RunePowerSystem : MonoBehaviour
@@ -13,6 +13,10 @@ public class RunePowerSystem : MonoBehaviour
 
     private GridManager gridManager;
     private HashSet<Vector2Int> previouslyPoweredCells = new HashSet<Vector2Int>();
+
+    // Tracks which axes each cell is powered on (for beam visuals on Omni tiles)
+    private Dictionary<Vector2Int, (bool horizontal, bool vertical)> currentPoweredAxes
+        = new Dictionary<Vector2Int, (bool, bool)>();
 
     void Awake()
     {
@@ -33,7 +37,16 @@ public class RunePowerSystem : MonoBehaviour
     public void RunEnergyThrough()
     {
         HashSet<Vector2Int> newlyPoweredCells = new HashSet<Vector2Int>();
-        Queue<Vector2Int> propagationQueue = new Queue<Vector2Int>();
+        var poweredAxes = new Dictionary<Vector2Int, (bool horizontal, bool vertical)>();
+
+        // Track visited (cell, entryDirection) pairs to prevent infinite loops
+        // while still allowing the same cell to be powered from multiple directions
+        HashSet<(Vector2Int, DirectionEnum)> visited = new HashSet<(Vector2Int, DirectionEnum)>();
+
+        // Queue now carries: (cell, the direction power ENTERED this cell from)
+        // null = source tile (can output in all directions)
+        Queue<(Vector2Int cell, DirectionEnum? entryDirection)> propagationQueue
+            = new Queue<(Vector2Int, DirectionEnum?)>();
 
         // Seed from all RuneSource tiles
         for (int column = 0; column < gridManager.NumberOfColumns; column++)
@@ -45,14 +58,15 @@ public class RunePowerSystem : MonoBehaviour
 
                 Vector2Int sourcePosition = new Vector2Int(column, row);
                 newlyPoweredCells.Add(sourcePosition);
-                propagationQueue.Enqueue(sourcePosition);
+                poweredAxes[sourcePosition] = (true, true); // sources power both axes
+                propagationQueue.Enqueue((sourcePosition, null));
             }
         }
 
         // BFS through passable rune tiles
         while (propagationQueue.Count > 0)
         {
-            Vector2Int currentCell = propagationQueue.Dequeue();
+            var (currentCell, entryDir) = propagationQueue.Dequeue();
             GroundTileData currentTile = gridManager.GetTileAt(currentCell.x, currentCell.y);
 
             if (!CanTravelThroughTile(currentTile, currentCell)) continue;
@@ -60,25 +74,50 @@ public class RunePowerSystem : MonoBehaviour
             for (int directionIndex = 0; directionIndex < 4; directionIndex++)
             {
                 DirectionEnum travelDirection = (DirectionEnum)directionIndex;
-                Vector2Int neighbourCell = currentCell + travelDirection.ToVector();
 
-                if (newlyPoweredCells.Contains(neighbourCell)) continue;
+                // For Omni tiles: only allow output opposite to how power entered
+                if (!CanOutputInDirection(currentCell, travelDirection, entryDir)) continue;
 
-                // Check current cell can output in this direction
+                // Check current cell can connect in this direction (channel/block check)
                 if (!CellCanConnectInDirection(currentCell, travelDirection)) continue;
+
+                Vector2Int neighbourCell = currentCell + travelDirection.ToVector();
+                DirectionEnum neighbourEntryDir = Connections.Opp(travelDirection);
+
+                // Skip if we already processed this cell from this exact entry direction
+                if (visited.Contains((neighbourCell, neighbourEntryDir))) continue;
 
                 GroundTileData neighbourTile = gridManager.GetTileAt(neighbourCell.x, neighbourCell.y);
                 if (neighbourTile == null) continue;
                 if (!IsRunePassable(neighbourTile, neighbourCell)) continue;
 
                 // Check neighbour can receive from the opposite direction
-                if (!CellCanConnectInDirection(neighbourCell, Connections.Opp(travelDirection))) continue;
+                if (!CellCanConnectInDirection(neighbourCell, neighbourEntryDir)) continue;
 
+                visited.Add((neighbourCell, neighbourEntryDir));
                 newlyPoweredCells.Add(neighbourCell);
-                propagationQueue.Enqueue(neighbourCell);
+
+                // Track which axes this cell is powered on (for beam visuals)
+                bool isHorizontal = neighbourEntryDir == DirectionEnum.East || neighbourEntryDir == DirectionEnum.West;
+                bool isVertical = neighbourEntryDir == DirectionEnum.North || neighbourEntryDir == DirectionEnum.South;
+
+                if (poweredAxes.TryGetValue(neighbourCell, out var existing))
+                {
+                    poweredAxes[neighbourCell] = (
+                        existing.horizontal || isHorizontal,
+                        existing.vertical || isVertical
+                    );
+                }
+                else
+                {
+                    poweredAxes[neighbourCell] = (isHorizontal, isVertical);
+                }
+
+                propagationQueue.Enqueue((neighbourCell, neighbourEntryDir));
             }
         }
 
+        currentPoweredAxes = poweredAxes;
         ApplyPowerState(newlyPoweredCells);
         previouslyPoweredCells = newlyPoweredCells;
 
@@ -86,6 +125,32 @@ public class RunePowerSystem : MonoBehaviour
     }
 
     // ── Tile checks ──
+
+    /// <summary>
+    /// For Omni tiles: power only passes straight through (left→right, up→down).
+    /// All other tile types are unrestricted here (their directionality is handled
+    /// by CellCanConnectInDirection).
+    /// </summary>
+    bool CanOutputInDirection(Vector2Int cell, DirectionEnum outputDir, DirectionEnum? entryDir)
+    {
+        // Sources (no entry direction) can output in all directions
+        if (entryDir == null) return true;
+
+        // Rotatable blocks handle their own directionality via ActiveConnections
+        if (gridManager.GetRotatableRuneBlockAt(cell.x, cell.y) != null) return true;
+
+        GroundTileData tile = gridManager.GetTileAt(cell.x, cell.y);
+        if (tile == null) return true;
+
+        // Omni = passthrough only: output must be opposite of entry
+        if (tile.RuneChannel == RuneChannelTypeEnum.Omni)
+        {
+            return outputDir == Connections.Opp(entryDir.Value);
+        }
+
+        // All other types: no additional restriction
+        return true;
+    }
 
     bool CanTravelThroughTile(GroundTileData tile, Vector2Int cell)
     {
@@ -129,7 +194,8 @@ public class RunePowerSystem : MonoBehaviour
             case RuneChannelTypeEnum.Omni:
             case RuneChannelTypeEnum.None:
             default:
-                // Sources and receivers connect in all directions
+                // Sources, receivers, and omni can physically connect in all directions.
+                // (Omni output restriction is handled by CanOutputInDirection)
                 return true;
         }
     }
@@ -189,16 +255,16 @@ public class RunePowerSystem : MonoBehaviour
             return;
         }
 
-        GroundTileData tile = gridManager.GetTileAt(cell.x, cell.y);
-        if (tile == null) return;
-
-        bool horizontal = tile.RuneChannel == RuneChannelTypeEnum.Horizontal
-                       || tile.RuneChannel == RuneChannelTypeEnum.Omni;
-
-        bool vertical = tile.RuneChannel == RuneChannelTypeEnum.Vertical
-                       || tile.RuneChannel == RuneChannelTypeEnum.Omni;
-
-        beam.SetPowered(horizontal, vertical);
+        // Use tracked axes so Omni tiles only show beams for the directions
+        // power actually passes through, not all 4
+        if (currentPoweredAxes.TryGetValue(cell, out var axes))
+        {
+            beam.SetPowered(axes.horizontal, axes.vertical);
+        }
+        else
+        {
+            beam.SetPowered(false, false);
+        }
     }
 
     void CheckAllReceiversPowered()
