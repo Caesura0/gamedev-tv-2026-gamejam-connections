@@ -18865,7 +18865,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 532284474056706281, guid: d39c1bb07f5ded34695c9a94869c1cd7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.87
+      value: 11.31
       objectReference: {fileID: 0}
     - target: {fileID: 532284474056706281, guid: d39c1bb07f5ded34695c9a94869c1cd7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -18902,6 +18902,10 @@ PrefabInstance:
     - target: {fileID: 7250680965311680342, guid: d39c1bb07f5ded34695c9a94869c1cd7, type: 3}
       propertyPath: m_Name
       value: RotateableBlock (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7250680965311680342, guid: d39c1bb07f5ded34695c9a94869c1cd7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19207,7 +19211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
       propertyPath: serializedTileGridArray.Array.data[85].RuneChannel
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3020025247885129638, guid: 0cad259cd5e46a74abb8489723d448b2, type: 3}
       propertyPath: serializedTileGridArray.Array.data[86].RuneChannel
