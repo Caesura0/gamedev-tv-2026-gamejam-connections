@@ -13,5 +13,7 @@ public enum SceneEnum
     Level09, 
     Level10,
     EndCutScene,
+    GoodEndingCutScene,
+    BadEndingCutScene,
     Credits
 }

@@ -41,6 +41,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Level09.unity
     guid: 7c1f9b08f22d6aa47843f2cff770fb24
+  - enabled: 1
+    path: Assets/Scenes/Endings/BossRoom.unity
+    guid: 08e297d496030674186f4f89e111c741
+  - enabled: 1
+    path: Assets/Scenes/Endings/BadEndingCutScene.unity
+    guid: 6297d7b3ab7cbdf4293bd63fa68c8ab6
+  - enabled: 1
+    path: Assets/Scenes/Endings/GoodEndingCutScene.unity
+    guid: da42174960385fd4e9c527a52d0b32ea
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: fb0afdad1b0d4294aa85e1c215bd0807, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
